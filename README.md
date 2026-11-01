@@ -140,17 +140,20 @@ layoutproof scan deck.pptx --fail-on error
 layoutproof scan deck.pptx --profile full
 ```
 
-**`fix` and `demo` subcommands.** The CLI surface includes `fix` (safe automatic repairs + re-verify) and `demo` (generate a broken deck and its fixed counterpart). In the current `0.1.0a1` alpha the fix and demo engines are not yet wired into this build; invoking them reports the following and exits `3`:
+**`fix` and `demo` subcommands.** The CLI includes `fix` (safe automatic repairs + re-verify) and `demo` (generate a broken deck and its fixed counterpart). Both are fully wired in this build. The source is never modified: fixes write a new file (and an optional backup), then re-scan it to confirm the reduction.
 
 ```text
 $ layoutproof fix deck.pptx
-Fix module is not available in this build.
+Before: 4 issues -> After: 0 (removed 4)
+  + increase_font_size (font_too_small)
+  + autofit_text (text_overflow)
+  + move_into_slide (offslide_object)
+  + clear_placeholder (unfinished_placeholder)
 
 $ layoutproof demo --dir ./demo
-Demo module is not available in this build.
 ```
 
-They are documented in `--help` and targeted for a later release; do not rely on them in production automation until that lands.
+Issues that cannot be repaired safely (overlap, blank, media, references, alt text, structure) are reported as skipped with a manual-review note rather than faked.
 
 ### JSON output & exit codes
 
@@ -220,7 +223,7 @@ LayoutProof/
 │   ├── config.py        # QualityConfig load (TOML/JSON) and thresholds
 │   ├── parsing/         # zip/OOXML package + geometry model
 │   ├── rules/           # one module per detection rule
-│   ├── fix/             # safe repair engine (alpha, not yet wired)
+│   ├── fix/             # safe repair engine (new-file output, re-verify)
 │   └── report/          # JSON output + schema, self-contained HTML report
 ├── tests/unit/          # per-rule yin/yang tests
 ├── test_fixtures/       # generated corpus (.pptx) + manifest
@@ -241,9 +244,8 @@ Every detection rule ships with *yin* (should fire) and *yang* (should not fire)
 ### Known limitations
 
 - No rendering: overflow/overlap are estimated from geometry and font metrics, not from a rendered slide. Results are high-precision but approximate.
-- `fix` and `demo` engines are not yet wired in `0.1.0a1` (they exit `3`).
 - No `.ppt` (binary) or `.key` support — only `.pptx`.
-- Contrast detection works on explicit fill colors; theme-derived or gradient-only colors are conservative.
+- Contrast resolves explicit fills and the master theme background (`bg1`/`tx1`); other theme-derived or gradient-only colors stay conservative.
 - Pure-EMU geometry means screen-ratio assumptions follow the slide dimensions in the file.
 
 ### License
@@ -327,7 +329,7 @@ layoutproof scan deck.pptx --fail-on error
 layoutproof scan deck.pptx --profile full
 ```
 
-`fix`（安全自动修复并复跑）与 `demo`（生成示例坏文件与修复后文件）两个子命令已在 CLI 中注册。在当前 `0.1.0a1` alpha 中，这两个引擎尚未接入本构建，调用时会提示 `Fix/Demo module is not available in this build.` 并以退出码 `3` 结束，预计在后续版本提供；生产自动化请勿依赖。
+`fix`（安全自动修复并复跑）与 `demo`（生成示例坏文件与修复后文件）两个子命令均已在本构建中打通。修复绝不改动源文件：结果写入新文件（可另选备份），随后重新扫描确认问题减少。无法安全修复的问题（重叠、空白、媒体、引用、替代文本、结构）会列入 skipped 并标注需人工，不会伪造。
 
 ### JSON 输出与退出码
 
@@ -384,9 +386,8 @@ pytest
 ### 已知限制
 
 - 不做渲染：溢出/重叠基于几何与字体度量估算，高精度但近似。
-- `fix` 与 `demo` 引擎在 `0.1.0a1` 尚未接入（退出码 `3`）。
 - 仅支持 `.pptx`，不支持旧版二进制 `.ppt` 或 Keynote。
-- 对比度仅基于显式填充色；主题色/渐变场景保守处理。
+- 对比度可解析显式填充与母版主题背景（bg1/tx1）；其他主题色/渐变场景保守处理。
 
 ### 许可证
 
