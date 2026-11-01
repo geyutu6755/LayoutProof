@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "tool": "layoutproof-test-fixtures",
+  "generated_at": "2026-11-01T16:38:29+00:00",
+  "categories": [
+    "clean",
+    "broken",
+    "chinese",
+    "complex",
+    "cross-renderer"
+  ],
+  "records": [
+    {
+      "file": "clean_basic.pptx",
+      "category": "clean",
+      "expected_rule_ids": [],
+      "expected_severity_counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 0
+      },
+      "summary": "Two-slide healthy deck: on-slide shapes, 20pt body, alt-text image, good contrast."
+    },
+    {
+      "file": "clean_agenda.pptx",
+      "category": "clean",
+      "expected_rule_ids": [],
+      "expected_severity_counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 0
+      },
+      "summary": "Agenda deck with CJK font name planted, centred closing slide, alt-text image."
+    },
+    {
+      "file": "broken_all.pptx",
+      "category": "broken",
+      "expected_rule_ids": [
+        "offslide_object",
+        "text_overflow",
+        "object_overlap",
+        "font_too_small",
+        "low_contrast",
+        "blank_slide",
+        "unfinished_placeholder",
+        "media_broken",
+        "broken_reference",
+        "missing_alt_text",
+        "cjk_typography"
+      ],
+      "expected_severity_counts": {
+        "error": 4,
+        "warning": 6,
+        "info": 1
+      },
+      "summary": "One defect per slide: off-slide shape, overflowing box, overlap, 8pt text, grey-on-white contrast, blank slide, TODO/Lorem placeholders, corrupted PNG, hyperlink to missing slide, alt-less image, CJK kinsoku violation."
+    },
+    {
+      "file": "broken_structure.pptx",
+      "category": "broken",
+      "expected_rule_ids": [
+        "structure_anomaly"
+      ],
+      "expected_severity_counts": {
+        "error": 1,
+        "warning": 0,
+        "info": 0
+      },
+      "summary": "Truncated OOXML zip; expected to fail python-pptx open (positive sample for structure_anomaly)."
+    },
+    {
+      "file": "chinese_typesetting.pptx",
+      "category": "chinese",
+      "expected_rule_ids": [
+        "cjk_typography"
+      ],
+      "expected_severity_counts": {
+        "error": 0,
+        "warning": 1,
+        "info": 0
+      },
+      "summary": "Two slides: well-typeset CJK (YaHei, full-width punctuation, proper CJK-Latin spacing) and a broken slide with line-start comma, glued CJK-Latin, and half-width comma."
+    },
+    {
+      "file": "complex_overloaded.pptx",
+      "category": "complex",
+      "expected_rule_ids": [],
+      "expected_severity_counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 0
+      },
+      "summary": "Full-bleed background, native table, clustered-column chart, 40-square heatmap, and a grouped oval stack.  Rich but valid; intended to stress false-positive rate."
+    },
+    {
+      "file": "crossrender_native_16x9.pptx",
+      "category": "cross-renderer",
+      "expected_rule_ids": [],
+      "expected_severity_counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 0
+      },
+      "summary": "16:9, Microsoft YaHei, native 3x2 table. Same content, different authoring. Expected renderer differences: (1) LibreOffice falls back to a metric font (e.g. Noto Sans CJK) when Microsoft YaHei is absent, slightly shifting line breaks vs PowerPoint. (2) PowerPoint renders the native table with its own theme styling; LibreOffice and WPS apply their own table borders, so column widths may reflow by a few pixels. (3) The 4:3 flattened deck has no native table, so all three renderers should agree, but the rectangles may not align to a real grid in master-view editing. (4) WPS on Linux may substitute a different CJK font than Windows PowerPoint, altering glyph metrics."
+    },
+    {
+      "file": "crossrender_flat_4x3.pptx",
+      "category": "cross-renderer",
+      "expected_rule_ids": [],
+      "expected_severity_counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 0
+      },
+      "summary": "4:3, Calibri, table flattened to rectangles. Same content, different authoring. Expected renderer differences: (1) LibreOffice falls back to a metric font (e.g. Noto Sans CJK) when Microsoft YaHei is absent, slightly shifting line breaks vs PowerPoint. (2) PowerPoint renders the native table with its own theme styling; LibreOffice and WPS apply their own table borders, so column widths may reflow by a few pixels. (3) The 4:3 flattened deck has no native table, so all three renderers should agree, but the rectangles may not align to a real grid in master-view editing. (4) WPS on Linux may substitute a different CJK font than Windows PowerPoint, altering glyph metrics."
+    }
+  ]
+}

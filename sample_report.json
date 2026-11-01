@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "tool": {
+    "name": "layoutproof",
+    "version": "0.1.0a1"
+  },
+  "file": {
+    "path": "/deck/demo.pptx",
+    "name": "demo.pptx"
+  },
+  "status": "ok",
+  "error": null,
+  "timestamp": "2026-11-02T10:00:00Z",
+  "slide_count": 3,
+  "summary": {
+    "error": 1,
+    "warning": 1,
+    "info": 1,
+    "total": 3
+  },
+  "issues": [
+    {
+      "rule_id": "offslide_object",
+      "severity": "error",
+      "slide_index": 0,
+      "slide_number": 1,
+      "shape_id": "2",
+      "shape_name": "TextBox 3",
+      "location": {
+        "x": 9000000,
+        "y": 100000,
+        "width": 500000,
+        "height": 400000
+      },
+      "normalized_location": {
+        "x": 0.984252,
+        "y": 0.014582,
+        "width": 0.054681,
+        "height": 0.058326
+      },
+      "detail": "shape extends past right edge",
+      "confidence": 1.0,
+      "fixable": true,
+      "fix_id": "move_into_slide",
+      "evidence": {
+        "overflow_emu": 356
+      }
+    },
+    {
+      "rule_id": "text_overflow",
+      "severity": "warning",
+      "slide_index": 1,
+      "slide_number": 2,
+      "shape_id": "5",
+      "shape_name": "Title 1",
+      "location": {
+        "x": 500000,
+        "y": 500000,
+        "width": 4000000,
+        "height": 800000
+      },
+      "normalized_location": {
+        "x": 0.054681,
+        "y": 0.072908,
+        "width": 0.437445,
+        "height": 0.116652
+      },
+      "detail": "text needs 4380000 EMU, box is 4000000",
+      "confidence": 0.8,
+      "fixable": true,
+      "fix_id": "autofit_text",
+      "evidence": {
+        "needed": 4380000
+      }
+    },
+    {
+      "rule_id": "missing_alt_text",
+      "severity": "info",
+      "slide_index": 0,
+      "slide_number": 1,
+      "shape_id": "7",
+      "shape_name": "Picture 2",
+      "location": null,
+      "normalized_location": null,
+      "detail": "picture has no descr",
+      "confidence": 1.0,
+      "fixable": false,
+      "fix_id": null,
+      "evidence": {}
+    }
+  ],
+  "config": {
+    "min_font_pt": 12.0
+  }
+}

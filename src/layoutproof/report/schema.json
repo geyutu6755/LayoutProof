@@ -1,0 +1,178 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://layoutproof.local/schema.json",
+  "title": "LayoutProof",
+  "description": "Stable JSON contract for LayoutProof scan and fix reports.",
+  "definitions": {
+    "Location": {
+      "type": "object",
+      "description": "Bounding box in EMU (English Metric Units).",
+      "required": ["x", "y", "width", "height"],
+      "additionalProperties": false,
+      "properties": {
+        "x": { "type": "integer" },
+        "y": { "type": "integer" },
+        "width": { "type": "integer" },
+        "height": { "type": "integer" }
+      }
+    },
+    "NormalizedLocation": {
+      "type": "object",
+      "description": "Bounding box normalized to slide dimensions (0..1 fractions).",
+      "required": ["x", "y", "width", "height"],
+      "additionalProperties": false,
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 },
+        "width": { "type": "number", "minimum": 0, "maximum": 1 },
+        "height": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "Severity": {
+      "type": "string",
+      "enum": ["error", "warning", "info"]
+    },
+    "Summary": {
+      "type": "object",
+      "required": ["error", "warning", "info", "total"],
+      "additionalProperties": false,
+      "properties": {
+        "error": { "type": "integer", "minimum": 0 },
+        "warning": { "type": "integer", "minimum": 0 },
+        "info": { "type": "integer", "minimum": 0 },
+        "total": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "Issue": {
+      "type": "object",
+      "required": [
+        "rule_id",
+        "severity",
+        "slide_index",
+        "slide_number",
+        "location",
+        "normalized_location",
+        "detail",
+        "confidence",
+        "fixable",
+        "fix_id",
+        "evidence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "rule_id": { "type": "string", "minLength": 1 },
+        "severity": { "$ref": "#/definitions/Severity" },
+        "slide_index": { "type": "integer" },
+        "slide_number": { "type": "integer" },
+        "shape_id": { "type": ["string", "null"] },
+        "shape_name": { "type": ["string", "null"] },
+        "location": { "anyOf": [{ "$ref": "#/definitions/Location" }, { "type": "null" }] },
+        "normalized_location": {
+          "anyOf": [{ "$ref": "#/definitions/NormalizedLocation" }, { "type": "null" }]
+        },
+        "detail": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "fixable": { "type": "boolean" },
+        "fix_id": { "type": ["string", "null"] },
+        "evidence": { "type": "object" }
+      }
+    },
+    "ScanResult": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "tool",
+        "file",
+        "status",
+        "error",
+        "timestamp",
+        "slide_count",
+        "summary",
+        "issues",
+        "config"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": { "type": "string" },
+        "tool": {
+          "type": "object",
+          "required": ["name", "version"],
+          "additionalProperties": false,
+          "properties": {
+            "name": { "type": "string" },
+            "version": { "type": "string" }
+          }
+        },
+        "file": {
+          "type": "object",
+          "required": ["path", "name"],
+          "additionalProperties": false,
+          "properties": {
+            "path": { "type": "string" },
+            "name": { "type": "string" }
+          }
+        },
+        "status": { "type": "string", "enum": ["ok", "error"] },
+        "error": { "type": ["string", "null"] },
+        "timestamp": { "type": "string" },
+        "slide_count": { "type": "integer", "minimum": 0 },
+        "summary": { "$ref": "#/definitions/Summary" },
+        "issues": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Issue" }
+        },
+        "config": { "type": "object" }
+      }
+    },
+    "AppliedFix": {
+      "type": "object",
+      "required": ["rule_id", "shape_id", "action", "status", "note"],
+      "additionalProperties": false,
+      "properties": {
+        "rule_id": { "type": "string", "minLength": 1 },
+        "shape_id": { "type": ["string", "null"] },
+        "action": { "type": "string" },
+        "status": { "type": "string", "enum": ["applied", "skipped"] },
+        "note": { "type": "string" }
+      }
+    },
+    "FixReport": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_path",
+        "output_path",
+        "backup_path",
+        "created",
+        "success",
+        "applied",
+        "skipped",
+        "before",
+        "after",
+        "issues_removed",
+        "note"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": { "type": "string" },
+        "source_path": { "type": "string" },
+        "output_path": { "type": "string" },
+        "backup_path": { "type": ["string", "null"] },
+        "created": { "type": "boolean" },
+        "success": { "type": "boolean" },
+        "applied": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/AppliedFix" }
+        },
+        "skipped": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/AppliedFix" }
+        },
+        "before": { "$ref": "#/definitions/Summary" },
+        "after": { "$ref": "#/definitions/Summary" },
+        "issues_removed": { "type": "integer", "minimum": 0 },
+        "note": { "type": "string" }
+      }
+    }
+  }
+}

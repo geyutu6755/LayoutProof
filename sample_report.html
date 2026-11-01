@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demo.pptx — LayoutProof</title>
+<style>:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --border: #e2e8ee;
+  --text: #1f2933;
+  --muted: #616e7c;
+  --accent: #0f766e;
+  --accent-soft: #e6f4f2;
+  --error: #b42318;
+  --error-soft: #fde8e6;
+  --warning: #b54708;
+  --warning-soft: #fdf0e0;
+  --info: #175cd3;
+  --info-soft: #e7eefc;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.08);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* language switching: show one language at a time */
+body.lang-en .t-zh { display: none !important; }
+body.lang-zh .t-en { display: none !important; }
+
+/* top bar */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+}
+.topbar-inner {
+  max-width: 1200px; margin: 0 auto; padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-mark {
+  width: 38px; height: 38px; border-radius: 8px;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; letter-spacing: 0.5px;
+}
+.brand-name { font-weight: 700; font-size: 15px; }
+.brand-sub { color: var(--muted); font-size: 12px; }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.meta { color: var(--muted); font-size: 12px; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+.card-title { margin: 0 0 14px; font-size: 14px; font-weight: 700; color: var(--text); }
+
+/* summary */
+.summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.summary-grid.small { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.stat {
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 12px; background: #fbfcfd;
+}
+.stat-num { font-size: 22px; font-weight: 700; }
+.stat-label { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.stat-error .stat-num { color: var(--error); }
+.stat-warning .stat-num { color: var(--warning); }
+.stat-info .stat-num { color: var(--info); }
+.removed { color: var(--accent); }
+
+.alert { margin-top: 14px; padding: 10px 12px; border-radius: 8px; font-size: 13px; }
+.alert-error { background: var(--error-soft); color: var(--error); }
+
+/* layout */
+.layout { display: grid; grid-template-columns: 240px 1fr; gap: 18px; align-items: start; }
+.filters-card { position: sticky; top: 78px; }
+.fld { margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px; }
+.fld-label { font-size: 12px; color: var(--muted); font-weight: 600; }
+.fld select, .fld input[type="search"] {
+  padding: 7px 9px; border: 1px solid var(--border); border-radius: 7px;
+  font-size: 13px; background: #fff; color: var(--text); width: 100%;
+}
+.chk { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
+.sev-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.sev-dot.sev-error { background: var(--error); }
+.sev-dot.sev-warning { background: var(--warning); }
+.sev-dot.sev-info { background: var(--info); }
+
+.issues-col { display: flex; flex-direction: column; }
+
+/* stage */
+.stage-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+.stage {
+  position: relative; width: 100%; aspect-ratio: 16 / 9;
+  background: #eef2f5; border: 1px dashed #c8d2dc; border-radius: 8px;
+  overflow: hidden;
+}
+.stage-placeholder {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 20px; font-size: 13px;
+}
+.stage-box {
+  position: absolute; border: 2px solid; border-radius: 3px;
+  background: rgba(255,255,255,0.25);
+}
+.stage-box.sev-error { border-color: var(--error); background: rgba(180,35,24,0.15); }
+.stage-box.sev-warning { border-color: var(--warning); background: rgba(181,71,8,0.15); }
+.stage-box.sev-info { border-color: var(--info); background: rgba(23,92,211,0.15); }
+.stage-box.active { box-shadow: 0 0 0 3px rgba(15,118,110,0.35); }
+
+/* issue cards */
+.issue {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 4px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 14px 16px; margin-bottom: 12px;
+}
+.issue.sev-error { border-left-color: var(--error); }
+.issue.sev-warning { border-left-color: var(--warning); }
+.issue.sev-info { border-left-color: var(--info); }
+.issue.hidden { display: none; }
+
+.issue-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.issue-title { font-weight: 700; font-size: 14px; }
+.rule-id { color: var(--muted); font-size: 11px; background: #f1f4f7; padding: 2px 6px; border-radius: 5px; }
+.badge {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.4px;
+  padding: 2px 8px; border-radius: 999px; text-transform: uppercase;
+}
+.badge.sev-error { background: var(--error-soft); color: var(--error); }
+.badge.sev-warning { background: var(--warning-soft); color: var(--warning); }
+.badge.sev-info { background: var(--info-soft); color: var(--info); }
+.badge-fix { background: var(--accent-soft); color: var(--accent); text-transform: none; }
+
+.issue-sub { font-size: 12px; margin-top: 4px; }
+.issue-detail { margin-top: 8px; font-size: 13px; }
+.issue-block { margin-top: 10px; font-size: 13px; }
+.blk-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px; }
+.issue-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+
+.btn {
+  border: 1px solid var(--border); background: #fff; color: var(--text);
+  padding: 6px 12px; border-radius: 7px; cursor: pointer; font-size: 13px;
+}
+.btn:hover { background: #f4f7f9; }
+.btn-ghost { border-color: transparent; color: var(--accent); font-weight: 600; }
+.btn-locate { border-color: var(--accent); color: var(--accent); }
+.btn-locate:hover { background: var(--accent-soft); }
+
+.empty { text-align: center; color: var(--muted); padding: 30px; }
+
+/* fix compare */
+.fix-compare { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.fix-side { flex: 1; min-width: 260px; }
+.fix-side-title { font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+.fix-arrow { font-size: 22px; color: var(--muted); }
+.fix-removed { text-align: center; padding: 0 10px; }
+.fix-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 16px; }
+.sub { font-size: 13px; margin: 0 0 8px; }
+.fix-ul { margin: 0; padding-left: 18px; font-size: 13px; }
+.fix-ul li { margin-bottom: 4px; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .filters-card { position: static; }
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .fix-lists { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="lang-en">
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">LP</span>
+      <div>
+        <div class="brand-name"><span class="t-en">LayoutProof Report</span><span class="t-zh">版式校验报告</span></div>
+        <div class="brand-sub">demo.pptx</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="meta">2026-11-02T10:00:00Z</div>
+      <button id="lang-toggle" class="btn btn-ghost" type="button">中文</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="card summary-card">
+    <h2 class="card-title"><span class="t-en">Summary</span><span class="t-zh">汇总</span></h2>
+    <div class="summary-grid">
+      <div class="stat stat-error"><div class="stat-num">1</div><div class="stat-label"><span class="t-en">Errors</span><span class="t-zh">错误</span></div></div>
+      <div class="stat stat-warning"><div class="stat-num">1</div><div class="stat-label"><span class="t-en">Warnings</span><span class="t-zh">警告</span></div></div>
+      <div class="stat stat-info"><div class="stat-num">1</div><div class="stat-label"><span class="t-en">Info</span><span class="t-zh">提示</span></div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label"><span class="t-en">Total issues</span><span class="t-zh">问题总数</span></div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label"><span class="t-en">Slides</span><span class="t-zh">幻灯片</span></div></div>
+    </div>
+    
+  </section>
+
+  
+  <section class="card">
+    <h2 class="card-title"><span class="t-en">Auto-fix result</span><span class="t-zh">自动修复结果</span></h2>
+    <div class="fix-compare">
+      <div class="fix-side">
+        <div class="fix-side-title"><span class="t-en">Before</span><span class="t-zh">修复前</span></div>
+        <div class="summary-grid small">
+          <div class="stat stat-error"><div class="stat-num">1</div><div class="stat-label"><span class="t-en">Errors</span><span class="t-zh">错误</span></div></div>
+          <div class="stat stat-warning"><div class="stat-num">1</div><div class="stat-label"><span class="t-en">Warnings</span><span class="t-zh">警告</span></div></div>
+          <div class="stat stat-info"><div class="stat-num">1</div><div class="stat-label"><span class="t-en">Info</span><span class="t-zh">提示</span></div></div>
+          <div class="stat"><div class="stat-num">3</div><div class="stat-label"><span class="t-en">Total</span><span class="t-zh">合计</span></div></div>
+        </div>
+      </div>
+      <div class="fix-arrow">→</div>
+      <div class="fix-side">
+        <div class="fix-side-title"><span class="t-en">After</span><span class="t-zh">修复后</span></div>
+        <div class="summary-grid small">
+          <div class="stat stat-error"><div class="stat-num">0</div><div class="stat-label"><span class="t-en">Errors</span><span class="t-zh">错误</span></div></div>
+          <div class="stat stat-warning"><div class="stat-num">1</div><div class="stat-label"><span class="t-en">Warnings</span><span class="t-zh">警告</span></div></div>
+          <div class="stat stat-info"><div class="stat-num">1</div><div class="stat-label"><span class="t-en">Info</span><span class="t-zh">提示</span></div></div>
+          <div class="stat"><div class="stat-num">2</div><div class="stat-label"><span class="t-en">Total</span><span class="t-zh">合计</span></div></div>
+        </div>
+      </div>
+      <div class="fix-removed">
+        <div class="stat-num removed">−1</div>
+        <div class="stat-label"><span class="t-en">Issues resolved</span><span class="t-zh">已修复问题</span></div>
+      </div>
+    </div>
+    <div class="fix-lists">
+      <div>
+        <h3 class="sub"><span class="t-en">Applied (1)</span><span class="t-zh">已应用（1）</span></h3>
+        <ul class="fix-ul">
+          
+          <li><code>offslide_object</code> — moved into slide bounds <span class="muted">clamped</span></li>
+          
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub"><span class="t-en">Skipped (1)</span><span class="t-zh">已跳过（1）</span></h3>
+        <ul class="fix-ul">
+          
+          <li><code>object_overlap</code> — needs manual review <span class="muted">no safe auto-fix</span></li>
+          
+        </ul>
+      </div>
+    </div>
+  </section>
+  
+
+  <section class="layout">
+    <div class="card filters-card">
+      <h2 class="card-title"><span class="t-en">Filters</span><span class="t-zh">筛选</span></h2>
+      <label class="fld"><span class="fld-label"><span class="t-en">File</span><span class="t-zh">文件</span></span>
+        <select id="filter-file"><option value="all" id="opt-all-file">All</option></select>
+      </label>
+      <label class="fld"><span class="fld-label"><span class="t-en">Slide</span><span class="t-zh">幻灯片</span></span>
+        <select id="filter-slide"><option value="all" id="opt-all-slide">All</option></select>
+      </label>
+      <div class="fld">
+        <span class="fld-label"><span class="t-en">Severity</span><span class="t-zh">严重度</span></span>
+        <label class="chk"><input type="checkbox" data-sev="error" checked> <span class="sev-dot sev-error"></span><span class="t-en">Error</span><span class="t-zh">错误</span></label>
+        <label class="chk"><input type="checkbox" data-sev="warning" checked> <span class="sev-dot sev-warning"></span><span class="t-en">Warning</span><span class="t-zh">警告</span></label>
+        <label class="chk"><input type="checkbox" data-sev="info" checked> <span class="sev-dot sev-info"></span><span class="t-en">Info</span><span class="t-zh">提示</span></label>
+      </div>
+      <div class="fld">
+        <input type="search" id="filter-search" placeholder="Search rule / detail…">
+      </div>
+    </div>
+
+    <div class="issues-col">
+      <div class="card stage-card">
+        <div class="stage-head">
+          <h2 class="card-title"><span class="t-en">Location preview</span><span class="t-zh">位置预览</span></h2>
+          <span id="stage-label" class="muted"></span>
+        </div>
+        <div class="stage" id="stage">
+          <div class="stage-placeholder muted">
+            <span class="t-en">Click an issue to highlight its location on the slide.</span>
+            <span class="t-zh">点击下方问题，在幻灯片上高亮其位置。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="issues" id="issue-list">
+        
+        <article class="issue sev-error"
+                 data-file="demo.pptx"
+                 data-slide="1"
+                 data-severity="error"
+                 data-rule="offslide_object"
+                 data-index="0">
+          <div class="issue-head">
+            <span class="badge sev-error">ERROR</span>
+            <span class="issue-title">
+              <span class="t-en">Object outside slide bounds</span><span class="t-zh">对象位于页面边界之外</span>
+            </span>
+            <code class="rule-id">offslide_object</code>
+            <span class="badge badge-fix"><span class="t-en">auto-fix</span><span class="t-zh">可自动修复</span></span>
+          </div>
+          <div class="issue-sub muted">TextBox 3 · Slide 1</div>
+          <div class="issue-detail">shape extends past right edge</div>
+          <div class="issue-block"><div class="blk-label"><span class="t-en">Explanation</span><span class="t-zh">问题说明</span></div>
+            <div class="t-en">A shape or media element is placed fully or partially outside the slide canvas and will not render in the exported deck.</div><div class="t-zh">形状或媒体元素完全或部分位于幻灯片画布之外，导出后不会显示。</div>
+          </div>
+          <div class="issue-block"><div class="blk-label"><span class="t-en">Recommendation</span><span class="t-zh">修复建议</span></div>
+            <div class="t-en">Move the object fully inside the slide bounds, or delete it if it is unused.</div><div class="t-zh">将对象移动到幻灯片边界内；若不再使用则删除。</div>
+          </div>
+          <div class="issue-foot">
+            <span class="muted small">Confidence: 1.00</span>
+            <button class="btn btn-locate" type="button" data-locate="0">
+              <span class="t-en">Locate</span><span class="t-zh">定位</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="issue sev-warning"
+                 data-file="demo.pptx"
+                 data-slide="2"
+                 data-severity="warning"
+                 data-rule="text_overflow"
+                 data-index="1">
+          <div class="issue-head">
+            <span class="badge sev-warning">WARNING</span>
+            <span class="issue-title">
+              <span class="t-en">Suspected text overflow or clipping</span><span class="t-zh">疑似文字溢出或内容裁切</span>
+            </span>
+            <code class="rule-id">text_overflow</code>
+            <span class="badge badge-fix"><span class="t-en">auto-fix</span><span class="t-zh">可自动修复</span></span>
+          </div>
+          <div class="issue-sub muted">Title 1 · Slide 2</div>
+          <div class="issue-detail">text needs 4380000 EMU, box is 4000000</div>
+          <div class="issue-block"><div class="blk-label"><span class="t-en">Explanation</span><span class="t-zh">问题说明</span></div>
+            <div class="t-en">The text content likely exceeds the shape or placeholder box, so PowerPoint may clip or auto-shrink it.</div><div class="t-zh">文本内容可能超出形状或占位符框，PowerPoint 可能裁切或自动缩小文字。</div>
+          </div>
+          <div class="issue-block"><div class="blk-label"><span class="t-en">Recommendation</span><span class="t-zh">修复建议</span></div>
+            <div class="t-en">Enlarge the text box, reduce the text, or enable auto-fit/shrink text on overflow.</div><div class="t-zh">放大文本框、精简文字，或启用溢出时自动缩排/缩小字体。</div>
+          </div>
+          <div class="issue-foot">
+            <span class="muted small">Confidence: 0.80</span>
+            <button class="btn btn-locate" type="button" data-locate="1">
+              <span class="t-en">Locate</span><span class="t-zh">定位</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="issue sev-info"
+                 data-file="demo.pptx"
+                 data-slide="1"
+                 data-severity="info"
+                 data-rule="missing_alt_text"
+                 data-index="2">
+          <div class="issue-head">
+            <span class="badge sev-info">INFO</span>
+            <span class="issue-title">
+              <span class="t-en">Image missing alternative text</span><span class="t-zh">图片缺少替代文字</span>
+            </span>
+            <code class="rule-id">missing_alt_text</code>
+            
+          </div>
+          <div class="issue-sub muted">Picture 2 · Slide 1</div>
+          <div class="issue-detail">picture has no descr</div>
+          <div class="issue-block"><div class="blk-label"><span class="t-en">Explanation</span><span class="t-zh">问题说明</span></div>
+            <div class="t-en">A meaningful image has no alternative text, which hurts screen-reader accessibility.</div><div class="t-zh">有意义的图片缺少替代文字，影响屏幕阅读器的可访问性。</div>
+          </div>
+          <div class="issue-block"><div class="blk-label"><span class="t-en">Recommendation</span><span class="t-zh">修复建议</span></div>
+            <div class="t-en">Add concise descriptive alt text; mark purely decorative images as decorative.</div><div class="t-zh">添加简洁的描述性替代文字；纯装饰图片标记为装饰性。</div>
+          </div>
+          <div class="issue-foot">
+            <span class="muted small">Confidence: 1.00</span>
+            <button class="btn btn-locate" type="button" data-locate="2">
+              <span class="t-en">Locate</span><span class="t-zh">定位</span>
+            </button>
+          </div>
+        </article>
+        
+      </div>
+    </div>
+  </section>
+</main>
+
+<script id="issues-data" type="application/json">[{"rule_id": "offslide_object", "severity": "error", "slide_index": 0, "slide_number": 1, "shape_id": "2", "shape_name": "TextBox 3", "location": {"x": 9000000, "y": 100000, "width": 500000, "height": 400000}, "normalized_location": {"x": 0.984252, "y": 0.014582, "width": 0.054681, "height": 0.058326}, "detail": "shape extends past right edge", "confidence": 1.0, "fixable": true, "fix_id": "move_into_slide", "evidence": {"overflow_emu": 356}, "file_name": "demo.pptx", "title_en": "Object outside slide bounds", "title_zh": "对象位于页面边界之外", "explanation_en": "A shape or media element is placed fully or partially outside the slide canvas and will not render in the exported deck.", "explanation_zh": "形状或媒体元素完全或部分位于幻灯片画布之外，导出后不会显示。", "recommendation_en": "Move the object fully inside the slide bounds, or delete it if it is unused.", "recommendation_zh": "将对象移动到幻灯片边界内；若不再使用则删除。"}, {"rule_id": "text_overflow", "severity": "warning", "slide_index": 1, "slide_number": 2, "shape_id": "5", "shape_name": "Title 1", "location": {"x": 500000, "y": 500000, "width": 4000000, "height": 800000}, "normalized_location": {"x": 0.054681, "y": 0.072908, "width": 0.437445, "height": 0.116652}, "detail": "text needs 4380000 EMU, box is 4000000", "confidence": 0.8, "fixable": true, "fix_id": "autofit_text", "evidence": {"needed": 4380000}, "file_name": "demo.pptx", "title_en": "Suspected text overflow or clipping", "title_zh": "疑似文字溢出或内容裁切", "explanation_en": "The text content likely exceeds the shape or placeholder box, so PowerPoint may clip or auto-shrink it.", "explanation_zh": "文本内容可能超出形状或占位符框，PowerPoint 可能裁切或自动缩小文字。", "recommendation_en": "Enlarge the text box, reduce the text, or enable auto-fit/shrink text on overflow.", "recommendation_zh": "放大文本框、精简文字，或启用溢出时自动缩排/缩小字体。"}, {"rule_id": "missing_alt_text", "severity": "info", "slide_index": 0, "slide_number": 1, "shape_id": "7", "shape_name": "Picture 2", "location": null, "normalized_location": null, "detail": "picture has no descr", "confidence": 1.0, "fixable": false, "fix_id": null, "evidence": {}, "file_name": "demo.pptx", "title_en": "Image missing alternative text", "title_zh": "图片缺少替代文字", "explanation_en": "A meaningful image has no alternative text, which hurts screen-reader accessibility.", "explanation_zh": "有意义的图片缺少替代文字，影响屏幕阅读器的可访问性。", "recommendation_en": "Add concise descriptive alt text; mark purely decorative images as decorative.", "recommendation_zh": "添加简洁的描述性替代文字；纯装饰图片标记为装饰性。"}]</script>
+<script>(function () {
+  "use strict";
+
+  var body = document.body;
+  var dataEl = document.getElementById("issues-data");
+  var issues = dataEl ? JSON.parse(dataEl.textContent) : [];
+
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".issue"));
+  var fileSel = document.getElementById("filter-file");
+  var slideSel = document.getElementById("filter-slide");
+  var searchEl = document.getElementById("filter-search");
+  var stage = document.getElementById("stage");
+  var stageLabel = document.getElementById("stage-label");
+  var langBtn = document.getElementById("lang-toggle");
+
+  var LANG = body.classList.contains("lang-zh") ? "zh" : "en";
+
+  // ---- populate file / slide dropdowns -------------------------------------
+  var filesSeen = {};
+  var slidesSeen = {};
+  issues.forEach(function (it) {
+    if (it.file_name && !filesSeen[it.file_name]) {
+      filesSeen[it.file_name] = true;
+      var fo = document.createElement("option");
+      fo.value = it.file_name;
+      fo.textContent = it.file_name;
+      fileSel.appendChild(fo);
+    }
+    if (it.slide_number && it.slide_number > 0 && !slidesSeen[it.slide_number]) {
+      slidesSeen[it.slide_number] = true;
+      var so = document.createElement("option");
+      so.value = String(it.slide_number);
+      so.textContent = (LANG === "zh" ? "幻灯片 " : "Slide ") + it.slide_number;
+      slideSel.appendChild(so);
+    }
+  });
+
+  // ---- filtering -----------------------------------------------------------
+  function activeSeverities() {
+    var out = {};
+    document.querySelectorAll("[data-sev]").forEach(function (cb) {
+      out[cb.getAttribute("data-sev")] = cb.checked;
+    });
+    return out;
+  }
+
+  function applyFilters() {
+    var f = fileSel.value;
+    var s = slideSel.value;
+    var sevs = activeSeverities();
+    var q = (searchEl.value || "").toLowerCase();
+    cards.forEach(function (card) {
+      var ok = true;
+      if (f !== "all" && card.getAttribute("data-file") !== f) ok = false;
+      if (s !== "all" && card.getAttribute("data-slide") !== s) ok = false;
+      if (!sevs[card.getAttribute("data-severity")]) ok = false;
+      if (q && card.textContent.toLowerCase().indexOf(q) === -1) ok = false;
+      card.classList.toggle("hidden", !ok);
+    });
+  }
+
+  fileSel.addEventListener("change", applyFilters);
+  slideSel.addEventListener("change", applyFilters);
+  searchEl.addEventListener("input", applyFilters);
+  document.querySelectorAll("[data-sev]").forEach(function (cb) {
+    cb.addEventListener("change", applyFilters);
+  });
+
+  // ---- location preview -----------------------------------------------------
+  function clearStage() {
+    Array.prototype.slice.call(stage.querySelectorAll(".stage-box")).forEach(function (b) {
+      b.parentNode.removeChild(b);
+    });
+    var ph = stage.querySelector(".stage-placeholder");
+    if (ph) ph.style.display = "none";
+  }
+
+  function locate(index) {
+    var issue = issues[index];
+    if (!issue) return;
+    clearStage();
+    if (issue.slide_number && issue.slide_number > 0) {
+      stageLabel.textContent =
+        (LANG === "zh" ? "幻灯片 " : "Slide ") + issue.slide_number;
+    } else {
+      stageLabel.textContent = LANG === "zh" ? "文档级" : "Document level";
+    }
+
+    var nl = issue.normalized_location;
+    if (!nl) {
+      var msg = document.createElement("div");
+      msg.className = "stage-placeholder muted";
+      msg.textContent =
+        LANG === "zh" ? "该问题无可视化位置数据。" : "No positional data for this issue.";
+      stage.appendChild(msg);
+      return;
+    }
+
+    // draw all issues on the same slide for context
+    issues.forEach(function (other, i) {
+      if (other.slide_number !== issue.slide_number) return;
+      if (!other.normalized_location) return;
+      var r = other.normalized_location;
+      var box = document.createElement("div");
+      box.className = "stage-box sev-" + other.severity + (i === index ? " active" : "");
+      box.style.left = (r.x * 100) + "%";
+      box.style.top = (r.y * 100) + "%";
+      box.style.width = (r.width * 100) + "%";
+      box.style.height = (r.height * 100) + "%";
+      stage.appendChild(box);
+    });
+  }
+
+  cards.forEach(function (card) {
+    var idx = Number(card.getAttribute("data-index"));
+    var btn = card.querySelector("[data-locate]");
+    if (btn) btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      locate(idx);
+    });
+    card.addEventListener("click", function () { locate(idx); });
+  });
+
+  // ---- language toggle -----------------------------------------------------
+  function setLang(lang) {
+    LANG = lang;
+    body.classList.toggle("lang-en", lang === "en");
+    body.classList.toggle("lang-zh", lang === "zh");
+    body.setAttribute("class", body.classList.toString());
+    langBtn.textContent = lang === "en" ? "中文" : "EN";
+    var allFile = document.getElementById("opt-all-file");
+    var allSlide = document.getElementById("opt-all-slide");
+    var allLabel = lang === "zh" ? "全部" : "All";
+    if (allFile) allFile.textContent = allLabel;
+    if (allSlide) allSlide.textContent = allLabel;
+    // rebuild slide labels
+    Array.prototype.slice.call(slideSel.options).forEach(function (o) {
+      if (o.value !== "all") {
+        o.textContent = (lang === "zh" ? "幻灯片 " : "Slide ") + o.value;
+      }
+    });
+  }
+  langBtn.addEventListener("click", function () {
+    setLang(LANG === "en" ? "zh" : "en");
+  });
+  setLang(LANG);
+})();
+</script>
+</body>
+</html>

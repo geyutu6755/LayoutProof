@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ file_name }} — LayoutProof</title>
+<style>{{ style_css | safe }}</style>
+</head>
+<body class="lang-{{ lang }}">
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">LP</span>
+      <div>
+        <div class="brand-name"><span class="t-en">LayoutProof Report</span><span class="t-zh">版式校验报告</span></div>
+        <div class="brand-sub">{{ file_name }}</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      {% if timestamp %}<div class="meta">{{ timestamp }}</div>{% endif %}
+      <button id="lang-toggle" class="btn btn-ghost" type="button">中文</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="card summary-card">
+    <h2 class="card-title"><span class="t-en">Summary</span><span class="t-zh">汇总</span></h2>
+    <div class="summary-grid">
+      <div class="stat stat-error"><div class="stat-num">{{ summary.error }}</div><div class="stat-label"><span class="t-en">Errors</span><span class="t-zh">错误</span></div></div>
+      <div class="stat stat-warning"><div class="stat-num">{{ summary.warning }}</div><div class="stat-label"><span class="t-en">Warnings</span><span class="t-zh">警告</span></div></div>
+      <div class="stat stat-info"><div class="stat-num">{{ summary.info }}</div><div class="stat-label"><span class="t-en">Info</span><span class="t-zh">提示</span></div></div>
+      <div class="stat"><div class="stat-num">{{ summary.total }}</div><div class="stat-label"><span class="t-en">Total issues</span><span class="t-zh">问题总数</span></div></div>
+      <div class="stat"><div class="stat-num">{{ slide_count }}</div><div class="stat-label"><span class="t-en">Slides</span><span class="t-zh">幻灯片</span></div></div>
+    </div>
+    {% if status == "error" %}
+    <div class="alert alert-error"><span class="t-en">Scan failed:</span><span class="t-zh">扫描失败：</span>{{ error or "" }}</div>
+    {% endif %}
+  </section>
+
+  {% if fix_report %}
+  <section class="card">
+    <h2 class="card-title"><span class="t-en">Auto-fix result</span><span class="t-zh">自动修复结果</span></h2>
+    <div class="fix-compare">
+      <div class="fix-side">
+        <div class="fix-side-title"><span class="t-en">Before</span><span class="t-zh">修复前</span></div>
+        <div class="summary-grid small">
+          <div class="stat stat-error"><div class="stat-num">{{ fix_report.before.error }}</div><div class="stat-label"><span class="t-en">Errors</span><span class="t-zh">错误</span></div></div>
+          <div class="stat stat-warning"><div class="stat-num">{{ fix_report.before.warning }}</div><div class="stat-label"><span class="t-en">Warnings</span><span class="t-zh">警告</span></div></div>
+          <div class="stat stat-info"><div class="stat-num">{{ fix_report.before.info }}</div><div class="stat-label"><span class="t-en">Info</span><span class="t-zh">提示</span></div></div>
+          <div class="stat"><div class="stat-num">{{ fix_report.before.total }}</div><div class="stat-label"><span class="t-en">Total</span><span class="t-zh">合计</span></div></div>
+        </div>
+      </div>
+      <div class="fix-arrow">→</div>
+      <div class="fix-side">
+        <div class="fix-side-title"><span class="t-en">After</span><span class="t-zh">修复后</span></div>
+        <div class="summary-grid small">
+          <div class="stat stat-error"><div class="stat-num">{{ fix_report.after.error }}</div><div class="stat-label"><span class="t-en">Errors</span><span class="t-zh">错误</span></div></div>
+          <div class="stat stat-warning"><div class="stat-num">{{ fix_report.after.warning }}</div><div class="stat-label"><span class="t-en">Warnings</span><span class="t-zh">警告</span></div></div>
+          <div class="stat stat-info"><div class="stat-num">{{ fix_report.after.info }}</div><div class="stat-label"><span class="t-en">Info</span><span class="t-zh">提示</span></div></div>
+          <div class="stat"><div class="stat-num">{{ fix_report.after.total }}</div><div class="stat-label"><span class="t-en">Total</span><span class="t-zh">合计</span></div></div>
+        </div>
+      </div>
+      <div class="fix-removed">
+        <div class="stat-num removed">−{{ fix_report.issues_removed }}</div>
+        <div class="stat-label"><span class="t-en">Issues resolved</span><span class="t-zh">已修复问题</span></div>
+      </div>
+    </div>
+    <div class="fix-lists">
+      <div>
+        <h3 class="sub"><span class="t-en">Applied ({{ fix_report.applied | length }})</span><span class="t-zh">已应用（{{ fix_report.applied | length }}）</span></h3>
+        <ul class="fix-ul">
+          {% for a in fix_report.applied %}
+          <li><code>{{ a.rule_id }}</code> — {{ a.action }}{% if a.note %} <span class="muted">{{ a.note }}</span>{% endif %}</li>
+          {% else %}
+          <li class="muted"><span class="t-en">None</span><span class="t-zh">无</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub"><span class="t-en">Skipped ({{ fix_report.skipped | length }})</span><span class="t-zh">已跳过（{{ fix_report.skipped | length }}）</span></h3>
+        <ul class="fix-ul">
+          {% for a in fix_report.skipped %}
+          <li><code>{{ a.rule_id }}</code> — {{ a.action }}{% if a.note %} <span class="muted">{{ a.note }}</span>{% endif %}</li>
+          {% else %}
+          <li class="muted"><span class="t-en">None</span><span class="t-zh">无</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="layout">
+    <div class="card filters-card">
+      <h2 class="card-title"><span class="t-en">Filters</span><span class="t-zh">筛选</span></h2>
+      <label class="fld"><span class="fld-label"><span class="t-en">File</span><span class="t-zh">文件</span></span>
+        <select id="filter-file"><option value="all" id="opt-all-file">All</option></select>
+      </label>
+      <label class="fld"><span class="fld-label"><span class="t-en">Slide</span><span class="t-zh">幻灯片</span></span>
+        <select id="filter-slide"><option value="all" id="opt-all-slide">All</option></select>
+      </label>
+      <div class="fld">
+        <span class="fld-label"><span class="t-en">Severity</span><span class="t-zh">严重度</span></span>
+        <label class="chk"><input type="checkbox" data-sev="error" checked> <span class="sev-dot sev-error"></span><span class="t-en">Error</span><span class="t-zh">错误</span></label>
+        <label class="chk"><input type="checkbox" data-sev="warning" checked> <span class="sev-dot sev-warning"></span><span class="t-en">Warning</span><span class="t-zh">警告</span></label>
+        <label class="chk"><input type="checkbox" data-sev="info" checked> <span class="sev-dot sev-info"></span><span class="t-en">Info</span><span class="t-zh">提示</span></label>
+      </div>
+      <div class="fld">
+        <input type="search" id="filter-search" placeholder="{{ 'Search rule / detail…' if lang == 'en' else '搜索规则 / 细节…' }}">
+      </div>
+    </div>
+
+    <div class="issues-col">
+      <div class="card stage-card">
+        <div class="stage-head">
+          <h2 class="card-title"><span class="t-en">Location preview</span><span class="t-zh">位置预览</span></h2>
+          <span id="stage-label" class="muted"></span>
+        </div>
+        <div class="stage" id="stage">
+          <div class="stage-placeholder muted">
+            <span class="t-en">Click an issue to highlight its location on the slide.</span>
+            <span class="t-zh">点击下方问题，在幻灯片上高亮其位置。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="issues" id="issue-list">
+        {% for issue in issues %}
+        <article class="issue sev-{{ issue.severity }}"
+                 data-file="{{ issue.file_name }}"
+                 data-slide="{{ issue.slide_number }}"
+                 data-severity="{{ issue.severity }}"
+                 data-rule="{{ issue.rule_id }}"
+                 data-index="{{ loop.index0 }}">
+          <div class="issue-head">
+            <span class="badge sev-{{ issue.severity }}">{{ issue.severity | upper }}</span>
+            <span class="issue-title">
+              <span class="t-en">{{ issue.title_en }}</span><span class="t-zh">{{ issue.title_zh }}</span>
+            </span>
+            <code class="rule-id">{{ issue.rule_id }}</code>
+            {% if issue.fixable %}<span class="badge badge-fix"><span class="t-en">auto-fix</span><span class="t-zh">可自动修复</span></span>{% endif %}
+          </div>
+          {% if issue.shape_name %}<div class="issue-sub muted">{{ issue.shape_name }}{% if issue.slide_number %} · {{ 'Slide' if lang == 'en' else '幻灯片' }} {{ issue.slide_number }}{% endif %}</div>{% endif %}
+          {% if issue.detail %}<div class="issue-detail">{{ issue.detail }}</div>{% endif %}
+          <div class="issue-block"><div class="blk-label"><span class="t-en">Explanation</span><span class="t-zh">问题说明</span></div>
+            <div class="t-en">{{ issue.explanation_en }}</div><div class="t-zh">{{ issue.explanation_zh }}</div>
+          </div>
+          <div class="issue-block"><div class="blk-label"><span class="t-en">Recommendation</span><span class="t-zh">修复建议</span></div>
+            <div class="t-en">{{ issue.recommendation_en }}</div><div class="t-zh">{{ issue.recommendation_zh }}</div>
+          </div>
+          <div class="issue-foot">
+            <span class="muted small">{{ 'Confidence' if lang == 'en' else '置信度' }}: {{ '%.2f' | format(issue.confidence) }}</span>
+            <button class="btn btn-locate" type="button" data-locate="{{ loop.index0 }}">
+              <span class="t-en">Locate</span><span class="t-zh">定位</span>
+            </button>
+          </div>
+        </article>
+        {% else %}
+        <div class="card empty"><span class="t-en">No issues found. Great!</span><span class="t-zh">未发现问题，很好！</span></div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</main>
+
+<script id="issues-data" type="application/json">{{ issues_json | safe }}</script>
+<script>{{ report_js | safe }}</script>
+</body>
+</html>
