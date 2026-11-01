@@ -207,3 +207,47 @@ def test_write_json_roundtrip(tmp_path: Path) -> None:
 def test_invalid_dict_rejected() -> None:
     with pytest.raises(Exception):
         validate_output({"not": "a report"})
+
+
+def test_offslide_out_of_range_normalized_location_passes_schema(tmp_path: Path) -> None:
+    """Regression: an object fully outside the canvas yields normalized coords
+    outside [0,1] (x > 1, y < 0, width > 1). The schema must accept these."""
+    SW, SH = 9144000, 6858000  # 10in x 7.5in slide
+
+    # object straddling the right edge: x=9525000 -> 1.0417 (x > 1)
+    right_off = Issue(
+        rule_id="offslide_object",
+        slide_index=0, slide_number=1, shape_id="2", shape_name="TextBox R",
+        location=Location(x=9525000, y=2000000, width=1500000, height=1200000),
+        detail="right edge off canvas", confidence=1.0, evidence={},
+    )
+    # object off the left/top edge: x = -500000 -> negative, y = -300000 -> negative
+    left_off = Issue(
+        rule_id="offslide_object",
+        slide_index=0, slide_number=1, shape_id="3", shape_name="TextBox L",
+        location=Location(x=-500000, y=-300000, width=2000000, height=1500000),
+        detail="left/top off canvas", confidence=1.0, evidence={},
+    )
+    result = ScanResult(
+        file_path="/deck/broken_all.pptx", file_name="broken_all.pptx",
+        slide_count=1, slide_width=SW, slide_height=SH,
+        timestamp="2026-11-02T10:00:00Z", config={},
+        issues=[right_off, left_off],
+    )
+
+    # to_dict / validate must not raise on out-of-range normalized coords
+    data = result.to_dict()
+    assert validate_output(data) == "ScanResult"
+
+    right_nl = data["issues"][0]["normalized_location"]
+    left_nl = data["issues"][1]["normalized_location"]
+    # real off-slide coordinates preserved verbatim, not clamped to [0,1]
+    assert right_nl["x"] > 1.0
+    assert left_nl["x"] < 0.0
+    assert left_nl["y"] < 0.0
+
+    # write_json must also pass (it calls validate_output before writing)
+    path = write_json(result, tmp_path / "broken_all.json")
+    on_disk = json.loads(path.read_text(encoding="utf-8"))
+    assert on_disk["issues"][0]["normalized_location"]["x"] > 1.0
+    assert validate_output(on_disk) == "ScanResult"

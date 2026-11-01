@@ -18,14 +18,14 @@
     },
     "NormalizedLocation": {
       "type": "object",
-      "description": "Bounding box normalized to slide dimensions (0..1 fractions).",
+      "description": "Bounding box normalized to slide dimensions. Coordinates are fractions of slide width/height; off-slide objects may legitimately fall outside [0,1] (negative x/y means the object sits above/left of the canvas, width/height > 1 means it is larger than the slide).",
       "required": ["x", "y", "width", "height"],
       "additionalProperties": false,
       "properties": {
-        "x": { "type": "number", "minimum": 0, "maximum": 1 },
-        "y": { "type": "number", "minimum": 0, "maximum": 1 },
-        "width": { "type": "number", "minimum": 0, "maximum": 1 },
-        "height": { "type": "number", "minimum": 0, "maximum": 1 }
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "width": { "type": "number", "minimum": 0 },
+        "height": { "type": "number", "minimum": 0 }
       }
     },
     "Severity": {
