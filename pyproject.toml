@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "layoutproof"
+version = "0.1.0a1"
+description = "Local-first automated quality assurance for AI-generated PowerPoint (.pptx) files"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "LayoutProof Contributors" }]
+keywords = [
+    "pptx",
+    "powerpoint",
+    "quality-assurance",
+    "lint",
+    "accessibility",
+    "ai-agent",
+    "layout",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "python-pptx>=1.0",
+    "lxml>=5.0",
+    "Pillow>=10.0",
+    "Jinja2>=3.1",
+    "jsonschema>=4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+]
+
+[project.scripts]
+layoutproof = "layoutproof.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/layoutproof/layoutproof"
+Documentation = "https://github.com/layoutproof/layoutproof#readme"
+Issues = "https://github.com/layoutproof/layoutproof/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+layoutproof = ["report/templates/*.html", "report/templates/*.css", "report/templates/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+markers = [
+    "slow: marks tests as slow",
+    "renderer: tests requiring an external renderer (LibreOffice/PowerPoint)",
+]
+
+[tool.coverage.run]
+source = ["layoutproof"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+]
