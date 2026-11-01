@@ -207,10 +207,12 @@ def build(corpus_dir: Path) -> list[dict]:
                 "unfinished_placeholder", "media_broken", "broken_reference",
                 "missing_alt_text", "cjk_typography",
             ],
-            "expected_severity_counts": {"error": 4, "warning": 6, "info": 1},
+            "expected_severity_counts": {"error": 4, "warning": 8, "info": 1},
             "summary": "One defect per slide: off-slide shape, overflowing box, overlap, 8pt text, "
-                       "grey-on-white contrast, blank slide, TODO/Lorem placeholders, corrupted PNG, "
-                       "hyperlink to missing slide, alt-less image, CJK kinsoku violation.",
+                       "grey-on-white contrast, blank slide, three leftover placeholders on slide 7 "
+                       "(Click to add title / TODO / Lorem ipsum -> 3 unfinished_placeholder findings), "
+                       "corrupted PNG, hyperlink to missing slide, alt-less image, CJK kinsoku violation. "
+                       "Totals: error=4, warning=8, info=1.",
         },
         {
             "file": "broken_structure.pptx",

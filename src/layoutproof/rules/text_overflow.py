@@ -18,12 +18,13 @@ from ..parsing.geometry import emu_to_pt
 from .base import Rule, register_rule
 
 # Rough vertical padding inside a text frame (top + bottom insets, in points).
-_FRAME_PADDING_PT = 12.0
-# Typical line leading multiplier relative to the font size.
-_LINE_LEADING = 1.25
-# Average advance width of a glyph as a fraction of the font size (a rough
-# middle ground between narrow Latin glyphs and full-width CJK glyphs).
-_GLYPH_WIDTH_FRACTION = 0.55
+# PowerPoint default bodyPr insets are ~0.05" top/bottom = ~7pt total.
+_FRAME_PADDING_PT = 8.0
+# Typical single-spaced line leading multiplier relative to the font size.
+_LINE_LEADING = 1.2
+# Average advance width of a Latin glyph as a fraction of the font size
+# (mixed case with spaces and narrow glyphs averages below 0.5em).
+_GLYPH_WIDTH_FRACTION = 0.45
 # Horizontal inset allowance (left + right insets, in points).
 _HORIZONTAL_PADDING_PT = 16.0
 

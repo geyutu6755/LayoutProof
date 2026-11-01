@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "tool": "layoutproof-test-fixtures",
-  "generated_at": "2026-11-01T16:38:29+00:00",
+  "generated_at": "2026-11-01T17:14:56+00:00",
   "categories": [
     "clean",
     "broken",
@@ -50,10 +50,10 @@
       ],
       "expected_severity_counts": {
         "error": 4,
-        "warning": 6,
+        "warning": 8,
         "info": 1
       },
-      "summary": "One defect per slide: off-slide shape, overflowing box, overlap, 8pt text, grey-on-white contrast, blank slide, TODO/Lorem placeholders, corrupted PNG, hyperlink to missing slide, alt-less image, CJK kinsoku violation."
+      "summary": "One defect per slide: off-slide shape, overflowing box, overlap, 8pt text, grey-on-white contrast, blank slide, three leftover placeholders on slide 7 (Click to add title / TODO / Lorem ipsum -> 3 unfinished_placeholder findings), corrupted PNG, hyperlink to missing slide, alt-less image, CJK kinsoku violation. Totals: error=4, warning=8, info=1."
     },
     {
       "file": "broken_structure.pptx",
@@ -76,10 +76,10 @@
       ],
       "expected_severity_counts": {
         "error": 0,
-        "warning": 1,
+        "warning": 2,
         "info": 0
       },
-      "summary": "Two slides: well-typeset CJK (YaHei, full-width punctuation, proper CJK-Latin spacing) and a broken slide with line-start comma, glued CJK-Latin, and half-width comma."
+      "summary": "Slide 1 is a well-typeset CJK page (YaHei, full-width punctuation, proper CJK-Latin spacing) and reports 0 issues. Slide 2 triggers 2 cjk_typography findings: a line-start comma (kinsoku_line_start) and a half-width comma after CJK text (halfwidth_punct). Glued CJK-Latin with no space is treated as a style choice and is not flagged."
     },
     {
       "file": "complex_overloaded.pptx",
@@ -106,13 +106,15 @@
     {
       "file": "crossrender_flat_4x3.pptx",
       "category": "cross-renderer",
-      "expected_rule_ids": [],
+      "expected_rule_ids": [
+        "offslide_object"
+      ],
       "expected_severity_counts": {
-        "error": 0,
+        "error": 1,
         "warning": 0,
         "info": 0
       },
-      "summary": "4:3, Calibri, table flattened to rectangles. Same content, different authoring. Expected renderer differences: (1) LibreOffice falls back to a metric font (e.g. Noto Sans CJK) when Microsoft YaHei is absent, slightly shifting line breaks vs PowerPoint. (2) PowerPoint renders the native table with its own theme styling; LibreOffice and WPS apply their own table borders, so column widths may reflow by a few pixels. (3) The 4:3 flattened deck has no native table, so all three renderers should agree, but the rectangles may not align to a real grid in master-view editing. (4) WPS on Linux may substitute a different CJK font than Windows PowerPoint, altering glyph metrics."
+      "summary": "4:3, Calibri, table flattened to rectangles. The title text box was authored at the 16:9 width (~12.03 in) and overflows the 4:3 canvas (10 in) by ~2 in, which is a genuine offslide_object finding rather than a false positive. Same content, different authoring. Expected renderer differences: (1) LibreOffice falls back to a metric font (e.g. Noto Sans CJK) when Microsoft YaHei is absent, slightly shifting line breaks vs PowerPoint. (2) PowerPoint renders the native table with its own theme styling; LibreOffice and WPS apply their own table borders, so column widths may reflow by a few pixels. (3) The 4:3 flattened deck has no native table, so all three renderers should agree, but the rectangles may not align to a real grid in master-view editing. (4) WPS on Linux may substitute a different CJK font than Windows PowerPoint, altering glyph metrics."
     }
   ]
 }

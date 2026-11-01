@@ -7,8 +7,9 @@ checks, each tagged in ``evidence.hit_types``:
   that should never begin a line (行頭禁則: e.g. 。，、；：？！」』】》…),
 * ``kinsoku_line_end``    - a paragraph/line closes with an opening punctuation
   that should never end a line (行末禁則: e.g. （「『【《“),
-* ``cjk_latin_space``     - an ASCII space sits between a CJK character and an
-  ASCII letter/digit (中西文之间多余的 ASCII 空格),
+* ``cjk_latin_space``     - two or more ASCII spaces between a CJK character
+  and an ASCII letter/digit (多个连续中西文空格；单个正常空格不报，
+  glued 零空格属风格选择也不报),
 * ``halfwidth_punct``     - half-width ASCII punctuation adjacent to CJK text
   where full-width punctuation is expected (全/半角混用).
 
@@ -35,9 +36,10 @@ KINSOKU_LINE_START = set("、。，．；：？！”’）」』］｝》〉…
 # 行末禁則：不能出现在行末的开放标点（opening punctuation）。
 KINSOKU_LINE_END = set("（(「『［｛【《〈〔“‘")
 
-# 中文/全角字符与拉丁字母或数字之间夹着 ASCII 空白。
+# 中文/全角字符与拉丁字母或数字之间夹着 >=2 个连续 ASCII 空白。
+# 单个正常中西文空格（zhRym/现代中文排版推荐的正确间距）不报。
 _CJK_LATIN_SPACE_RE = re.compile(
-    rf"{_CJK}[ \t]+[A-Za-z0-9]|[A-Za-z0-9][ \t]+{_CJK}"
+    rf"{_CJK}[ \t]{{2,}}[A-Za-z0-9]|[A-Za-z0-9][ \t]{{2,}}{_CJK}"
 )
 
 # 半角标点紧邻中文（小数点两侧均为数字的情况被排除，避免误报 3.14）。

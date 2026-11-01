@@ -63,32 +63,39 @@ def test_low_contrast_positive_and_negative(tmp_path):
     s3.background.fill.fore_color.rgb = WHITE
     _add_text(s3, "黑色大字", 24, DARK)
 
-    # negative 2: unknown background -> fail open, never reported
+    # positive 3: no slide bg -> fall back to slide master theme bg1 (white);
+    # light gray text on theme white is flagged with basis=theme_bg1
     s4 = prs.slides.add_slide(prs.slide_layouts[6])
-    _add_text(s4, "默认背景灰字", 12, GRAY)
+    _add_text(s4, "母版白底灰字", 12, GRAY)
 
-    # positive 3: shape-fill basis (text on its own solid gray box, ratio 1:1)
+    # negative 2: master theme white with black large text passes
     s5 = prs.slides.add_slide(prs.slide_layouts[6])
-    box = _add_text(s5, "同色填充", 12, MID)
+    _add_text(s5, "母版白底黑字", 24, DARK)
+
+    # positive 4: shape-fill basis (text on its own solid gray box, ratio 1:1)
+    s6 = prs.slides.add_slide(prs.slide_layouts[6])
+    box = _add_text(s6, "同色填充", 12, MID)
     box.fill.solid()
     box.fill.fore_color.rgb = MID
 
     issues = _run_rule(prs, tmp_path / "contrast.pptx")
 
-    assert len(issues) == 3
-    slide_idx = sorted(i.slide_index for i in issues)
-    assert slide_idx == [0, 1, 4]
+    assert sorted(i.slide_index for i in issues) == [0, 1, 3, 5]
+    assert len(issues) == 4
 
-    for issue in issues:
-        assert issue.rule_id == "low_contrast"
-        assert issue.confidence == 0.8
+    by_basis = {i.evidence["basis"]: i for i in issues}
+    assert set(by_basis) == {"slide_bg", "theme_bg1", "shape_fill"}
 
-    bases = {i.evidence["basis"] for i in issues}
-    assert bases == {"slide_bg", "shape_fill"}
+    # theme-derived background: lower confidence (0.7), white bg
+    theme_issue = by_basis["theme_bg1"]
+    assert theme_issue.slide_index == 3
+    assert theme_issue.confidence == 0.7
+    assert theme_issue.evidence["background"] == "FFFFFF"
 
-    # the two slide-bg findings both report white as background
-    slide_bg_issues = [i for i in issues if i.evidence["basis"] == "slide_bg"]
-    assert all(i.evidence["background"] == "FFFFFF" for i in slide_bg_issues)
+    # explicit solid backgrounds keep 0.8 confidence
+    assert by_basis["slide_bg"].confidence == 0.8
+    assert by_basis["shape_fill"].confidence == 0.8
+
     # large text uses 3.0 threshold, small uses 4.5
-    thresholds = {r["threshold"] for i in slide_bg_issues for r in i.evidence["bad_runs"]}
+    thresholds = {r["threshold"] for i in issues for r in i.evidence["bad_runs"]}
     assert thresholds == {4.5, 3.0}

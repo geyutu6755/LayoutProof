@@ -90,8 +90,10 @@ def build(corpus_dir: Path) -> list[dict]:
         {
             "file": "crossrender_flat_4x3.pptx",
             "category": "cross-renderer",
-            "expected_rule_ids": [],
-            "expected_severity_counts": {"error": 0, "warning": 0, "info": 0},
-            "summary": "4:3, Calibri, table flattened to rectangles. " + note,
+            "expected_rule_ids": ["offslide_object"],
+            "expected_severity_counts": {"error": 1, "warning": 0, "info": 0},
+            "summary": "4:3, Calibri, table flattened to rectangles. The title text box was authored at "
+                       "the 16:9 width (~12.03 in) and overflows the 4:3 canvas (10 in) by ~2 in, which is "
+                       "a genuine offslide_object finding rather than a false positive. " + note,
         },
     ]

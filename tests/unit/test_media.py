@@ -94,3 +94,31 @@ def test_healthy_deck_has_no_media_issues(tmp_path):
     model = build_model(str(path), QualityConfig())
     issues = list(MediaBrokenRule(QualityConfig()).check(model))
     assert issues == []
+
+
+def test_existing_but_corrupt_image_is_flagged(tmp_path):
+    """Image part exists in the package but its bytes are not a real image."""
+    blob = _png_bytes((10, 120, 200))
+    prs = Presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide.shapes.add_picture(io.BytesIO(blob), Inches(1), Inches(1), Inches(2), Inches(1))
+    raw = tmp_path / "media_corrupt_raw.pptx"
+    prs.save(str(raw))
+
+    broken = tmp_path / "media_corrupt.pptx"
+    garbage = b"\x00\x01NOT_A_REAL_PNG" + b"\x00" * 28  # 36 bytes, bad magic
+    with zipfile.ZipFile(raw) as zin, zipfile.ZipFile(
+        broken, "w", zipfile.ZIP_DEFLATED
+    ) as zout:
+        for item in zin.infolist():
+            data = garbage if item.filename == "ppt/media/image1.png" else zin.read(item.filename)
+            zout.writestr(item, data)
+
+    model = build_model(str(broken), QualityConfig())
+    issues = list(MediaBrokenRule(QualityConfig()).check(model))
+
+    assert len(issues) == 1
+    issue = issues[0]
+    assert issue.rule_id == "media_broken"
+    assert issue.evidence["reason"] == "bad_signature"
+    assert issue.evidence["resolved"] == "ppt/media/image1.png"

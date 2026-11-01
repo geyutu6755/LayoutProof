@@ -28,21 +28,26 @@ def _run_rule(prs, path):
 def test_cjk_typography_positive_and_negative(tmp_path):
     prs = Presentation()
 
-    # positive: half-width comma, ASCII space between CJK and latin,
+    # positive: half-width comma, multiple consecutive CJK/Latin spaces,
     # and a paragraph opening with a forbidden closing punctuation
     s1 = prs.slides.add_slide(prs.slide_layouts[6])
     _add_text(
         s1,
-        ["你好,世界。", "、行首不应出现标点。", "这是 中文 ABC 排版示例。"],
+        ["你好,世界。", "、行首不应出现标点。", "这是中文  ABC 排版。"],
     )
 
-    # negative: clean Chinese, full-width punctuation, no stray spaces
+    # negative: clean Chinese, full-width punctuation, ONE normal space
+    # between CJK and Latin/digit (recommended modern typesetting) -> no issue
     s2 = prs.slides.add_slide(prs.slide_layouts[6])
-    _add_text(s2, ["你好，世界。这是正常的中文排版。"])
+    _add_text(s2, ["你好，世界。中文与 English、数字 123 之间间距正常。"])
+
+    # negative: glued CJK-Latin without any space is a style choice -> no issue
+    s3 = prs.slides.add_slide(prs.slide_layouts[6])
+    _add_text(s3, ["使用Python编写脚本，完成数据处理。"])
 
     # negative: no CJK at all
-    s3 = prs.slides.add_slide(prs.slide_layouts[6])
-    _add_text(s3, ["Hello world 123"])
+    s4 = prs.slides.add_slide(prs.slide_layouts[6])
+    _add_text(s4, ["Hello world 123"])
 
     issues = _run_rule(prs, tmp_path / "cjk.pptx")
 

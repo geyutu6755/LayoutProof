@@ -75,8 +75,11 @@ def build(corpus_dir: Path) -> list[dict]:
             "file": "chinese_typesetting.pptx",
             "category": "chinese",
             "expected_rule_ids": ["cjk_typography"],
-            "expected_severity_counts": {"error": 0, "warning": 1, "info": 0},
-            "summary": "Two slides: well-typeset CJK (YaHei, full-width punctuation, proper CJK-Latin spacing) "
-                       "and a broken slide with line-start comma, glued CJK-Latin, and half-width comma.",
+            "expected_severity_counts": {"error": 0, "warning": 2, "info": 0},
+            "summary": "Slide 1 is a well-typeset CJK page (YaHei, full-width punctuation, proper "
+                       "CJK-Latin spacing) and reports 0 issues. Slide 2 triggers 2 cjk_typography "
+                       "findings: a line-start comma (kinsoku_line_start) and a half-width comma after "
+                       "CJK text (halfwidth_punct). Glued CJK-Latin with no space is treated as a "
+                       "style choice and is not flagged.",
         }
     ]
