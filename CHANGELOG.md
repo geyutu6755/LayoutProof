@@ -3,6 +3,57 @@
 All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/) and uses semantic versioning.
 
+## [Unreleased]
+
+### Added
+
+- Real rendering chain: isolated LibreOffice converts PPTX to PDF, and PyMuPDF
+  rasterizes slides to PNG with a render manifest; the report embeds the actual
+  rendered slides with issue markers and an explicit "real rendering" badge.
+- 66-file independent evaluation set (52 unique authored decks plus LibreOffice
+  resaves) with per-rule Precision/Recall and timing, recorded under `eval/`.
+- Multi-strategy fix upgrade: collision-aware overflow chain (enlarge → shrink
+  → normal autofit, never deleting content), collision-free off-slide placement
+  with a safe margin, and per-issue resolved/unchanged/regressed/skipped
+  classification via an additive `DetailedFixReport` that keeps the legacy JSON
+  contract byte-stable.
+- Local-only loopback Web UI (stdlib server, no external CDN) with upload,
+  scan, fix and report flows and English/Chinese localization.
+- Formal fuzz, security, contract, performance and install test suites.
+- Bilingual FAQ, contributor/security governance and 14 repository topics.
+
+### Fixed
+
+- A real stored-XSS breakout in the HTML report's JSON data block; script
+  payloads are now escaped with permanent regression tests.
+- Two false positives (decorative off-slide shapes; placeholder prose).
+- A renderer-discovery bug where a pinned/non-standard GUI `soffice.exe` (which
+  does not return console output) failed detection: the sibling `soffice.com`
+  console wrapper is now preferred for every Windows candidate. Existence
+  checks use `os.path.exists` because `pathlib.Path` dispatches on `os.name`
+  and broke the cross-platform tests.
+- Cross-platform CI defects: the XXE test no longer relies on a Windows-only
+  malformed file URI; the CLI and its subprocess tests handle UTF-8 so
+  cp1252 Windows runners no longer crash.
+
+### Verified
+
+- The full suite passes on both platforms: 224 collected, 219 passed,
+  5 intentionally skipped, 0 failures; core coverage 86% (gate 85%).
+- On the judged corpus, core and full profiles score P=R=F1=1.0 with 0 FP /
+  0 FN; 39 explicitly "unknown" cases are excluded honestly.
+- The English and Chinese HTML reports and the loopback Web UI landing page
+  were inspected in a real Chromium browser (headless Edge).
+- CI is green across Ubuntu + Windows × Python 3.11/3.12/3.13 plus a ruff job.
+
+### Known limitations
+
+- macOS is not tested (no CI job); Linux coverage is Ubuntu-only. The Web UI
+  post-upload data view is covered by automated tests rather than a separate
+  browser screenshot.
+- PyPI publication and the stable 1.0.0 release remain gated; only the
+  prerelease v0.1.0a1 (wheel + sdist) is published.
+
 ## [0.1.0a1] — 2026-11-02
 
 ### Added
