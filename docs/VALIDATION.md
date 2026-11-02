@@ -77,9 +77,14 @@ Last updated: 2026-11-02
   a real upload produced the data view (summary chips, slide navigation,
   geometry preview and issue cards), and clicking One-click Fix produced the
   before/after comparison showing 4 issues removed, 4 fixes applied and
-  resolved=4, with the after view reporting zero issues. The landing page
+  resolved=4, with the after view reporting zero issues. With the server
+  launched against a real LibreOffice renderer the "Real renderer available"
+  badge appears and the stage embeds the actual rendered slide with issue
+  markers overlaid, both before (4 issues) and after (0 issues); the
+  `/api/image` endpoint serves the real PNGs. The landing page
   (drag-and-drop zone, static-fallback badge, language toggle) was likewise
-  browser-verified.
+  browser-verified. Headless screenshots need a settle delay after the image
+  reports `naturalWidth > 0` so the paint is complete before capture.
 - **Renderer discovery defect fixed:** the GUI `soffice.exe` does not return
   console output (`--version` hangs), so a pinned/non-standard `.exe` path
   failed detection. The discovery now prefers the sibling `soffice.com`

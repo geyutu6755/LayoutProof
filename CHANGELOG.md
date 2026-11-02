@@ -51,7 +51,10 @@ All notable changes to this project are documented here. The format follows
 - The English and Chinese HTML reports and the loopback Web UI were verified
   in a real Chromium browser (headless Edge): the upload data view and the
   One-click Fix before/after comparison show 4 issues removed and resolved=4.
-- CI is green across Ubuntu + Windows × Python 3.11/3.12/3.13 plus a ruff job.
+  With a real renderer, the Web UI embeds the actual rendered slide with
+  markers before and after the fix.
+- CI is green across Ubuntu + Windows × Python 3.11/3.12/3.13 plus a ruff
+  job, and now lints and tests the web package as well.
 
 ### Known limitations
 
