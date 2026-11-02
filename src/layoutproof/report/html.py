@@ -21,6 +21,25 @@ def _image_data_uri(path: str | Path) -> str:
     return f"data:image/png;base64,{encoded}"
 
 
+def _json_script_payload(value: Any) -> str:
+    """Serialise JSON for a ``<script type="application/json">`` data block.
+
+    The payload is user-influenced: shape names, details and file names come
+    from the scanned deck. A literal ``</script>`` inside the JSON would still
+    terminate the element in the HTML parser (non-executing MIME type does not
+    change CDATA-like script parsing), allowing a malicious deck to break out
+    and inject markup. Escape HTML metacharacters as JSON unicode escapes;
+    ``JSON.parse`` / ``textContent`` decode them back unchanged, so no report
+    data is lost.
+    """
+    text = json.dumps(value, ensure_ascii=False)
+    return (
+        text.replace("<", "\\u003c")
+        .replace(">", "\\u003e")
+        .replace("&", "\\u0026")
+    )
+
+
 def _markers_for_slide(result: ScanResult, slide_number: int) -> list[dict]:
     """Normalized issue markers for one slide, positioned over the image."""
     markers: list[dict] = []
@@ -159,7 +178,7 @@ def render_html(
         "slide_count": result.slide_count,
         "summary": summary.to_dict(),
         "issues": issues_view,
-        "issues_json": json.dumps(issues_view, ensure_ascii=False),
+        "issues_json": _json_script_payload(issues_view),
         "fix_report": _build_fix_view(fix_report),
         "render_view": _build_render_view(render_result, result, fixed_render, fixed_result),
         "style_css": style_css,

@@ -19,11 +19,21 @@ Last updated: 2026-11-02
 
 ## 2. Test & coverage status
 
-- Full suite: **100 tests pass** (observed 2026-11-02).
-- Line coverage: **86%** (`pytest --cov=layoutproof`), render module
-  backend 82% / engine 88% / images 91%.
-- Coverage is treated as a signal, not the goal; uncovered branches are
-  mostly defensive `except` paths and renderer-specific edge cases.
+- Full suite (default run): **200 collected, 194 passed, 6 skipped, 0 failed,
+  0 errors** (independently observed 2026-11-02).
+- The 6 skips are intentional and documented in `tests/SKIP_NOTES.md`: 2
+  render-chain tests when no renderer is configured, 2 heavy-media tests
+  (gated by `LAYOUTPROOF_PERF=1`), 1 isolated-venv lifecycle test, and 1
+  offline wheel build (build backend unavailable). With the renderer env set,
+  the render-chain tests pass (10/10).
+- Line coverage: **86%** (`pytest --cov=layoutproof`, branch metric). The
+  formal suite raised `parsing/package.py` from 54% to 98%, `models.py` to
+  98%, `engine.py` to 90%.
+- Formal test directories now present: `tests/fuzz`, `tests/security`,
+  `tests/contract`, `tests/performance`, `tests/install`, plus a shared
+  `tests/helpers_decks.py`. Coverage is treated as a signal, not the goal;
+  uncovered branches are mostly defensive `except` paths and renderer/
+  gated edge cases.
 
 ## 3. Contract verification
 
@@ -50,23 +60,41 @@ Last updated: 2026-11-02
 
 ## 5. Detection accuracy (current corpus)
 
+- Independent evaluation set (`eval/`): 66 physical files, 52 unique authored
+  decks (python-pptx + PptxGenJS) plus 14 LibreOffice resaves; 39 explicitly
+  "unknown" cases excluded from scoring.
+- After the two false-positive fixes, both profiles score **P=R=F1=1.0** on
+  the judged cases (0 FP / 0 FN, 0 mismatches). This is a property of this
+  corpus and its ground truth, not a claim of universal perfection; real-world
+  edge cases remain under continuous evaluation.
+- Mean detection time ~18-20 ms/file, max ~124 ms (full detail in
+  `eval/results/timing.json`).
 - Clean decks (`clean_basic`, `clean_agenda`, `complex_overloaded`,
   `crossrender_native_16x9`): zero false positives.
-- `broken_all.pptx`: 11 planted defects detected (13 findings total across
+- `broken_all.pptx`: 11 planted defects detected (13 findings across
   severities; multiple placeholders on slide 7).
 - `chinese_typesetting.pptx`: good slide 0 findings; bad slide 2 CJK findings
   (kinsoku line start, half-width punctuation).
 - `crossrender_flat_4x3.pptx`: 1 real off-slide finding (title box past 4:3).
 - `broken_structure.pptx`: status=error, "not a valid zip/pptx package".
-- A larger independent evaluation set and per-rule Precision/Recall are
-  tracked separately (see `eval/`); not yet at the 50-file target.
 
 ## 6. Security checks (status)
 
 - In-memory zip loader guards against zip-slip, duplicate entries,
-  compression bombs and unsafe XML (entity resolution/network disabled).
-- Detailed adversarial tests (fuzz, malformed relationships, XSS, large-file
-  memory/time) are being formalized; results appended here as they land.
+  compression bombs (entry-count and total-size quotas) and unsafe XML;
+  formal adversarial tests now assert the real error messages for all of
+  these in `tests/security`.
+- XML entity safety: local `file:` SYSTEM entities, external `http:` entities
+  and parameter entities are blocked with entity resolution and network
+  access disabled; a secret-marker probe confirms no file content leaks.
+- Fuzz: byte mutation/truncation/flips and structured edge cases never raise
+  an uncaught exception and never return the internal exit code 3.
+- Real defect fixed: the HTML report's JSON data block was vulnerable to a
+  `</script>` stored-XSS breakout via malicious shape names/details. It now
+  escapes `<`, `>`, `&` as unicode escapes (`_json_script_payload`), covered
+  by permanent regression tests in `tests/contract/test_html_output_safety.py`.
+- Performance: real ~10 MB and ~50 MB media decks (gated) scan within
+  documented time/memory bounds; see `tests/performance/PERF_RESULTS.md`.
 
 ## 7. Not verified / blocked
 
@@ -81,3 +109,10 @@ Last updated: 2026-11-02
 
 - 2026-11-02: Initial record. 100 tests / 86% coverage; render chain verified;
   static-fallback and JSON-schema contracts confirmed; GitHub push observed.
+- 2026-11-02: Independent 66-file evaluation set added; two confirmed false
+  positives (decorative off-slide, placeholder prose) fixed with regression
+  tests; judged corpus now 0 FP/0 FN, 105 tests pass.
+- 2026-11-02: Formal fuzz/security/contract/performance/install test system
+  added (200 collected, 194 passed/6 skipped); real stored-XSS defect in the
+  HTML report fixed and covered by regression tests; package module coverage
+  raised to 98%.
