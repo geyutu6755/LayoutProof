@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "layoutproof"
-version = "0.1.0a1"
+version = "0.2.0b1"
 description = "Local-first automated quality assurance for AI-generated PowerPoint (.pptx) files"
 readme = "README.md"
 requires-python = ">=3.11"

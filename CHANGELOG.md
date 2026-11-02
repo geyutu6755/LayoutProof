@@ -5,6 +5,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.0b1] — 2026-11-02
+
 ### Added
 
 - Real rendering chain: isolated LibreOffice converts PPTX to PDF, and PyMuPDF
@@ -59,8 +61,8 @@ All notable changes to this project are documented here. The format follows
 ### Known limitations
 
 - macOS is not tested (no CI job); Linux coverage is Ubuntu-only.
-- PyPI publication and the stable 1.0.0 release remain gated; only the
-  prerelease v0.1.0a1 (wheel + sdist) is published.
+- PyPI publication and the stable 1.0.0 release remain gated; only GitHub
+  prereleases (v0.1.0a1, v0.2.0b1) are published.
 
 ## [0.1.0a1] — 2026-11-02
 
