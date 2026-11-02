@@ -3,9 +3,10 @@
 ## Current phase
 
 **v1 loop closed with real rendering, multi-strategy fixes, an offline
-loopback web UI, and a 66-file independent evaluation. A pre-release
-v0.1.0a1 is published; CI is green across the full Ubuntu + Windows
-matrix. Not yet a stable 1.0.0.**
+loopback web UI, and a 66-file independent evaluation. A beta pre-release
+v0.2.0b1 is published (after the earlier v0.1.0a1); CI is green across the
+full Ubuntu + Windows matrix, including the web package. Not yet a stable
+1.0.0.**
 
 Last updated: 2026-11-02
 
@@ -40,9 +41,9 @@ Last updated: 2026-11-02
 - Open-source engineering: LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT,
   ROADMAP, issue templates, CI with ruff lint; market research with a
   hands-on re-analysis (real competitor installs) in `docs/MARKET_RESEARCH.md`.
-- Release & discoverability: annotated tag `v0.1.0a1` with a prerelease
-  GitHub Release (wheel + sdist assets), 14 repository topics, and a
-  bilingual `docs/FAQ.md`.
+- Release & discoverability: annotated tags `v0.1.0a1` and `v0.2.0b1`, each
+  with a prerelease GitHub Release (wheel + sdist assets), 14 repository
+  topics, and a bilingual `docs/FAQ.md`.
 - Cross-platform CI is green: Ubuntu + Windows on Python 3.11/3.12/3.13,
   plus the ruff lint job. Two platform-specific defects were fixed:
   - the XXE local-entity test no longer relies on a Windows-only malformed
@@ -85,7 +86,7 @@ Last updated: 2026-11-02
 - Eval P=R=F1=1.0 holds only for this corpus's judged items; 39 unknown
   cases are excluded, real-world edge cases remain.
 - No PyPI publication and no stable release yet; only the GitHub
-  prerelease v0.1.0a1 exists.
+  prereleases v0.1.0a1 and v0.2.0b1 exist.
 
 ## How to recover / resume
 

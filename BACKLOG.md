@@ -35,8 +35,9 @@ Status legend: `[x]` done · `[~]` in progress · `[ ]` pending · `[-]` blocked
 - [x] P3-2 Known limitations documented (real-browser screenshots still
   unavailable; verified via HTTP integration + Node logic instead)
 - [x] P3-3 Cross-renderer notes (LibreOffice / PowerPoint / WPS), static
-- [x] P3-4 Pre-release v0.1.0a1 published (wheel + sdist, 14 topics,
-  bilingual FAQ); stable 1.0.0 and PyPI publication remain gated
+- [x] P3-4 Pre-release v0.1.0a1 and beta v0.2.0b1 published (wheel +
+  sdist, 14 topics, bilingual FAQ); stable 1.0.0 and PyPI publication
+  remain gated
 
 ## P4 — release hardening / external experience
 
