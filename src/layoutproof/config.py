@@ -68,7 +68,7 @@ class QualityConfig:
     max_file_size_mb: int = 100
 
     # Quality gate
-    fail_on: str = "warning"          # "error" | "warning" | "info"
+    fail_on: str = "warning"  # "error" | "warning" | "info"
 
     # Enabled rule ids (empty list means all enabled)
     enabled_rules: list[str] = field(default_factory=list)
@@ -77,9 +77,7 @@ class QualityConfig:
     placeholder_patterns: list[str] = field(
         default_factory=lambda: list(DEFAULT_PLACEHOLDER_PATTERNS)
     )
-    decorative_name_hints: list[str] = field(
-        default_factory=lambda: list(DECORATIVE_NAME_HINTS)
-    )
+    decorative_name_hints: list[str] = field(default_factory=lambda: list(DECORATIVE_NAME_HINTS))
 
     def is_rule_enabled(self, rule_id: str) -> bool:
         if rule_id in self.disabled_rules:
@@ -92,13 +90,13 @@ class QualityConfig:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: dict) -> "QualityConfig":
+    def from_dict(cls, data: dict) -> QualityConfig:
         known = {f for f in cls.__dataclass_fields__}  # type: ignore[attr-defined]
         filtered = {k: v for k, v in data.items() if k in known}
         return cls(**filtered)
 
     @classmethod
-    def load(cls, path: str | Path) -> "QualityConfig":
+    def load(cls, path: str | Path) -> QualityConfig:
         p = Path(path)
         raw = p.read_bytes()
         if p.suffix.lower() == ".toml":

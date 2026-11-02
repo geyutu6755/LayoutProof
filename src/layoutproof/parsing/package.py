@@ -35,9 +35,7 @@ def _is_unsafe_name(name: str) -> bool:
     parts = normalized.split("/")
     if any(part in ("..", "") for part in parts if part != ""):
         return True
-    if ".." in parts:
-        return True
-    return False
+    return ".." in parts
 
 
 class SafePackage:
@@ -73,9 +71,7 @@ class SafePackage:
         total = 0
         infos = zf.infolist()
         if len(infos) > MAX_ENTRIES:
-            self._anomalies.append(
-                f"Package has {len(infos)} entries (limit {MAX_ENTRIES})"
-            )
+            self._anomalies.append(f"Package has {len(infos)} entries (limit {MAX_ENTRIES})")
         for info in infos:
             name = info.filename
             if _is_unsafe_name(name):
@@ -138,7 +134,7 @@ class SafePackage:
             self._zip.close()
             self._zip = None
 
-    def __enter__(self) -> "SafePackage":
+    def __enter__(self) -> SafePackage:
         return self
 
     def __exit__(self, *exc: object) -> None:

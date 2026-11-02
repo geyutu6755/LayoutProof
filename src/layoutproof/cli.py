@@ -22,8 +22,8 @@ from .models import (
     EXIT_INTERNAL,
     EXIT_ISSUES,
     EXIT_USAGE,
-    Severity,
     TOOL_VERSION,
+    Severity,
     exit_code_for,
 )
 
@@ -108,8 +108,7 @@ def cmd_scan(args: argparse.Namespace) -> int:
     results = [scan_file(p, config, profile=args.profile) for p in paths]
     if args.json:
         payload = [r.to_dict() for r in results]
-        text = json.dumps(payload if len(payload) > 1 else payload[0],
-                          indent=2, ensure_ascii=False)
+        text = json.dumps(payload if len(payload) > 1 else payload[0], indent=2, ensure_ascii=False)
         if args.output:
             Path(args.output).write_text(text, encoding="utf-8")
         else:
@@ -206,6 +205,7 @@ def cmd_render(args: argparse.Namespace) -> int:
     if args.html:
         scan = scan_file(source, config, profile=args.profile)
         from .report import render_html
+
         render_html(
             scan,
             args.html,
@@ -231,8 +231,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_scan = sub.add_parser("scan", help="Inspect .pptx files")
     p_scan.add_argument("target", help="A .pptx file or directory")
-    p_scan.add_argument("--recursive", "-r", action="store_true",
-                        help="Recursively scan a directory")
+    p_scan.add_argument(
+        "--recursive", "-r", action="store_true", help="Recursively scan a directory"
+    )
     p_scan.add_argument("--json", action="store_true", help="Emit JSON output")
     p_scan.add_argument("--profile", default="core", choices=["core", "full"])
     p_scan.add_argument("--config", help="Path to a TOML/JSON config file")

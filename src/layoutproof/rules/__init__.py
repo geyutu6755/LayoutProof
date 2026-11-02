@@ -26,13 +26,13 @@ PROFILES = {
 }
 
 __all__ = [
-    "Rule",
-    "register_rule",
-    "get_rule_classes",
-    "load_all_rules",
     "CORE_PROFILE",
     "FULL_PROFILE",
     "PROFILES",
+    "Rule",
+    "get_rule_classes",
+    "load_all_rules",
+    "register_rule",
     "resolve_profile",
     "run_rules",
 ]

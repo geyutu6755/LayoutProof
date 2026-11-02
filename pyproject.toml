@@ -47,6 +47,7 @@ dev = [
     "pytest>=8.0",
     "pytest-cov>=4.0",
     "PyMuPDF>=1.24",
+    "ruff>=0.6",
 ]
 
 [project.scripts]
@@ -87,3 +88,26 @@ exclude_lines = [
     "if __name__ == .__main__.:",
     "raise NotImplementedError",
 ]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific
+    "S",    # bandit security
+]
+# BLE001/S110/S112 are intentional defensive guards in this offline tool;
+# S101 (assert in tests) is expected; security warnings are reviewed manually.
+ignore = ["BLE001", "S110", "S112", "S101", "S311", "S310", "RUF001", "RUF002", "RUF003", "UP042"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S106", "S314", "S108"]

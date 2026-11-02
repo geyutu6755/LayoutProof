@@ -10,7 +10,6 @@ from __future__ import annotations
 import os
 import shutil
 import subprocess
-import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -119,7 +118,9 @@ def _decode(data: bytes | None) -> str:
 
 def _run(cmd: list[str], timeout: int) -> subprocess.CompletedProcess:
     """Run a command capturing bytes (no text-mode decoding surprises)."""
-    return subprocess.run(
+    # The executable is a detected/validated renderer, never shell input;
+    # argv is passed as a list with shell=False, so no command injection.
+    return subprocess.run(  # noqa: S603
         cmd,
         capture_output=True,
         timeout=timeout,

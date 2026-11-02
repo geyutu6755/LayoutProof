@@ -112,8 +112,7 @@ def _build_fix_view(fix_report: FixReport | None) -> dict[str, Any] | None:
         "after": fix_report.after_summary,
         "issues_removed": max(
             0,
-            fix_report.before_summary.get("total", 0)
-            - fix_report.after_summary.get("total", 0),
+            fix_report.before_summary.get("total", 0) - fix_report.after_summary.get("total", 0),
         ),
         "applied": [a.to_dict() for a in fix_report.applied],
         "skipped": [a.to_dict() for a in fix_report.skipped],
@@ -162,9 +161,7 @@ def render_html(
         "issues": issues_view,
         "issues_json": json.dumps(issues_view, ensure_ascii=False),
         "fix_report": _build_fix_view(fix_report),
-        "render_view": _build_render_view(
-            render_result, result, fixed_render, fixed_result
-        ),
+        "render_view": _build_render_view(render_result, result, fixed_render, fixed_result),
         "style_css": style_css,
         "report_js": report_js,
     }

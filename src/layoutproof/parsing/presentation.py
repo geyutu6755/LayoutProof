@@ -7,13 +7,13 @@ python-pptx does not expose directly.
 
 from __future__ import annotations
 
+import contextlib
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from lxml import etree
 from pptx import Presentation
 from pptx.enum.dml import MSO_COLOR_TYPE
-from pptx.enum.shapes import MSO_SHAPE_TYPE
 
 from .geometry import Rect
 from .package import PackageError, SafePackage
@@ -66,7 +66,7 @@ class ShapeModel:
     has_table: bool = False
     has_chart: bool = False
     rotation: float = 0.0
-    autofit: str | None = None          # normAutofit | spAutoFit | noAutofit | None
+    autofit: str | None = None  # normAutofit | spAutoFit | noAutofit | None
     wrap: str | None = None
     parent_id: str | None = None
 
@@ -125,17 +125,11 @@ def _local_name(tag: str) -> str:
 
 
 def _has_decorative_flag(el: etree._Element) -> bool:
-    for node in el.iter():
-        if _local_name(node.tag) == "decorative":
-            return True
-    return False
+    return any(_local_name(node.tag) == "decorative" for node in el.iter())
 
 
 def _is_hidden(el: etree._Element) -> bool:
-    for value in el.xpath(".//@hidden"):
-        if str(value).lower() in ("1", "true"):
-            return True
-    return False
+    return any(str(value).lower() in ("1", "true") for value in el.xpath(".//@hidden"))
 
 
 def _autofit_info(el: etree._Element) -> tuple[str | None, str | None]:
@@ -236,9 +230,7 @@ class PresentationBuilder:
             )
             for idx, slide in enumerate(prs.slides):
                 part_name = slide.part.partname
-                slide_model = SlideModel(
-                    index=idx, number=idx + 1, part_name=str(part_name)
-                )
+                slide_model = SlideModel(index=idx, number=idx + 1, part_name=str(part_name))
                 slide_model.relationships = self._relationships(slide, pkg)
                 slide_model.background_picture = self._has_bg_picture(slide)
                 self._z_counter = 0
@@ -250,8 +242,9 @@ class PresentationBuilder:
             pkg.close()
 
     # ------------------------------------------------------------------
-    def _walk_shapes(self, shapes, slide_model: SlideModel, parent_id: str | None,
-                     model: PresentationModel) -> None:
+    def _walk_shapes(
+        self, shapes, slide_model: SlideModel, parent_id: str | None, model: PresentationModel
+    ) -> None:
         for shape in shapes:
             try:
                 sm = self._build_shape(shape, parent_id)
@@ -259,10 +252,8 @@ class PresentationBuilder:
                 continue
             slide_model.shapes.append(sm)
             if sm.shape_type == "GROUP":
-                try:
+                with contextlib.suppress(Exception):
                     self._walk_shapes(shape.shapes, slide_model, sm.id, model)
-                except Exception:
-                    pass
 
     def _build_shape(self, shape, parent_id: str | None) -> ShapeModel:
         el = shape._element
@@ -344,8 +335,7 @@ class PresentationBuilder:
             # Full-bleed picture at the back is treated as a background.
             if sm.z_order <= 1 and sm.rect.fraction_outside(bounds) < 0.02:
                 covers = (
-                    sm.rect.width >= 0.98 * bounds.width
-                    and sm.rect.height >= 0.98 * bounds.height
+                    sm.rect.width >= 0.98 * bounds.width and sm.rect.height >= 0.98 * bounds.height
                 )
                 if covers:
                     sm.is_background = True
@@ -358,7 +348,8 @@ class PresentationBuilder:
             )
             if bg is None:
                 return False
-            return bg.find(".//{http://schemas.openxmlformats.org/drawingml/2006/main}blip") is not None
+            blip_path = ".//{http://schemas.openxmlformats.org/drawingml/2006/main}blip"
+            return bg.find(blip_path) is not None
         except Exception:
             return False
 
@@ -373,10 +364,7 @@ class PresentationBuilder:
                     exists = pkg.has_part(target_name)
                 action = None
                 el = slide._element
-                r_attr = (
-                    "{http://schemas.openxmlformats.org/officeDocument/2006/"
-                    "relationships}id"
-                )
+                r_attr = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id"
                 for node in el.iter():
                     if node.get(r_attr) == rel.rId:
                         action = node.get("action")

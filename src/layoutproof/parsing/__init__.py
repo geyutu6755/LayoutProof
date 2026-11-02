@@ -13,18 +13,18 @@ from .presentation import (
 )
 
 __all__ = [
-    "Rect",
-    "emu_to_cm",
-    "emu_to_inch",
-    "emu_to_pt",
-    "pt_to_emu",
     "PackageError",
-    "SafePackage",
     "Paragraph",
     "PresentationModel",
+    "Rect",
     "Relationship",
+    "SafePackage",
     "ShapeModel",
     "SlideModel",
     "TextRun",
     "build_model",
+    "emu_to_cm",
+    "emu_to_inch",
+    "emu_to_pt",
+    "pt_to_emu",
 ]

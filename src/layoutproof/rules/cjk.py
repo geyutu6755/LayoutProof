@@ -27,7 +27,6 @@ from ..models import Issue, RuleId
 from ..parsing import PresentationModel
 from .base import Rule, register_rule
 
-
 _CJK = r"[\u3400-\u4dbf\u4e00-\u9fff]"
 _CJK_RE = re.compile(_CJK)
 
@@ -38,16 +37,14 @@ KINSOKU_LINE_END = set("（(「『［｛【《〈〔“‘")
 
 # 中文/全角字符与拉丁字母或数字之间夹着 >=2 个连续 ASCII 空白。
 # 单个正常中西文空格（zhRym/现代中文排版推荐的正确间距）不报。
-_CJK_LATIN_SPACE_RE = re.compile(
-    rf"{_CJK}[ \t]{{2,}}[A-Za-z0-9]|[A-Za-z0-9][ \t]{{2,}}{_CJK}"
-)
+_CJK_LATIN_SPACE_RE = re.compile(rf"{_CJK}[ \t]{{2,}}[A-Za-z0-9]|[A-Za-z0-9][ \t]{{2,}}{_CJK}")
 
 # 半角标点紧邻中文（小数点两侧均为数字的情况被排除，避免误报 3.14）。
 _HALFWIDTH_PUNCT_RE = re.compile(
-    rf"{_CJK}[,;:!?.)]"        # 中文 + 半角标点
-    rf"|[,;:!?]{_CJK}"          # 半角标点 + 中文
-    rf"|{_CJK}\.(?![0-9])"      # 中文.非数字
-    rf"|(?<![0-9])\.{_CJK}"     # 非数字.中文
+    rf"{_CJK}[,;:!?.)]"  # 中文 + 半角标点
+    rf"|[,;:!?]{_CJK}"  # 半角标点 + 中文
+    rf"|{_CJK}\.(?![0-9])"  # 中文.非数字
+    rf"|(?<![0-9])\.{_CJK}"  # 非数字.中文
 )
 
 

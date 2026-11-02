@@ -2,19 +2,20 @@
 
 ## Current phase
 
-**v1 feature-complete: detect → locate → auto-fix → revalidate loop closed.**
+**v1 loop closed and real rendering chain added (detect → locate → render →
+auto-fix → revalidate). Pre-release; not yet a stable 1.0.0.**
 
 Last updated: 2026-11-02
 
 ## What is done
 
-- Environment verified: Windows, PowerShell 7.6.4, Python 3.13.16, git 2.55.
+- Environment verified: Windows, PowerShell, Python 3.13.16, git 2.55.
 - Virtualenv at `.venv` with python-pptx, lxml, Pillow, pytest, pytest-cov,
-  jsonschema, jinja2; package installed in editable mode; `layoutproof`
-  console entry point works.
+  jsonschema, jinja2, PyMuPDF; package installed in editable mode; the
+  `layoutproof` console entry point works.
 - Frozen contracts in `src/layoutproof/models.py`: 12 stable rule ids,
   three-tier severity, bilingual rule catalogue, deterministic JSON schema
-  v1.0 and the exit-code contract (0/1/2/3).
+  and the exit-code contract (0/1/2/3).
 - Safe in-memory loader in `parsing/package.py` (zip-slip, duplicate entry,
   compression-bomb and unsafe-XML protection); object model in
   `parsing/presentation.py`; geometry in `parsing/geometry.py`.
@@ -28,28 +29,36 @@ Last updated: 2026-11-02
   output and optional backup are written as new files.
 - Bilingual HTML report (filters, locating, before/after compare) and
   schema-validated JSON; `layoutproof demo` gives a one-minute first run.
-- Market research in `docs/MARKET_RESEARCH.md` (competitor cards and a
-  differentiation plan); usage details in `docs/USAGE.md`.
+- Real rendering in `render/`: isolated LibreOffice PPTX -> PDF -> PyMuPDF
+  PNG, with version/font diagnostics and a render manifest; the HTML report
+  embeds slides with issue markers and before/after. A disclosed static
+  fallback is used when no renderer is available — never presented as real.
+- `fix_file`/`FixReport` exported from the public package API.
+- Market research in `docs/MARKET_RESEARCH.md`; usage in `docs/USAGE.md`;
+  verification evidence in `docs/VALIDATION.md`.
 
 ## Verified metrics
 
-- Detection accuracy: every planted defect fires with the correct rule id
-  and severity; clean/complex decks produce zero false positives.
+- 100 tests pass; 86% line coverage (see `docs/VALIDATION.md`).
+- Every planted defect fires with the correct rule id and severity; clean
+  and complex decks produce zero false positives.
 - Repeated scans produce identical JSON after dropping the timestamp.
-- Fresh (non-editable) virtualenv install and a single-command scan work.
+- Fix preserves source SHA-256; output always written as a new file.
 - See `QUALITY_GATES.md` for the non-skippable checks.
 
 ## Known limitations
 
-- No LibreOffice/PowerPoint in this environment, so cross-renderer notes
-  are static and the HTML preview uses normalized boxes rather than a
-  rendered slide; documented honestly.
-- No GitHub authorization available; `README.md` lists minimal manual
-  publish steps. Nothing is published or version-bumped artificially.
+- Linux/macOS not tested (no host); cross-platform support not claimed.
+- Edge headless screenshots currently fail in this environment; Web UI
+  browser automation needs another verification path.
+- Independent evaluation set not yet at the 50-file target; per-rule
+  Precision/Recall still being built.
+- No `gh` CLI; PyPI publishing not performed.
 
 ## How to recover / resume
 
 1. Confirm the environment: `.venv\Scripts\python.exe -m pytest -q`
-2. Read `BACKLOG.md` for the next open item.
+2. Read `BACKLOG.md` and `docs/VALIDATION.md` for the next open item.
 3. Follow the working loop in `AGENTS.md`; commit each real increment.
-4. Update this file and `BACKLOG.md` after every checkpoint.
+4. Update this file, `BACKLOG.md` and `docs/VALIDATION.md` after every checkpoint.
+

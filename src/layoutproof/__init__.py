@@ -15,14 +15,14 @@ from .models import (
 __version__ = TOOL_VERSION
 
 __all__ = [
-    "QualityConfig",
-    "scan_file",
-    "fix_file",
     "SCHEMA_VERSION",
     "TOOL_VERSION",
     "FixReport",
     "Issue",
+    "QualityConfig",
     "ScanResult",
     "Severity",
     "__version__",
+    "fix_file",
+    "scan_file",
 ]

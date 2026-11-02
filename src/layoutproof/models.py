@@ -21,9 +21,9 @@ TOOL_VERSION = "0.1.0a1"
 class Severity(str, enum.Enum):
     """Three-tier classification required by the product spec."""
 
-    ERROR = "error"        # deterministic error / 确定性错误
-    WARNING = "warning"    # heuristic warning / 启发式警告
-    INFO = "info"          # informational hint / 信息提示
+    ERROR = "error"  # deterministic error / 确定性错误
+    WARNING = "warning"  # heuristic warning / 启发式警告
+    INFO = "info"  # informational hint / 信息提示
 
 
 # ---------------------------------------------------------------------------
@@ -68,7 +68,8 @@ RULES: dict[str, RuleSpec] = {
         "move_into_slide",
         "Object outside slide bounds",
         "对象位于页面边界之外",
-        "A shape or media element is placed fully or partially outside the slide canvas and will not render in the exported deck.",
+        "A shape or media element is placed fully or partially outside the slide "
+        "canvas and will not render in the exported deck.",
         "形状或媒体元素完全或部分位于幻灯片画布之外，导出后不会显示。",
         "Move the object fully inside the slide bounds, or delete it if it is unused.",
         "将对象移动到幻灯片边界内；若不再使用则删除。",
@@ -79,7 +80,8 @@ RULES: dict[str, RuleSpec] = {
         "autofit_text",
         "Suspected text overflow or clipping",
         "疑似文字溢出或内容裁切",
-        "The text content likely exceeds the shape or placeholder box, so PowerPoint may clip or auto-shrink it.",
+        "The text content likely exceeds the shape or placeholder box, so "
+        "PowerPoint may clip or auto-shrink it.",
         "文本内容可能超出形状或占位符框，PowerPoint 可能裁切或自动缩小文字。",
         "Enlarge the text box, reduce the text, or enable auto-fit/shrink text on overflow.",
         "放大文本框、精简文字，或启用溢出时自动缩排/缩小字体。",
@@ -90,9 +92,11 @@ RULES: dict[str, RuleSpec] = {
         None,
         "Unexpected object overlap or collision",
         "非预期对象遮挡或碰撞",
-        "Two non-decorative objects overlap enough to obscure content, which often indicates a layout collision.",
+        "Two non-decorative objects overlap enough to obscure content, which "
+        "often indicates a layout collision.",
         "两个非装饰对象重叠到足以遮挡内容，通常意味着布局碰撞。",
-        "Reposition or resize the objects so content is not obscured; group them deliberately if overlap is intended.",
+        "Reposition or resize the objects so content is not obscured; group "
+        "them deliberately if overlap is intended.",
         "重新摆放或调整对象大小，避免遮挡；若确需叠放请显式组合。",
     ),
     RuleId.FONT_TOO_SMALL.value: RuleSpec(
@@ -103,7 +107,8 @@ RULES: dict[str, RuleSpec] = {
         "字体过小，难以阅读",
         "The effective font size is below the readable threshold, especially on projected screens.",
         "实际字号低于可读阈值，在投影屏幕上尤其难以辨认。",
-        "Increase the font size to at least the configured minimum, or split the content across slides.",
+        "Increase the font size to at least the configured minimum, or split "
+        "the content across slides.",
         "将字号提升到配置的最小值以上，或拆分内容到多张幻灯片。",
     ),
     RuleId.LOW_CONTRAST.value: RuleSpec(
@@ -112,7 +117,8 @@ RULES: dict[str, RuleSpec] = {
         "adjust_contrast",
         "Insufficient color contrast",
         "颜色对比度不足",
-        "The text/background color combination has a contrast ratio below the readability threshold.",
+        "The text/background color combination has a contrast ratio below the "
+        "readability threshold.",
         "文字与背景的颜色对比度低于可读阈值。",
         "Choose a darker or lighter foreground/background pair that meets the contrast threshold.",
         "调整前景或背景颜色，使对比度达到阈值要求。",
@@ -134,7 +140,8 @@ RULES: dict[str, RuleSpec] = {
         "clear_placeholder",
         "Unfinished placeholder or leftover content",
         "未完成的占位内容或残留文本",
-        "Default placeholder prompts, TODO markers or Lorem ipsum text indicate the deck was left unfinished.",
+        "Default placeholder prompts, TODO markers or Lorem ipsum text indicate "
+        "the deck was left unfinished.",
         "默认占位提示、TODO 标记或 Lorem ipsum 等文本表明文档尚未完成。",
         "Replace the placeholder with real content or remove it.",
         "用真实内容替换占位符，或直接删除。",
@@ -156,7 +163,8 @@ RULES: dict[str, RuleSpec] = {
         None,
         "Broken internal reference",
         "失效的内部引用",
-        "A hyperlink, slide jump or relationship target does not resolve to an existing part or slide.",
+        "A hyperlink, slide jump or relationship target does not resolve to an "
+        "existing part or slide.",
         "超链接、幻灯片跳转或关系目标无法解析到现有部件或幻灯片。",
         "Repair the link target or remove the invalid reference.",
         "修复链接目标，或删除无效引用。",
@@ -189,9 +197,12 @@ RULES: dict[str, RuleSpec] = {
         "normalize_cjk_text",
         "Simplified Chinese typography issue",
         "简体中文排版问题",
-        "Common Chinese typesetting problems such as kinsoku (line starting/ending with a forbidden punctuation mark), improper spacing between Chinese and Latin/digit text, or mixed full-width/half-width punctuation.",
+        "Common Chinese typesetting problems such as kinsoku (line starting or "
+        "ending with a forbidden punctuation mark), improper spacing between "
+        "Chinese and Latin/digit text, or mixed full-width/half-width punctuation.",
         "常见中文排版问题，例如避头尾（行首/行尾出现禁用标点）、中西文或中文字与数字之间间距不当、全角/半角标点混用。",
-        "Normalize punctuation width, fix CJK-Latin spacing, and reflow so forbidden punctuation does not sit at a line break.",
+        "Normalize punctuation width, fix CJK-Latin spacing, and reflow so "
+        "forbidden punctuation does not sit at a line break.",
         "规范标点宽度、修正中西文间距并重新排版，使禁用标点不落在换行处。",
     ),
 }
@@ -237,13 +248,13 @@ class Location:
 @dataclass
 class Issue:
     rule_id: str
-    slide_index: int = -1          # 0-based; -1 for document-level
-    slide_number: int = 0          # 1-based; 0 for document-level
+    slide_index: int = -1  # 0-based; -1 for document-level
+    slide_number: int = 0  # 1-based; 0 for document-level
     shape_id: str | None = None
     shape_name: str | None = None
     location: Location | None = None
-    detail: str = ""               # short, language-neutral technical detail
-    confidence: float = 1.0        # 1.0 for deterministic rules
+    detail: str = ""  # short, language-neutral technical detail
+    confidence: float = 1.0  # 1.0 for deterministic rules
     evidence: dict[str, Any] = field(default_factory=dict)
 
     @property
@@ -315,7 +326,7 @@ class ScanResult:
     slide_width: int = 0
     slide_height: int = 0
     issues: list[Issue] = field(default_factory=list)
-    status: str = "ok"             # "ok" | "error"
+    status: str = "ok"  # "ok" | "error"
     error: str | None = None
     timestamp: str = ""
     config: dict[str, Any] = field(default_factory=dict)
@@ -365,7 +376,7 @@ class AppliedFix:
     rule_id: str
     shape_id: str | None
     action: str
-    status: str = "applied"        # "applied" | "skipped"
+    status: str = "applied"  # "applied" | "skipped"
     note: str = ""
 
     def to_dict(self) -> dict[str, Any]:
@@ -399,8 +410,7 @@ class FixReport:
             "after": self.after_summary,
             "issues_removed": max(
                 0,
-                self.before_summary.get("total", 0)
-                - self.after_summary.get("total", 0),
+                self.before_summary.get("total", 0) - self.after_summary.get("total", 0),
             ),
             "note": self.note,
         }
@@ -408,11 +418,11 @@ class FixReport:
 
 # ---------------------------------------------------------------------------
 # Exit codes
-# ---------------------------------------------------------------- Exit-code contract for AI agents / CI.
-EXIT_CLEAN = 0          # no issues at or above the fail threshold
-EXIT_ISSUES = 1         # quality gate failed
-EXIT_USAGE = 2          # bad arguments / missing or invalid input
-EXIT_INTERNAL = 3       # unexpected internal error
+# ------------------------------------------------- Exit-code contract for AI agents / CI.
+EXIT_CLEAN = 0  # no issues at or above the fail threshold
+EXIT_ISSUES = 1  # quality gate failed
+EXIT_USAGE = 2  # bad arguments / missing or invalid input
+EXIT_INTERNAL = 3  # unexpected internal error
 
 
 def exit_code_for(result: ScanResult, fail_on: Severity = Severity.WARNING) -> int:

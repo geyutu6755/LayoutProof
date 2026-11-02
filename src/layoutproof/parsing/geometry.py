@@ -15,7 +15,7 @@ def emu_to_pt(emu: float) -> float:
 
 
 def pt_to_emu(pt: float) -> int:
-    return int(round(pt * EMU_PER_POINT))
+    return round(pt * EMU_PER_POINT)
 
 
 def emu_to_inch(emu: float) -> float:
@@ -47,7 +47,7 @@ class Rect:
     def area(self) -> int:
         return max(0, self.width) * max(0, self.height)
 
-    def intersection(self, other: "Rect") -> "Rect | None":
+    def intersection(self, other: Rect) -> Rect | None:
         x1 = max(self.x, other.x)
         y1 = max(self.y, other.y)
         x2 = min(self.right, other.right)
@@ -56,10 +56,10 @@ class Rect:
             return None
         return Rect(x1, y1, x2 - x1, y2 - y1)
 
-    def intersects(self, other: "Rect") -> bool:
+    def intersects(self, other: Rect) -> bool:
         return self.intersection(other) is not None
 
-    def overlap_ratio(self, other: "Rect") -> float:
+    def overlap_ratio(self, other: Rect) -> float:
         """Fraction of the smaller rectangle covered by the intersection."""
         inter = self.intersection(other)
         if inter is None:
@@ -69,7 +69,7 @@ class Rect:
             return 0.0
         return inter.area / smaller
 
-    def contains(self, other: "Rect") -> bool:
+    def contains(self, other: Rect) -> bool:
         return (
             other.x >= self.x
             and other.y >= self.y
@@ -77,7 +77,7 @@ class Rect:
             and other.bottom <= self.bottom
         )
 
-    def fraction_outside(self, bounds: "Rect") -> float:
+    def fraction_outside(self, bounds: Rect) -> float:
         """Fraction of this rectangle's area lying outside the slide bounds."""
         if self.area <= 0:
             return 0.0
@@ -85,10 +85,10 @@ class Rect:
         inside_area = inside.area if inside else 0
         return max(0.0, 1.0 - inside_area / self.area)
 
-    def is_fully_outside(self, bounds: "Rect") -> bool:
+    def is_fully_outside(self, bounds: Rect) -> bool:
         return self.intersection(bounds) is None
 
-    def clamp(self, bounds: "Rect") -> "Rect":
+    def clamp(self, bounds: Rect) -> Rect:
         x = min(max(self.x, bounds.x), max(bounds.x, bounds.right - self.width))
         y = min(max(self.y, bounds.y), max(bounds.y, bounds.bottom - self.height))
         return Rect(x, y, self.width, self.height)

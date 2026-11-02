@@ -20,9 +20,7 @@ def _is_content_shape(shape: ShapeModel, decorative_hints: list[str]) -> bool:
     if shape.parent_id is not None:
         return False
     name = (shape.name or "").lower()
-    if any(hint in name for hint in decorative_hints):
-        return False
-    return True
+    return not any(hint in name for hint in decorative_hints)
 
 
 def _absorbed_label_ids(candidates: list[ShapeModel]) -> set[str]:
@@ -63,9 +61,7 @@ class ObjectOverlapRule(Rule):
         threshold = self.config.overlap_ratio_threshold
         hints = [h.lower() for h in self.config.decorative_name_hints]
         for slide in model.slides:
-            candidates = [
-                s for s in slide.shapes if _is_content_shape(s, hints)
-            ]
+            candidates = [s for s in slide.shapes if _is_content_shape(s, hints)]
             absorbed = _absorbed_label_ids(candidates)
             shapes = [s for s in candidates if s.id not in absorbed]
             # Unordered pairs only: each colliding pair is reported once.

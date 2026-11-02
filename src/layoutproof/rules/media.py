@@ -35,11 +35,7 @@ def _image_content_error(data: bytes) -> str | None:
     """Return None for a valid image, otherwise 'bad_signature'/'decode_error'."""
     if len(data) < 8:
         return "bad_signature"
-    if not (
-        data[:8] == _PNG_SIG
-        or data[:2] == _JPEG_SIG
-        or data[:4] == _GIF_SIG
-    ):
+    if not (data[:8] == _PNG_SIG or data[:2] == _JPEG_SIG or data[:4] == _GIF_SIG):
         return "bad_signature"
     try:
         from PIL import Image

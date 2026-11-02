@@ -37,8 +37,13 @@ _CJK_LATIN_SPACE_RE = re.compile(
 )
 _CJK_RE = re.compile(rf"[{_CJK_CLASS}]")
 _HALFWIDTH_TO_FULLWIDTH = {
-    ",": "，", ";": "；", ":": "：", "!": "！",
-    "?": "？", "(": "（", ")": "）",
+    ",": "，",
+    ";": "；",
+    ":": "：",
+    "!": "！",
+    "?": "？",
+    "(": "（",
+    ")": "）",
 }
 
 
@@ -138,14 +143,18 @@ def _fix_move_into_slide(shape, bounds: Rect, issue: Issue) -> AppliedFix | None
     new = old.clamp(bounds)
     if (new.x, new.y) == (old.x, old.y):
         return AppliedFix(
-            rule_id=issue.rule_id, shape_id=issue.shape_id,
-            action="move_into_slide", note="already within slide bounds",
+            rule_id=issue.rule_id,
+            shape_id=issue.shape_id,
+            action="move_into_slide",
+            note="already within slide bounds",
         )
     shape.left = Emu(new.x)
     shape.top = Emu(new.y)
     return AppliedFix(
-        rule_id=issue.rule_id, shape_id=issue.shape_id,
-        action="move_into_slide", note=f"moved shape into bounds at x={new.x} y={new.y}",
+        rule_id=issue.rule_id,
+        shape_id=issue.shape_id,
+        action="move_into_slide",
+        note=f"moved shape into bounds at x={new.x} y={new.y}",
     )
 
 
@@ -164,7 +173,8 @@ def _fix_increase_font_size(shape, config: QualityConfig, issue: Issue) -> Appli
     if not changed:
         return None
     return AppliedFix(
-        rule_id=issue.rule_id, shape_id=issue.shape_id,
+        rule_id=issue.rule_id,
+        shape_id=issue.shape_id,
         action="increase_font_size",
         note=f"raised {changed} run(s) to minimum {minimum:g}pt",
     )
@@ -179,8 +189,10 @@ def _fix_autofit_text(shape, issue: Issue) -> AppliedFix | None:
     # itself; we never delete content.
     tf.auto_size = MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE
     return AppliedFix(
-        rule_id=issue.rule_id, shape_id=issue.shape_id,
-        action="autofit_text", note="enabled word_wrap + normAutofit (text-to-fit-shape)",
+        rule_id=issue.rule_id,
+        shape_id=issue.shape_id,
+        action="autofit_text",
+        note="enabled word_wrap + normAutofit (text-to-fit-shape)",
     )
 
 
@@ -218,7 +230,8 @@ def _fix_adjust_contrast(shape, slide, config: QualityConfig, issue: Issue) -> A
     if not changed:
         return None
     return AppliedFix(
-        rule_id=issue.rule_id, shape_id=issue.shape_id,
+        rule_id=issue.rule_id,
+        shape_id=issue.shape_id,
         action="adjust_contrast",
         note=f"recolored {changed} low-contrast run(s) against background #{bg}",
     )
@@ -229,8 +242,10 @@ def _fix_clear_placeholder(shape, issue: Issue) -> AppliedFix | None:
         return None
     shape.text_frame.text = ""
     return AppliedFix(
-        rule_id=issue.rule_id, shape_id=issue.shape_id,
-        action="clear_placeholder", note="cleared leftover placeholder text",
+        rule_id=issue.rule_id,
+        shape_id=issue.shape_id,
+        action="clear_placeholder",
+        note="cleared leftover placeholder text",
     )
 
 
@@ -247,13 +262,16 @@ def _fix_normalize_cjk(shape, issue: Issue) -> AppliedFix | None:
     if not changed:
         return None
     return AppliedFix(
-        rule_id=issue.rule_id, shape_id=issue.shape_id,
-        action="normalize_cjk_text", note=f"normalised CJK text on {changed} run(s)",
+        rule_id=issue.rule_id,
+        shape_id=issue.shape_id,
+        action="normalize_cjk_text",
+        note=f"normalised CJK text on {changed} run(s)",
     )
 
 
-def _apply_fix(fix_id: str, slide, shape, issue, config: QualityConfig,
-               bounds: Rect) -> AppliedFix | None:
+def _apply_fix(
+    fix_id: str, slide, shape, issue, config: QualityConfig, bounds: Rect
+) -> AppliedFix | None:
     if fix_id == "move_into_slide":
         return _fix_move_into_slide(shape, bounds, issue)
     if fix_id == "increase_font_size":

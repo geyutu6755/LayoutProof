@@ -89,8 +89,7 @@ def run_demo(directory: str | Path, json_out: bool = False) -> int:
 
     config = QualityConfig()
     before = scan_file(broken, config, profile="core")
-    report = fix_file(broken, output_path=fixed, config=config,
-                      profile="core", make_backup=True)
+    report = fix_file(broken, output_path=fixed, config=config, profile="core", make_backup=True)
 
     if json_out:
         payload = {

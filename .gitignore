@@ -33,3 +33,8 @@ test_fixtures/corpus/_build/
 
 # Local rendering toolchain (large LibreOffice install + MSI); not for git
 .rendertools/
+
+# Eval: local Node deps and scratch build dirs are not committed
+eval/**/node_modules/
+eval/**/_build/
+eval/**/package-lock.json

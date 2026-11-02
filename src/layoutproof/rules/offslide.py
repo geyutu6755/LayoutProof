@@ -29,7 +29,7 @@ class OffslideRule(Rule):
                     slide,
                     shape,
                     detail=(
-                        f"100% outside slide"
+                        "100% outside slide"
                         if fully_out
                         else f"{fraction * 100:.0f}% of area outside slide"
                     ),

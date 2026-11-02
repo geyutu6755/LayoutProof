@@ -19,7 +19,6 @@ lenient ``large_text_contrast_ratio``.
 
 from __future__ import annotations
 
-import posixpath
 from collections.abc import Iterable
 
 from ..models import Issue, RuleId
@@ -139,9 +138,7 @@ def _background_maps(
     try:
         master_bg: tuple[str, str] | None = None
         masters = sorted(
-            n
-            for n in pkg.names
-            if "ppt/slideMasters/slideMaster" in n and n.endswith(".xml")
+            n for n in pkg.names if "ppt/slideMasters/slideMaster" in n and n.endswith(".xml")
         )
         if masters:
             try:
@@ -198,7 +195,9 @@ class LowContrastRule(Rule):
                         ratio = contrast_ratio(run.color_rgb, bg)
                         if ratio is None:
                             continue
-                        is_large = bool(run.font_size_pt is not None and run.font_size_pt >= large_pt)
+                        is_large = bool(
+                            run.font_size_pt is not None and run.font_size_pt >= large_pt
+                        )
                         threshold = large_min if is_large else normal_min
                         if ratio < threshold:
                             bad_runs.append(

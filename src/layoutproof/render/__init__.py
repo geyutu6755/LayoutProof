@@ -10,12 +10,12 @@ from .engine import (
 from .images import SlideImage, is_available
 
 __all__ = [
-    "RendererInfo",
-    "detect_renderer",
-    "RenderResult",
-    "render_presentation",
     "RENDER_STATUS_RENDERED",
     "RENDER_STATUS_STATIC",
+    "RenderResult",
+    "RendererInfo",
     "SlideImage",
+    "detect_renderer",
     "is_available",
+    "render_presentation",
 ]
