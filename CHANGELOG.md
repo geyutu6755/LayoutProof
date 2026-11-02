@@ -37,6 +37,9 @@ All notable changes to this project are documented here. The format follows
 - Cross-platform CI defects: the XXE test no longer relies on a Windows-only
   malformed file URI; the CLI and its subprocess tests handle UTF-8 so
   cp1252 Windows runners no longer crash.
+- A version-alignment bug: the CLI/report version was a hardcoded constant
+  that stayed at 0.1.0a1 after a version bump. It now reads the installed
+  distribution version via `importlib.metadata`, with a regression test.
 
 ### Security
 

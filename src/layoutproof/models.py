@@ -11,11 +11,26 @@ from __future__ import annotations
 import dataclasses
 import enum
 from dataclasses import dataclass, field
+from importlib import metadata
 from typing import Any
 
 SCHEMA_VERSION = "1.0"
 TOOL_NAME = "layoutproof"
-TOOL_VERSION = "0.1.0a1"
+
+
+def _installed_version() -> str:
+    """Read the version from the installed package metadata.
+
+    Sourcing it from the installed distribution keeps the CLI, JSON report and
+    ``__version__`` aligned with the wheel/sdist instead of a hardcoded string.
+    """
+    try:
+        return metadata.version(TOOL_NAME)
+    except metadata.PackageNotFoundError:  # pragma: no cover - unusual environment
+        return "0.0.0+local"
+
+
+TOOL_VERSION = _installed_version()
 
 
 class Severity(str, enum.Enum):

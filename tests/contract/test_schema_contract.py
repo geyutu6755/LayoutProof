@@ -121,3 +121,15 @@ def test_missing_required_field_rejected():
 def test_unrecognisable_payload_kind_rejected():
     with pytest.raises(Exception):
         validate_output({"hello": "world"})
+
+
+def test_tool_version_matches_installed_metadata():
+    """The reported version must track the installed distribution, not a constant."""
+    from importlib import metadata
+
+    from layoutproof import TOOL_VERSION, __version__
+    from layoutproof.models import TOOL_NAME
+
+    assert metadata.version(TOOL_NAME) == TOOL_VERSION
+    assert __version__ == TOOL_VERSION
+    assert TOOL_VERSION  # non-empty string
