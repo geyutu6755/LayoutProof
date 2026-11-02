@@ -41,3 +41,6 @@ eval/**/package-lock.json
 
 # Example scratch output
 examples/_agent_e2e_out/
+
+# Isolated competitor hands-on lab (separate venv + scratch decks)
+competitor_lab/

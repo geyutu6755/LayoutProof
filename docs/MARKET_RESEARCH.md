@@ -281,6 +281,49 @@
 
 ---
 
+## 7B. 实测再分析（真实安装运行，非静态）
+
+> 本节为第二轮增量：在**隔离虚拟环境**中真实安装并运行可合法安装的竞品，对**同一份含已知缺陷的测试 deck**做横向实测，以替代 README 自述。所有数字均来自本机真实运行（2026-11-02）。
+
+### 7B.1 实测方法
+
+- 隔离环境：项目内独立 venv（`competitor_lab/venv`，已 gitignore，不污染项目主环境），pip 走华为云镜像。
+- 真实安装版本：**pptx-lint 0.2.0**、**archforge 0.11.0**、**ooxml-integrity 0.8.4**（比静态报告的 0.8.1 更新；新增 `mcp`/`anonymize` 子命令）。
+- 共同测试 deck `common_defects.pptx`（python-pptx 默认 10″×7.5″ 画幅），三张幻灯片：
+  - 第 1 页：干净页；
+  - 第 2 页：一个**完全越界**文本框（left=14″）+ 一个 **run 级 7pt 小字**；
+  - 第 3 页：**完全空白**。
+- 另用 `para_font.pptx`（孤立文本框，**段落级 7pt**）做对照，区分"段落级"与"run 级"字号检测。
+
+### 7B.2 同一 deck 实测结果对照
+
+| 缺陷 | pptx-lint 0.2.0 | archforge 0.11.0 | ooxml-integrity 0.8.4 |
+|---|---|---|---|
+| 完全越界形状 | Overflow，**error** | W16，**warning**（estimate，未渲染确认） | PPT004，**info** |
+| run 级 7pt 小字 | 未检出 | 未检出 | 未检出 |
+| 空白页 | EmptySlide，**error** | 未检出（无空白页规则） | 未检出 |
+| 4:3 画幅 | 仅打印"非标准"提示，**不计入** warning | — | — |
+| 实测退出码 | **1** | **0** | **0** |
+
+段落级 7pt 对照（`para_font.pptx`）：仅 **pptx-lint 报 SmallFont（info）**；archforge 与 ooxml-integrity 均 0 发现。
+
+### 7B.3 证据级关键发现
+
+1. **同一缺陷，三种严重度。** 越界形状在 pptx-lint 是 error、archforge 是 warning、ooxml-integrity 是 info；默认配置下只有 pptx-lint 因此返回退出码 1。用户对"同一问题有多严重"在不同工具间得不到一致答案。
+2. **run 级小字是三家共同盲区。** 源码核对：pptx-lint 的字号取自段落级 `paragraph.font.size`，run 级或继承字号返回 None 即静默跳过（`rules/font_size.py` 第 11 行 `if fi['size'] is not None`）；而 AI 生成 deck 常把字号设在 run 上。段落级 7pt 仅 pptx-lint 可报。
+3. **archforge 对孤立文本框刻意不判"正文小字"。** `explain W1` 注明"Ignore for sources/captions"——单文本框被当作标题/说明而非正文，故 W1 不触发，是其压低误报的有意取舍。
+4. **空白页只有 pptx-lint 覆盖；** archforge 的规则集（E1–E4、W1、W5–W22）不含空白页规则。
+5. **ooxml-integrity 的覆盖披露最透明。** 它逐项标注 checked/not-present/skipped/unsupported 及原因（如"3 个 spAutoFit 形状不参与溢出判断""完整 PPTX OPC 图未校验，仅跟随布局所需关系"），不把"没检查"伪装成"干净"。
+6. **修复范围实测确认。** archforge `fix` 仅处理 E1/E2/E4 且重新 lint，对本 deck 的越界 warning 显示"0 fixes applied"；ooxml-integrity 的 `fix` 仅支持 docx；pptx-lint 无修复。三者在 pptx 布局缺陷上均无"越界即修"的能力。
+
+### 7B.4 对 LayoutProof 的证据支撑
+
+- 实测佐证了静态报告的差异化判断：**run 级/继承字号检测、空白页检测、以及"越界→安全回位→复检"的闭环**在现有工具中确实缺失或分级不一致，LayoutProof 补齐这些点有真实对照证据，而非凭空主张。
+- 值得借鉴：ooxml-integrity 的"coverage 显式披露"与 archforge 的"按文本角色控制误报"，两者都把诚实性和低误报作为一等公民——LayoutProof 已在报告中用静态/渲染徽章与未知项标注对齐这一做法。
+- 边界：本次仅实测 3 个 pip 可装工具；overset/intern 等需源码或编译、accessibleoffice 重依赖，未在本轮实测，相关结论仍以静态部分为准。
+
+---
+
 ## 8. 参考链接列表
 
 - archforge（GitHub）：https://github.com/Love-Ash/archforge
