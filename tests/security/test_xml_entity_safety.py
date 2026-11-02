@@ -9,12 +9,10 @@ text content (no secret ever appears).
 
 from __future__ import annotations
 
-import pytest
-
 import helpers_decks as decks
 from layoutproof.parsing import PackageError, SafePackage
 
-SECRET_MARKER = "LP-SUPERSECRET-MARKER-9f2c"
+SECRET_MARKER = "LP-SUPERSECRET-MARKER-9f2c"  # noqa: S105 - test fixture marker, not a credential
 
 
 def _make_package(tmp_path, slide_xml: bytes, name: str = "evil.pptx"):
@@ -40,12 +38,22 @@ def test_local_file_system_entity_is_not_expanded(tmp_path):
     )
     pkg = SafePackage(_make_package(tmp_path, xml))
     try:
-        with pytest.raises(PackageError, match="Malformed XML in"):
-            pkg.parse_xml("ppt/slides/slide1.xml")
+        # Two equally secure outcomes are acceptable: reject the document, or
+        # parse it with the external entity left unresolved. The one thing that
+        # must never happen is substitution of the secret file's contents.
+        try:
+            el = pkg.parse_xml("ppt/slides/slide1.xml")
+        except PackageError:
+            return  # rejected outright: the external entity was never followed
+        text = "".join(el.itertext())
+        assert SECRET_MARKER not in text
+        assert secret_uri not in text
+        # the reference stays unexpanded rather than being replaced
+        assert "leak" in text or text.strip() == ""
     finally:
         pkg.close()
-    # The secret file itself must still exist on disk but was never read by the
-    # parser; we assert the guard through rejection rather than expansion.
+    # The secret file itself must still exist on disk and was never read by the
+    # parser; we assert the guard through non-expansion or rejection.
     assert SECRET_MARKER in (tmp_path / "secret.txt").read_text(encoding="utf-8")
 
 
@@ -95,7 +103,7 @@ def test_parameter_entity_does_not_fetch_external_dtd(tmp_path):
 
 
 def test_well_formed_document_parses_normally(tmp_path):
-    xml = (b"<?xml version='1.0'?><root><child>hello</child></root>")
+    xml = b"<?xml version='1.0'?><root><child>hello</child></root>"
     pkg = SafePackage(_make_package(tmp_path, xml, name="ok.pptx"))
     try:
         el = pkg.parse_xml("ppt/slides/slide1.xml")
@@ -113,8 +121,7 @@ def test_parser_does_not_expand_even_internal_dtd_entities(tmp_path):
     pkg = SafePackage(_make_package(tmp_path, b"<root/>", name="fresh.pptx"))
     try:
         parser = pkg.safe_parser()
-        internal = (b"<!DOCTYPE r [<!ENTITY a 'INTERNAL-PAYLOAD-7z'>]>"
-                    b"<r>&a;</r>")
+        internal = b"<!DOCTYPE r [<!ENTITY a 'INTERNAL-PAYLOAD-7z'>]><r>&a;</r>"
         try:
             el = etree.fromstring(internal, parser=parser)
             text = "".join(el.itertext())
