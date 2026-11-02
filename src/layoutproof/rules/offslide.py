@@ -21,6 +21,11 @@ class OffslideRule(Rule):
             for shape in slide.visible_shapes:
                 if shape.rect is None or shape.is_background:
                     continue
+                # Decorative elements (flagged or named) are intentionally
+                # placed accents, sometimes bleeding past the edge; exempt
+                # them so a deliberate ornament does not become a false alarm.
+                if shape.is_decorative:
+                    continue
                 fraction = shape.rect.fraction_outside(bounds)
                 if fraction <= threshold:
                     continue

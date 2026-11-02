@@ -16,19 +16,19 @@
 
 ## core profile
 
-- micro TP/FP/FN: 16/2/0; Precision=0.8889, Recall=1.0, F1=0.9412
-- macro avg over 7 evaluated rules: P=0.9286, R=1.0, F1=0.9592
-- timing: total 1184.489 ms; mean 17.947 ms; median 14.281 ms; p90 23.42 ms; max 124.247 ms (66 scans)
+- micro TP/FP/FN: 16/0/0; Precision=1.0, Recall=1.0, F1=1.0
+- macro avg over 7 evaluated rules: P=1.0, R=1.0, F1=1.0
+- timing: total 1053.638 ms; mean 15.964 ms; median 13.69 ms; p90 18.999 ms; max 137.548 ms (66 scans)
 
 | rule | TP | FP | FN | support+ | support- | Precision | Recall | F1 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | broken_reference | 2 | 0 | 0 | 2 | 8 | 1.0 | 1.0 | 1.0 |
-| offslide_object | 3 | 1 | 0 | 3 | 17 | 0.75 | 1.0 | 0.8571 |
 | media_broken | 2 | 0 | 0 | 2 | 15 | 1.0 | 1.0 | 1.0 |
 | text_overflow | 3 | 0 | 0 | 3 | 13 | 1.0 | 1.0 | 1.0 |
-| unfinished_placeholder | 3 | 1 | 0 | 3 | 12 | 0.75 | 1.0 | 0.8571 |
 | font_too_small | 2 | 0 | 0 | 2 | 6 | 1.0 | 1.0 | 1.0 |
+| offslide_object | 3 | 0 | 0 | 3 | 17 | 1.0 | 1.0 | 1.0 |
 | structure_anomaly | 1 | 0 | 0 | 1 | 11 | 1.0 | 1.0 | 1.0 |
+| unfinished_placeholder | 3 | 0 | 0 | 3 | 12 | 1.0 | 1.0 | 1.0 |
 
 ### status=error files (excluded from matrix)
 - python_pptx/p37_error_truncated_zip.pptx: Not a valid zip/pptx package: File is not a zip file
@@ -55,24 +55,24 @@
 
 ## full profile
 
-- micro TP/FP/FN: 29/2/0; Precision=0.9355, Recall=1.0, F1=0.9667
-- macro avg over 12 evaluated rules: P=0.9583, R=1.0, F1=0.9762
-- timing: total 1317.523 ms; mean 19.962 ms; median 18.812 ms; p90 26.065 ms; max 35.418 ms (66 scans)
+- micro TP/FP/FN: 29/0/0; Precision=1.0, Recall=1.0, F1=1.0
+- macro avg over 12 evaluated rules: P=1.0, R=1.0, F1=1.0
+- timing: total 1408.755 ms; mean 21.345 ms; median 20.806 ms; p90 28.428 ms; max 36.875 ms (66 scans)
 
 | rule | TP | FP | FN | support+ | support- | Precision | Recall | F1 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | broken_reference | 2 | 0 | 0 | 2 | 8 | 1.0 | 1.0 | 1.0 |
-| low_contrast | 4 | 0 | 0 | 4 | 5 | 1.0 | 1.0 | 1.0 |
-| offslide_object | 3 | 1 | 0 | 3 | 17 | 0.75 | 1.0 | 0.8571 |
-| blank_slide | 2 | 0 | 0 | 2 | 23 | 1.0 | 1.0 | 1.0 |
 | media_broken | 2 | 0 | 0 | 2 | 15 | 1.0 | 1.0 | 1.0 |
-| text_overflow | 3 | 0 | 0 | 3 | 13 | 1.0 | 1.0 | 1.0 |
-| missing_alt_text | 2 | 0 | 0 | 2 | 14 | 1.0 | 1.0 | 1.0 |
-| cjk_typography | 3 | 0 | 0 | 3 | 7 | 1.0 | 1.0 | 1.0 |
-| unfinished_placeholder | 3 | 1 | 0 | 3 | 12 | 0.75 | 1.0 | 0.8571 |
-| font_too_small | 2 | 0 | 0 | 2 | 6 | 1.0 | 1.0 | 1.0 |
 | structure_anomaly | 1 | 0 | 0 | 1 | 11 | 1.0 | 1.0 | 1.0 |
+| text_overflow | 3 | 0 | 0 | 3 | 13 | 1.0 | 1.0 | 1.0 |
+| blank_slide | 2 | 0 | 0 | 2 | 23 | 1.0 | 1.0 | 1.0 |
+| font_too_small | 2 | 0 | 0 | 2 | 6 | 1.0 | 1.0 | 1.0 |
+| missing_alt_text | 2 | 0 | 0 | 2 | 14 | 1.0 | 1.0 | 1.0 |
+| offslide_object | 3 | 0 | 0 | 3 | 17 | 1.0 | 1.0 | 1.0 |
+| low_contrast | 4 | 0 | 0 | 4 | 5 | 1.0 | 1.0 | 1.0 |
+| unfinished_placeholder | 3 | 0 | 0 | 3 | 12 | 1.0 | 1.0 | 1.0 |
 | object_overlap | 2 | 0 | 0 | 2 | 14 | 1.0 | 1.0 | 1.0 |
+| cjk_typography | 3 | 0 | 0 | 3 | 7 | 1.0 | 1.0 | 1.0 |
 
 ### status=error files (excluded from matrix)
 - python_pptx/p37_error_truncated_zip.pptx: Not a valid zip/pptx package: File is not a zip file
@@ -120,9 +120,6 @@
 
 ## Observed mismatches (FP/FN/count/severity)
 
-- [core] FP python_pptx/p35_probe_decorative_offslide_16x9.pptx :: offslide_object :: intent: flagged decorative element should be exempt; suspect FP if fired
-- [core] FP python_pptx/p36_probe_placeholder_substring_16x9.pptx :: unfinished_placeholder :: normal prose; prompt patterns should match only standalone markers
-- [full] FP python_pptx/p35_probe_decorative_offslide_16x9.pptx :: offslide_object :: intent: flagged decorative element should be exempt; suspect FP if fired
-- [full] FP python_pptx/p36_probe_placeholder_substring_16x9.pptx :: unfinished_placeholder :: normal prose; prompt patterns should match only standalone markers
+None under current ground truth.
 
 Detailed machine-readable mismatch list: findings/observed_mismatches.json

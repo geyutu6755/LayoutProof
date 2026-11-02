@@ -1,32 +1,32 @@
 {
   "summary": {
     "profile": "core",
-    "generated_at": "2026-11-02T02:44:57+00:00",
+    "generated_at": "2026-11-02T02:54:45+00:00",
     "files_total": 66,
     "files_scanned_ok": 65,
     "files_scanned_error": 1,
     "missing_files": [],
     "micro": {
       "tp": 16,
-      "fp": 2,
+      "fp": 0,
       "fn": 0,
-      "precision": 0.8889,
+      "precision": 1.0,
       "recall": 1.0,
-      "f1": 0.9412
+      "f1": 1.0
     },
     "macro_average": {
       "n_rules_evaluated": 7,
-      "precision": 0.9286,
+      "precision": 1.0,
       "recall": 1.0,
-      "f1": 0.9592
+      "f1": 1.0
     },
     "timing_ms": {
       "files": 66,
-      "total": 1184.489,
-      "mean": 17.947,
-      "median": 14.281,
-      "p90": 23.42,
-      "max": 124.247
+      "total": 1053.638,
+      "mean": 15.964,
+      "median": 13.69,
+      "p90": 18.999,
+      "max": 137.548
     },
     "unknown_judgements": [
       {
@@ -160,18 +160,6 @@
       "support_negative": 8,
       "evaluated": true
     },
-    "offslide_object": {
-      "tp": 3,
-      "fp": 1,
-      "fn": 0,
-      "tn": 16,
-      "precision": 0.75,
-      "recall": 1.0,
-      "f1": 0.8571,
-      "support_positive": 3,
-      "support_negative": 17,
-      "evaluated": true
-    },
     "media_broken": {
       "tp": 2,
       "fp": 0,
@@ -196,18 +184,6 @@
       "support_negative": 13,
       "evaluated": true
     },
-    "unfinished_placeholder": {
-      "tp": 3,
-      "fp": 1,
-      "fn": 0,
-      "tn": 11,
-      "precision": 0.75,
-      "recall": 1.0,
-      "f1": 0.8571,
-      "support_positive": 3,
-      "support_negative": 12,
-      "evaluated": true
-    },
     "font_too_small": {
       "tp": 2,
       "fp": 0,
@@ -220,6 +196,18 @@
       "support_negative": 6,
       "evaluated": true
     },
+    "offslide_object": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "tn": 17,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support_positive": 3,
+      "support_negative": 17,
+      "evaluated": true
+    },
     "structure_anomaly": {
       "tp": 1,
       "fp": 0,
@@ -230,6 +218,18 @@
       "f1": 1.0,
       "support_positive": 1,
       "support_negative": 11,
+      "evaluated": true
+    },
+    "unfinished_placeholder": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "tn": 12,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support_positive": 3,
+      "support_negative": 12,
       "evaluated": true
     }
   },
@@ -252,7 +252,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 124.247
+      "elapsed_ms": 137.548
     },
     {
       "file": "python_pptx/p02_clean_zh_typeset_16x9.pptx",
@@ -266,7 +266,7 @@
         "unfinished_placeholder"
       ],
       "flags": [],
-      "elapsed_ms": 12.945
+      "elapsed_ms": 13.444
     },
     {
       "file": "python_pptx/p03_clean_mixed_16x9.pptx",
@@ -280,7 +280,7 @@
         "unfinished_placeholder"
       ],
       "flags": [],
-      "elapsed_ms": 13.764
+      "elapsed_ms": 12.723
     },
     {
       "file": "python_pptx/p04_clean_en_4x3.pptx",
@@ -295,7 +295,7 @@
         "text_overflow"
       ],
       "flags": [],
-      "elapsed_ms": 14.057
+      "elapsed_ms": 14.04
     },
     {
       "file": "python_pptx/p05_clean_decorative_group_16x9.pptx",
@@ -309,7 +309,7 @@
         "offslide_object"
       ],
       "flags": [],
-      "elapsed_ms": 14.556
+      "elapsed_ms": 16.353
     },
     {
       "file": "python_pptx/p06_clean_picture_caption_16x9.pptx",
@@ -323,7 +323,7 @@
         "media_broken"
       ],
       "flags": [],
-      "elapsed_ms": 11.488
+      "elapsed_ms": 18.363
     },
     {
       "file": "python_pptx/p07_clean_normautofit_16x9.pptx",
@@ -338,7 +338,7 @@
         "offslide_object"
       ],
       "flags": [],
-      "elapsed_ms": 11.47
+      "elapsed_ms": 17.009
     },
     {
       "file": "python_pptx/p08_clean_inherited_font_16x9.pptx",
@@ -353,7 +353,7 @@
         "text_overflow"
       ],
       "flags": [],
-      "elapsed_ms": 22.585
+      "elapsed_ms": 18.999
     },
     {
       "file": "python_pptx/p09_clean_safe_margin_16x9.pptx",
@@ -367,7 +367,7 @@
         "offslide_object"
       ],
       "flags": [],
-      "elapsed_ms": 22.537
+      "elapsed_ms": 15.748
     },
     {
       "file": "python_pptx/p10_clean_external_link_16x9.pptx",
@@ -381,7 +381,7 @@
         "broken_reference"
       ],
       "flags": [],
-      "elapsed_ms": 23.831
+      "elapsed_ms": 18.887
     },
     {
       "file": "python_pptx/p11_clean_valid_internal_rel_16x9.pptx",
@@ -395,7 +395,7 @@
         "broken_reference"
       ],
       "flags": [],
-      "elapsed_ms": 11.53
+      "elapsed_ms": 13.279
     },
     {
       "file": "python_pptx/p12_clean_media_alts_16x9.pptx",
@@ -410,7 +410,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 11.377
+      "elapsed_ms": 19.378
     },
     {
       "file": "python_pptx/p13_clean_table_chart_16x9.pptx",
@@ -425,7 +425,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 12.431
+      "elapsed_ms": 16.659
     },
     {
       "file": "python_pptx/p14_clean_bg_and_content_16x9.pptx",
@@ -439,7 +439,7 @@
         "media_broken"
       ],
       "flags": [],
-      "elapsed_ms": 12.423
+      "elapsed_ms": 21.407
     },
     {
       "file": "python_pptx/p15_offslide_fully_right_16x9.pptx",
@@ -455,7 +455,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 22.176
+      "elapsed_ms": 17.34
     },
     {
       "file": "python_pptx/p16_offslide_partial_bottom_4x3.pptx",
@@ -471,7 +471,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 23.947
+      "elapsed_ms": 16.035
     },
     {
       "file": "python_pptx/p17_overflow_nowrap_tinybox_16x9.pptx",
@@ -487,7 +487,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 19.97
+      "elapsed_ms": 11.427
     },
     {
       "file": "python_pptx/p18_overflow_dense_wrapped_16x9.pptx",
@@ -503,7 +503,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 22.093
+      "elapsed_ms": 11.779
     },
     {
       "file": "python_pptx/p19_font_tiny_9pt_zh_16x9.pptx",
@@ -521,7 +521,7 @@
         "text_overflow"
       ],
       "flags": [],
-      "elapsed_ms": 21.637
+      "elapsed_ms": 10.846
     },
     {
       "file": "python_pptx/p20_contrast_gray_small_16x9.pptx",
@@ -533,7 +533,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 21.052
+      "elapsed_ms": 10.451
     },
     {
       "file": "python_pptx/p21_contrast_gray_large_16x9.pptx",
@@ -545,7 +545,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 23.672
+      "elapsed_ms": 14.11
     },
     {
       "file": "python_pptx/p22_contrast_shape_fill_16x9.pptx",
@@ -557,7 +557,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 19.937
+      "elapsed_ms": 10.362
     },
     {
       "file": "python_pptx/p23_blank_only_16x9.pptx",
@@ -569,7 +569,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 18.241
+      "elapsed_ms": 10.463
     },
     {
       "file": "python_pptx/p24_placeholder_en_patterns_16x9.pptx",
@@ -578,14 +578,16 @@
       "status": "ok",
       "slide_count": 1,
       "detected_counts": {
-        "unfinished_placeholder": 3
+        "unfinished_placeholder": 2
       },
       "expected_positive": [
         "unfinished_placeholder"
       ],
       "expected_negative": [],
-      "flags": [],
-      "elapsed_ms": 23.42
+      "flags": [
+        "COUNT:unfinished_placeholder=2 expected=3"
+      ],
+      "elapsed_ms": 12.945
     },
     {
       "file": "python_pptx/p25_placeholder_zh_patterns_16x9.pptx",
@@ -601,7 +603,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 22.641
+      "elapsed_ms": 12.235
     },
     {
       "file": "python_pptx/p26_overlap_two_cards_16x9.pptx",
@@ -613,7 +615,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 22.873
+      "elapsed_ms": 11.602
     },
     {
       "file": "python_pptx/p27_cjk_kinsoku_start_16x9.pptx",
@@ -625,7 +627,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 30.943
+      "elapsed_ms": 19.374
     },
     {
       "file": "python_pptx/p28_cjk_halfwidth_space_16x9.pptx",
@@ -637,7 +639,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 20.484
+      "elapsed_ms": 11.551
     },
     {
       "file": "python_pptx/p29_missing_alt_picture_16x9.pptx",
@@ -651,7 +653,7 @@
         "media_broken"
       ],
       "flags": [],
-      "elapsed_ms": 22.305
+      "elapsed_ms": 11.106
     },
     {
       "file": "python_pptx/p30_media_missing_part_16x9.pptx",
@@ -667,7 +669,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 20.486
+      "elapsed_ms": 10.734
     },
     {
       "file": "python_pptx/p31_media_corrupt_bytes_16x9.pptx",
@@ -683,7 +685,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 21.504
+      "elapsed_ms": 11.089
     },
     {
       "file": "python_pptx/p32_ref_missing_target_16x9.pptx",
@@ -699,7 +701,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 21.79
+      "elapsed_ms": 12.343
     },
     {
       "file": "python_pptx/p33_ref_dangling_rid_16x9.pptx",
@@ -715,7 +717,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 26.223
+      "elapsed_ms": 17.812
     },
     {
       "file": "python_pptx/p34_structure_unsafe_entry_16x9.pptx",
@@ -731,7 +733,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 22.419
+      "elapsed_ms": 15.592
     },
     {
       "file": "python_pptx/p35_probe_decorative_offslide_16x9.pptx",
@@ -739,17 +741,13 @@
       "source": "python_pptx",
       "status": "ok",
       "slide_count": 1,
-      "detected_counts": {
-        "offslide_object": 1
-      },
+      "detected_counts": {},
       "expected_positive": [],
       "expected_negative": [
         "offslide_object"
       ],
-      "flags": [
-        "FP:offslide_object"
-      ],
-      "elapsed_ms": 17.71
+      "flags": [],
+      "elapsed_ms": 14.479
     },
     {
       "file": "python_pptx/p36_probe_placeholder_substring_16x9.pptx",
@@ -757,17 +755,13 @@
       "source": "python_pptx",
       "status": "ok",
       "slide_count": 1,
-      "detected_counts": {
-        "unfinished_placeholder": 2
-      },
+      "detected_counts": {},
       "expected_positive": [],
       "expected_negative": [
         "unfinished_placeholder"
       ],
-      "flags": [
-        "FP:unfinished_placeholder"
-      ],
-      "elapsed_ms": 21.118
+      "flags": [],
+      "elapsed_ms": 12.362
     },
     {
       "file": "python_pptx/p37_error_truncated_zip.pptx",
@@ -779,7 +773,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 10.385
+      "elapsed_ms": 2.01
     },
     {
       "file": "python_pptx/p38_clean_layout_placeholder_16x9.pptx",
@@ -799,7 +793,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 24.265
+      "elapsed_ms": 18.213
     },
     {
       "file": "pptxgenjs/j01_clean_en_table_image_16x9.pptx",
@@ -819,7 +813,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 11.615
+      "elapsed_ms": 16.271
     },
     {
       "file": "pptxgenjs/j02_clean_zh_typeset_16x9.pptx",
@@ -833,7 +827,7 @@
         "unfinished_placeholder"
       ],
       "flags": [],
-      "elapsed_ms": 11.481
+      "elapsed_ms": 15.872
     },
     {
       "file": "pptxgenjs/j03_clean_mixed_4x3.pptx",
@@ -850,7 +844,7 @@
         "text_overflow"
       ],
       "flags": [],
-      "elapsed_ms": 9.406
+      "elapsed_ms": 11.288
     },
     {
       "file": "pptxgenjs/j04_offslide_shape_16x9.pptx",
@@ -866,7 +860,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 9.079
+      "elapsed_ms": 10.698
     },
     {
       "file": "pptxgenjs/j05_overflow_nowrap_16x9.pptx",
@@ -882,7 +876,7 @@
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 9.077
+      "elapsed_ms": 10.534
     },
     {
       "file": "pptxgenjs/j06_font_small_10pt_16x9.pptx",
@@ -900,7 +894,7 @@
         "text_overflow"
       ],
       "flags": [],
-      "elapsed_ms": 9.46
+      "elapsed_ms": 10.572
     },
     {
       "file": "pptxgenjs/j07_overlap_cards_16x9.pptx",
@@ -912,7 +906,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 9.012
+      "elapsed_ms": 10.608
     },
     {
       "file": "pptxgenjs/j08_blank_slide_16x9.pptx",
@@ -924,7 +918,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 9.036
+      "elapsed_ms": 9.591
     },
     {
       "file": "pptxgenjs/j09_placeholder_text_16x9.pptx",
@@ -933,14 +927,14 @@
       "status": "ok",
       "slide_count": 1,
       "detected_counts": {
-        "unfinished_placeholder": 3
+        "unfinished_placeholder": 2
       },
       "expected_positive": [
         "unfinished_placeholder"
       ],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 12.743
+      "elapsed_ms": 10.528
     },
     {
       "file": "pptxgenjs/j10_missing_alt_image_16x9.pptx",
@@ -954,7 +948,7 @@
         "media_broken"
       ],
       "flags": [],
-      "elapsed_ms": 19.078
+      "elapsed_ms": 10.883
     },
     {
       "file": "pptxgenjs/j11_clean_images_table_16x9.pptx",
@@ -969,7 +963,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 12.823
+      "elapsed_ms": 14.657
     },
     {
       "file": "pptxgenjs/j12_low_contrast_gray_16x9.pptx",
@@ -981,7 +975,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 8.317
+      "elapsed_ms": 9.922
     },
     {
       "file": "pptxgenjs/j13_cjk_issues_16x9.pptx",
@@ -993,7 +987,7 @@
       "expected_positive": [],
       "expected_negative": [],
       "flags": [],
-      "elapsed_ms": 9.094
+      "elapsed_ms": 10.3
     },
     {
       "file": "pptxgenjs/j14_clean_shape_grid_16x9.pptx",
@@ -1007,7 +1001,7 @@
         "offslide_object"
       ],
       "flags": [],
-      "elapsed_ms": 14.397
+      "elapsed_ms": 22.075
     },
     {
       "file": "libreoffice/lo_p01_clean_en_table_16x9.pptx",
@@ -1027,7 +1021,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 13.702
+      "elapsed_ms": 15.787
     },
     {
       "file": "libreoffice/lo_p02_clean_zh_typeset_16x9.pptx",
@@ -1041,7 +1035,7 @@
         "unfinished_placeholder"
       ],
       "flags": [],
-      "elapsed_ms": 12.22
+      "elapsed_ms": 14.433
     },
     {
       "file": "libreoffice/lo_p03_clean_mixed_16x9.pptx",
@@ -1055,7 +1049,7 @@
         "unfinished_placeholder"
       ],
       "flags": [],
-      "elapsed_ms": 14.165
+      "elapsed_ms": 17.847
     },
     {
       "file": "libreoffice/lo_p04_clean_en_4x3.pptx",
@@ -1070,7 +1064,7 @@
         "text_overflow"
       ],
       "flags": [],
-      "elapsed_ms": 17.498
+      "elapsed_ms": 19.215
     },
     {
       "file": "libreoffice/lo_p05_clean_decorative_group_16x9.pptx",
@@ -1084,7 +1078,7 @@
         "offslide_object"
       ],
       "flags": [],
-      "elapsed_ms": 15.036
+      "elapsed_ms": 16.645
     },
     {
       "file": "libreoffice/lo_p06_clean_picture_caption_16x9.pptx",
@@ -1098,7 +1092,7 @@
         "media_broken"
       ],
       "flags": [],
-      "elapsed_ms": 12.938
+      "elapsed_ms": 14.616
     },
     {
       "file": "libreoffice/lo_p07_clean_normautofit_16x9.pptx",
@@ -1113,7 +1107,7 @@
         "offslide_object"
       ],
       "flags": [],
-      "elapsed_ms": 11.788
+      "elapsed_ms": 12.808
     },
     {
       "file": "libreoffice/lo_p11_clean_valid_internal_rel_16x9.pptx",
@@ -1127,7 +1121,7 @@
         "broken_reference"
       ],
       "flags": [],
-      "elapsed_ms": 11.861
+      "elapsed_ms": 13.072
     },
     {
       "file": "libreoffice/lo_p12_clean_media_alts_16x9.pptx",
@@ -1142,7 +1136,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 13.76
+      "elapsed_ms": 13.937
     },
     {
       "file": "libreoffice/lo_p13_clean_table_chart_16x9.pptx",
@@ -1157,7 +1151,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 21.616
+      "elapsed_ms": 23.067
     },
     {
       "file": "libreoffice/lo_p14_clean_bg_and_content_16x9.pptx",
@@ -1171,7 +1165,7 @@
         "media_broken"
       ],
       "flags": [],
-      "elapsed_ms": 13.821
+      "elapsed_ms": 16.215
     },
     {
       "file": "libreoffice/lo_j01_clean_en_table_image_16x9.pptx",
@@ -1191,7 +1185,7 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 12.067
+      "elapsed_ms": 17.821
     },
     {
       "file": "libreoffice/lo_j02_clean_zh_typeset_16x9.pptx",
@@ -1205,7 +1199,7 @@
         "unfinished_placeholder"
       ],
       "flags": [],
-      "elapsed_ms": 9.185
+      "elapsed_ms": 13.244
     },
     {
       "file": "libreoffice/lo_j11_clean_images_table_16x9.pptx",
@@ -1220,25 +1214,8 @@
         "structure_anomaly"
       ],
       "flags": [],
-      "elapsed_ms": 9.684
+      "elapsed_ms": 11.034
     }
   ],
-  "mismatches": [
-    {
-      "kind": "FP",
-      "file": "python_pptx/p35_probe_decorative_offslide_16x9.pptx",
-      "rule": "offslide_object",
-      "expected": "negative",
-      "detail": "intent: flagged decorative element should be exempt; suspect FP if fired",
-      "note": "decorative flag currently only used by overlap/alt/blank, not offslide"
-    },
-    {
-      "kind": "FP",
-      "file": "python_pptx/p36_probe_placeholder_substring_16x9.pptx",
-      "rule": "unfinished_placeholder",
-      "expected": "negative",
-      "detail": "normal prose; prompt patterns should match only standalone markers",
-      "note": "substring match on 'todo'/'placeholder' likely false positives"
-    }
-  ]
+  "mismatches": []
 }

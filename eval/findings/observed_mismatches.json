@@ -1,40 +1,6 @@
 {
-  "core": [
-    {
-      "kind": "FP",
-      "file": "python_pptx/p35_probe_decorative_offslide_16x9.pptx",
-      "rule": "offslide_object",
-      "expected": "negative",
-      "detail": "intent: flagged decorative element should be exempt; suspect FP if fired",
-      "note": "decorative flag currently only used by overlap/alt/blank, not offslide"
-    },
-    {
-      "kind": "FP",
-      "file": "python_pptx/p36_probe_placeholder_substring_16x9.pptx",
-      "rule": "unfinished_placeholder",
-      "expected": "negative",
-      "detail": "normal prose; prompt patterns should match only standalone markers",
-      "note": "substring match on 'todo'/'placeholder' likely false positives"
-    }
-  ],
-  "full": [
-    {
-      "kind": "FP",
-      "file": "python_pptx/p35_probe_decorative_offslide_16x9.pptx",
-      "rule": "offslide_object",
-      "expected": "negative",
-      "detail": "intent: flagged decorative element should be exempt; suspect FP if fired",
-      "note": "decorative flag currently only used by overlap/alt/blank, not offslide"
-    },
-    {
-      "kind": "FP",
-      "file": "python_pptx/p36_probe_placeholder_substring_16x9.pptx",
-      "rule": "unfinished_placeholder",
-      "expected": "negative",
-      "detail": "normal prose; prompt patterns should match only standalone markers",
-      "note": "substring match on 'todo'/'placeholder' likely false positives"
-    }
-  ],
+  "core": [],
+  "full": [],
   "severity_mismatches": {
     "core": [],
     "full": []

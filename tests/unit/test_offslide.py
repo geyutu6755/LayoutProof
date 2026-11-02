@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pptx import Presentation
+from pptx.oxml.ns import qn
 from pptx.util import Inches, Pt
 
 from layoutproof.config import QualityConfig
@@ -57,3 +58,19 @@ def test_clean_in_slide_shape_negative(tmp_path):
     issues = _run(prs, tmp_path)
 
     assert issues == []
+
+
+def _mark_decorative(shape) -> None:
+    cnv = shape._element.find(".//" + qn("p:cNvPr"))
+    if cnv is not None and cnv.find(qn("p:decorative")) is None:
+        cnv.append(cnv.makeelement(qn("p:decorative"), {}))
+
+
+def test_decorative_offslide_shape_is_not_flagged(tmp_path):
+    # Regression: a flagged decorative ornament bleeding past the edge.
+    prs = Presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    shape = _box(slide, Inches(14))
+    _mark_decorative(shape)
+
+    assert _run(prs, tmp_path) == []

@@ -88,3 +88,46 @@ def test_real_chinese_content_is_not_flagged(tmp_path):
     issues = _run(prs, tmp_path)
 
     assert issues == []
+
+
+def test_full_sentence_with_todo_is_not_flagged(tmp_path):
+    # Regression: ordinary prose mentioning "todo" inside a long sentence.
+    prs = Presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    _add_textbox(
+        slide,
+        "The team archived the todo list before the quarterly review meeting",
+    )
+
+    assert _run(prs, tmp_path) == []
+
+
+def test_full_sentence_with_placeholder_is_not_flagged(tmp_path):
+    prs = Presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    _add_textbox(
+        slide,
+        "The placeholder API contract was approved by the steering committee",
+    )
+
+    assert _run(prs, tmp_path) == []
+
+
+def test_substring_todo_is_not_flagged(tmp_path):
+    # Whole-word boundary: "todolist" must not match the "todo" marker.
+    prs = Presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    _add_textbox(slide, "todolist")
+
+    assert _run(prs, tmp_path) == []
+
+
+def test_short_standalone_todo_still_flagged(tmp_path):
+    # Guard against over-correction: a terse marker must still fire.
+    prs = Presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    _add_textbox(slide, "TODO")
+
+    issues = _run(prs, tmp_path)
+    assert len(issues) == 1
+    assert issues[0].evidence["matched_pattern"] == "todo"
