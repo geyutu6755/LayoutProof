@@ -60,6 +60,13 @@ def main() -> int:
     # 3. Apply the deterministic safe fixes (source stays read-only).
     report = fix_file(deck, fixed, profile="full", make_backup=False)
     print(f"applied={len(report.applied)} skipped={len(report.skipped)}")
+    for outcome in report.outcomes:
+        print(
+            f"  * {outcome.rule_id} -> {outcome.outcome}"
+            + (f" via {','.join(outcome.strategies)}" if outcome.strategies else "")
+        )
+    if report.regressed_count:
+        print("  WARNING: a repair introduced a new issue")
 
     # 4. Re-scan the new file and evaluate the quality gate.
     recheck = scan_file(fixed, profile="full")

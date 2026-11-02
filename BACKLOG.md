@@ -26,7 +26,8 @@ Status legend: `[x]` done · `[~]` in progress · `[ ]` pending · `[-]` blocked
 - [x] P2-2 Built-in `layoutproof demo` first-minute experience
 - [x] P2-3 Configurable rules and profiles (core / full)
 - [x] P2-4 GitHub Actions workflow and examples
-- [ ] P2-5 Performance and memory review on large decks (not yet executed)
+- [x] P2-5 Performance and memory review on large decks (real measured
+  trends and ~10/50 MB media decks in `tests/performance/PERF_RESULTS.md`)
 
 ## P3 — polish / docs / low value
 

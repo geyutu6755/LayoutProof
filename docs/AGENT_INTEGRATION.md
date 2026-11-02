@@ -85,6 +85,54 @@ default `warning`). Compute the same code in-process with
   reason, so the agent can hand them to a human instead of pretending they
   were resolved.
 
+### 6.1 Per-issue outcome classification
+
+After the output deck is re-scanned, every targeted issue receives one of
+four honest labels (available on the returned object; the legacy JSON
+document stays byte-stable).
+
+| Outcome | Meaning | Agent action |
+|---|---|---|
+| `resolved` | Target issue gone and no new issue on that shape. | Treat as closed. |
+| `unchanged` | Repair applied but the issue still passes the threshold. | Change the generator and regenerate; do not loop the same fix. |
+| `regressed` | Target gone but a *new* issue appeared on the same shape. | Inspect the new rule id; the report is not a success. |
+| `skipped` | No safe repair applied (unsupported rule, missing target, failed strategy). | Escalate to manual review. |
+
+A report's `success` flag additionally requires zero `regressed` items, so
+branching on `success` is safe.
+
+### 6.2 Deterministic fix command
+
+The exact, repeatable command sequence an agent should run (no prompts,
+fixed input/output names, backup disabled):
+
+```bash
+layoutproof fix deck.pptx --output deck.fixed.pptx --no-backup --json
+layoutproof scan deck.fixed.pptx --json --profile full
+```
+
+The same flow in-process:
+
+```python
+report = fix_file("deck.pptx", "deck.fixed.pptx", make_backup=False)
+if not report.success or report.regressed_count:
+    raise RuntimeError("fix did not fully close; inspect outcomes")
+recheck = scan_file("deck.fixed.pptx", profile="full")
+```
+
+### 6.3 Structured handling of non-automatic rules
+
+| Rule id | Why no safe automatic fix | Recommended path |
+|---|---|---|
+| `object_overlap` | Resolving overlap needs layout/design intent. | Re-stack or reposition manually; decide which object dominates. |
+| `blank_slide` | Deleting a slide is content removal, not a safe edit. | Remove the slide deliberately or add content. |
+| `media_broken` | Missing/corrupt media cannot be regenerated. | Re-export the asset and re-link it. |
+| `broken_reference` | Target relationship is missing; intent unknown. | Re-create the target or remove the reference. |
+| `structure_anomaly` | Package-level structural problem. | Rebuild the deck from the generator. |
+| `missing_alt_text` | Alt text must describe the real image. | Author a meaningful description. |
+
+These never appear as `applied`; they stay on the manual-review list.
+
 ## 7. Determinism and repeatability
 
 Repeated scans of the same file produce identical JSON once the `timestamp`
