@@ -61,10 +61,13 @@ Last updated: 2026-11-02
 
 ## Verified metrics
 
-- Local Windows suite: 224 collected, 219 passed, 5 skipped (environment
+- Local Windows suite: 225 collected, 220 passed, 5 skipped (environment
   gates: 1 install cycle, 2 no-renderer, 2 perf), 0 failures / 0 errors.
   The separate `web/tests` suite has 50 tests (0 failures), including five
-  new Host-header DNS-rebinding guard tests.
+  Host-header DNS-rebinding guard tests.
+- The tool version is read from installed package metadata
+  (`importlib.metadata`), so the CLI, JSON report and `__version__` stay
+  aligned with the released wheel; a regression test enforces this.
 - CI matrix: all 6 test jobs (Ubuntu + Windows × 3.11/3.12/3.13) and the
   ruff lint job pass on the latest commit.
 - Coverage: 86% without renderer, 88% with renderer.
