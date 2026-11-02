@@ -179,3 +179,13 @@ Last updated: 2026-11-02
   dispatching on a faked `os.name`) was fixed by using `os.path.exists`.
   CI re-verified green on bc18c7b: all 7 jobs (lint + Ubuntu/Windows ×
   3.11/3.12/3.13). 224 collected, 219 passed/5 skipped.
+- 2026-11-02: Drove the loopback Web UI end-to-end over the DevTools
+  Protocol in headless Edge — a real upload rendered the data view (summary
+  chips, slide navigation, geometry preview, issue cards), and One-click Fix
+  produced the before/after comparison with 4 issues removed, 4 fixes and
+  resolved=4, after view reporting zero issues. Added DNS-rebinding
+  hardening: non-loopback/missing/malformed Host headers are rejected with
+  403 (`is_loopback_host`), five dedicated tests. Extended CI to lint and
+  test the web package; all 7 jobs green on 3cd74d3. The render-chain
+  integration tests pass with the renderer enabled. Separate `web/tests`
+  suite now 50 tests, 0 failures.
