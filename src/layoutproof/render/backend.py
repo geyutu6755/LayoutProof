@@ -43,26 +43,39 @@ class RendererInfo:
         }
 
 
+def _prefer_console_wrapper(candidates: list[str]) -> list[str]:
+    """On Windows, prefer the sibling ``soffice.com`` console wrapper.
+
+    The GUI ``soffice.exe`` does not return console output (``--version``
+    hangs and conversion stdout is lost), whereas the ``.com`` wrapper writes
+    to standard streams. This applies to every candidate, including a path
+    pinned via ``LAYOUTPROOF_SOFFICE`` and non-standard install locations.
+    """
+    if os.name != "nt":
+        return candidates
+    ordered: list[str] = []
+    for candidate in candidates:
+        if candidate.lower().endswith(".exe"):
+            com = candidate[:-4] + ".com"
+            if Path(com).exists() and com not in ordered:
+                ordered.append(com)
+        if candidate not in ordered:
+            ordered.append(candidate)
+    return ordered
+
+
 def _candidate_paths() -> list[str]:
-    """Ordered candidate executables, including the console wrapper."""
+    """Ordered candidate executables, preferring the console wrapper."""
     candidates: list[str] = []
     pinned = os.environ.get(ENV_SOFFICE)
     if pinned:
         candidates.append(pinned)
     if os.name == "nt":
         candidates.extend(_WINDOWS_CANDIDATES)
-        # If only the GUI .exe is found, prefer the sibling .com for stdout.
-        for exe in (
-            r"C:\Program Files\LibreOffice\program\soffice.exe",
-            r"C:\Program Files (x86)\LibreOffice\program\soffice.exe",
-        ):
-            com = exe[:-4] + ".com"
-            if Path(com).exists() and com not in candidates:
-                candidates.append(com)
     which = shutil.which("soffice")
     if which:
         candidates.append(which)
-    return candidates
+    return _prefer_console_wrapper(candidates)
 
 
 def detect_renderer() -> RendererInfo:

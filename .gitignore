@@ -52,3 +52,6 @@ competitor_lab/
 
 # Clean-env release verification workspace
 release_lab/
+
+# Browser verification workspace (reports, screenshots, render profiles)
+browser_lab/

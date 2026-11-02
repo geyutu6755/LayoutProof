@@ -3,12 +3,9 @@
 from __future__ import annotations
 
 import base64
-from pathlib import Path
 
-import pytest
-
-from layoutproof.models import ScanResult, Issue, RuleId, Location
-from layoutproof.render import backend, images, engine
+from layoutproof.models import Issue, Location, RuleId, ScanResult
+from layoutproof.render import backend, engine
 from layoutproof.render.backend import (
     RendererInfo,
     _decode,
@@ -27,6 +24,53 @@ def test_decode_uses_system_codepath_for_valid_gbk():
     # 0xb2 0xe2 is a valid GBK sequence (簿). Strict UTF-8 would fail.
     out = _decode(b"\xb2\xe2")
     assert isinstance(out, str)
+
+
+def test_console_wrapper_preferred_for_windows_exe(tmp_path, monkeypatch):
+    # The GUI soffice.exe hangs on --version; the sibling .com must win.
+    program = tmp_path / "program"
+    program.mkdir()
+    exe = program / "soffice.exe"
+    com = program / "soffice.com"
+    exe.write_text("gui", encoding="utf-8")
+    com.write_text("console", encoding="utf-8")
+    monkeypatch.setattr(backend.os, "name", "nt")
+
+    ordered = backend._prefer_console_wrapper([str(exe)])
+    assert ordered[0] == str(com)
+    assert str(exe) in ordered
+
+
+def test_console_wrapper_keeps_exe_when_com_absent(tmp_path, monkeypatch):
+    program = tmp_path / "program"
+    program.mkdir()
+    exe = program / "soffice.exe"
+    exe.write_text("gui", encoding="utf-8")
+    monkeypatch.setattr(backend.os, "name", "nt")
+
+    ordered = backend._prefer_console_wrapper([str(exe)])
+    assert ordered == [str(exe)]
+
+
+def test_console_wrapper_noop_on_non_windows(tmp_path, monkeypatch):
+    monkeypatch.setattr(backend.os, "name", "posix")
+    candidates = [str(tmp_path / "soffice.exe")]
+    assert backend._prefer_console_wrapper(candidates) == candidates
+
+
+def test_pinned_exe_resolves_to_sibling_com(tmp_path, monkeypatch):
+    program = tmp_path / "rendertools" / "lo" / "program"
+    program.mkdir(parents=True)
+    exe = program / "soffice.exe"
+    com = program / "soffice.com"
+    exe.write_text("gui", encoding="utf-8")
+    com.write_text("console", encoding="utf-8")
+    monkeypatch.setattr(backend.os, "name", "nt")
+    monkeypatch.setenv("LAYOUTPROOF_SOFFICE", str(exe))
+    monkeypatch.setattr(backend.shutil, "which", lambda _name: None)
+
+    candidates = backend._candidate_paths()
+    assert candidates[0] == str(com)
 
 
 def test_image_data_uri_embeds_png(tmp_path):
