@@ -42,15 +42,14 @@ All notable changes to this project are documented here. The format follows
   5 intentionally skipped, 0 failures; core coverage 86% (gate 85%).
 - On the judged corpus, core and full profiles score P=R=F1=1.0 with 0 FP /
   0 FN; 39 explicitly "unknown" cases are excluded honestly.
-- The English and Chinese HTML reports and the loopback Web UI landing page
-  were inspected in a real Chromium browser (headless Edge).
+- The English and Chinese HTML reports and the loopback Web UI were verified
+  in a real Chromium browser (headless Edge): the upload data view and the
+  One-click Fix before/after comparison show 4 issues removed and resolved=4.
 - CI is green across Ubuntu + Windows × Python 3.11/3.12/3.13 plus a ruff job.
 
 ### Known limitations
 
-- macOS is not tested (no CI job); Linux coverage is Ubuntu-only. The Web UI
-  post-upload data view is covered by automated tests rather than a separate
-  browser screenshot.
+- macOS is not tested (no CI job); Linux coverage is Ubuntu-only.
 - PyPI publication and the stable 1.0.0 release remain gated; only the
   prerelease v0.1.0a1 (wheel + sdist) is published.
 

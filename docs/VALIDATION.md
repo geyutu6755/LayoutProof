@@ -73,8 +73,13 @@ Last updated: 2026-11-02
   markers, the filters and location-preview panels, and the four detailed
   issue cards (rule id, auto-fix badge, location, explanation, recommendation,
   confidence, Locate). Chinese rendering shows no encoding errors. The
-  loopback Web UI landing page (drag-and-drop zone, static-fallback badge,
-  language toggle) was likewise browser-verified.
+  loopback Web UI was also driven end-to-end over the DevTools Protocol:
+  a real upload produced the data view (summary chips, slide navigation,
+  geometry preview and issue cards), and clicking One-click Fix produced the
+  before/after comparison showing 4 issues removed, 4 fixes applied and
+  resolved=4, with the after view reporting zero issues. The landing page
+  (drag-and-drop zone, static-fallback badge, language toggle) was likewise
+  browser-verified.
 - **Renderer discovery defect fixed:** the GUI `soffice.exe` does not return
   console output (`--version` hangs), so a pinned/non-standard `.exe` path
   failed detection. The discovery now prefers the sibling `soffice.com`
@@ -131,9 +136,8 @@ Last updated: 2026-11-02
 
 - Headless Edge `--headless` (old mode) produced no file; the newer
   `--headless=new` mode with a separate user-data-dir works and was used for
-  the browser verification above. The Web UI's post-upload data view is not
-  separately screenshotted (a fresh headless session has no upload), but its
-  rendering logic is covered by 45 pytest HTTP tests and 16 Node tests.
+  the full browser verification above, including the Web UI upload, data and
+  after-fix views driven over the DevTools Protocol.
 - No `gh` CLI; GUI automation backends unavailable in prior attempts.
 - macOS runtime behavior; WPS/PowerPoint-specific rendering fidelity.
 - PyPI publishing: not performed (requires separate authorization). Only the

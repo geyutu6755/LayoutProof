@@ -74,10 +74,9 @@ Last updated: 2026-11-02
 
 - macOS is not tested in CI (no job); Linux coverage is Ubuntu-only.
 - Headless Edge old `--headless` mode produced no screenshot, but
-  `--headless=new` works; the HTML reports and Web UI landing are now
-  browser-verified. The Web UI post-upload data view is not separately
-  screenshotted (fresh headless session) but is covered by 45 pytest and
-  16 Node tests.
+  `--headless=new` works. The HTML reports plus the Web UI landing, upload
+  data view and after-fix view are now browser-verified (the full
+  upload→fix→re-verify flow was driven over the DevTools Protocol).
 - The full isolated venv install/upgrade cycle stays skipped unless
   `LAYOUTPROOF_INSTALL_TEST=1`; no GB-scale bomb is constructed (quota
   thresholds are triggered instead).
