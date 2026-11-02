@@ -6,8 +6,8 @@ This is the detailed reference: every rule, every configuration knob, and the co
 
 ```text
 layoutproof scan   <file|dir> [options]
-layoutproof fix    <file>     [options]     # alpha: not wired in 0.1.0a1
-layoutproof demo   [options]                # alpha: not wired in 0.1.0a1
+layoutproof fix    <file>     [options]     # safe repairs written to a new file, then re-verified
+layoutproof demo   [options]                # generate a broken deck and its fixed counterpart
 layoutproof --version
 layoutproof --help
 ```
@@ -26,7 +26,7 @@ layoutproof --help
 | `--fail-on {error,warning,info}` | `warning` | Minimum severity that fails the build (exit `1`). |
 | `-o`, `--output FILE` | stdout | Write the report to a file. |
 
-### `fix` options (alpha)
+### `fix` options
 
 | Flag | Default | Description |
 |---|---|---|
@@ -36,7 +36,7 @@ layoutproof --help
 | `--json` | off | Emit the fix report as JSON. |
 | `--profile`, `--config`, `--fail-on` | as scan | Same semantics as `scan`. |
 
-### `demo` options (alpha)
+### `demo` options
 
 | Flag | Default | Description |
 |---|---|---|
@@ -50,7 +50,7 @@ layoutproof --help
 | `0` | Clean — no issue at or above `--fail-on`. |
 | `1` | Quality gate failed. |
 | `2` | Usage/input error: bad arguments, no `.pptx` found, or a file that is not a valid zip/OOXML package. |
-| `3` | Internal error, or a subcommand whose engine is not present in this build. |
+| `3` | Internal error: unexpected tool failure. |
 
 ## The rules
 
