@@ -39,6 +39,79 @@
     {% endif %}
   </section>
 
+  {% if render_view %}
+  <section class="card render-card">
+    <div class="render-head">
+      <h2 class="card-title"><span class="t-en">Rendered slides</span><span class="t-zh">真实渲染幻灯片</span></h2>
+      {% if render_view.rendered %}
+      <span class="badge badge-render-ok"><span class="t-en">Real rendering</span><span class="t-zh">真实渲染</span></span>
+      {% else %}
+      <span class="badge badge-render-fallback"><span class="t-en">Static estimate</span><span class="t-zh">静态估算</span></span>
+      {% endif %}
+    </div>
+
+    {% if not render_view.rendered %}
+    <div class="alert alert-warn">
+      <span class="t-en">Real rendering did not run:</span><span class="t-zh">未执行真实渲染：</span>
+      {{ render_view.reason or "" }}
+    </div>
+    {% else %}
+    <div class="render-meta muted">
+      <code>{{ render_view.renderer.version or "" }}</code>
+      <span class="t-en">DPI {{ render_view.diagnostics.dpi }}</span>
+      <span class="t-zh">分辨率 {{ render_view.diagnostics.dpi }} DPI</span>
+    </div>
+
+    <div class="render-grid {% if render_view.has_after %}has-after{% endif %}">
+      {% for slide in render_view.before_slides %}
+      <div class="render-slide" data-slide="{{ slide.number }}">
+        <div class="render-slide-titles">
+          <span class="render-slide-tag"><span class="t-en">Slide</span><span class="t-zh">第</span> {{ slide.number }}{% if lang == 'zh' %} 页{% endif %}</span>
+          {% if render_view.has_after %}<span class="render-before-tag"><span class="t-en">Before</span><span class="t-zh">修复前</span></span>{% endif %}
+        </div>
+        <div class="render-frame">
+          <img src="{{ slide.image }}" alt="slide {{ slide.number }}" width="{{ slide.width_px }}" height="{{ slide.height_px }}">
+          {% for m in slide.markers %}
+          {% if m.location %}
+          <div class="marker marker-{{ m.severity }}"
+               style="left: {{ '%.3f' | format(m.location.x * 100) }}%; top: {{ '%.3f' | format(m.location.y * 100) }}%; width: {{ '%.3f' | format(m.location.width * 100) }}%; height: {{ '%.3f' | format(m.location.height * 100) }}%;"
+               title="{{ m.rule_id }} — {{ m.detail }}"><span class="marker-code">{{ m.rule_id }}</span></div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if render_view.has_after %}
+    <h3 class="sub"><span class="t-en">After fixing</span><span class="t-zh">修复后</span></h3>
+    <div class="render-grid has-after">
+      {% for slide in render_view.after_slides %}
+      <div class="render-slide" data-slide="{{ slide.number }}">
+        <div class="render-slide-titles">
+          <span class="render-slide-tag"><span class="t-en">Slide</span><span class="t-zh">第</span> {{ slide.number }}{% if lang == 'zh' %} 页{% endif %}</span>
+          <span class="render-after-tag"><span class="t-en">After</span><span class="t-zh">修复后</span></span>
+        </div>
+        <div class="render-frame">
+          <img src="{{ slide.image }}" alt="fixed slide {{ slide.number }}">
+          {% for m in slide.markers %}
+          {% if m.location %}
+          <div class="marker marker-{{ m.severity }}"
+               style="left: {{ '%.3f' | format(m.location.x * 100) }}%; top: {{ '%.3f' | format(m.location.y * 100) }}%; width: {{ '%.3f' | format(m.location.width * 100) }}%; height: {{ '%.3f' | format(m.location.height * 100) }}%;"
+               title="{{ m.rule_id }} — {{ m.detail }}"><span class="marker-code">{{ m.rule_id }}</span></div>
+          {% endif %}
+          {% else %}
+          <div class="render-clear-flag"><span class="t-en">No remaining issues on this slide</span><span class="t-zh">本页无遗留问题</span></div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endif %}
+  </section>
+  {% endif %}
+
   {% if fix_report %}
   <section class="card">
     <h2 class="card-title"><span class="t-en">Auto-fix result</span><span class="t-zh">自动修复结果</span></h2>

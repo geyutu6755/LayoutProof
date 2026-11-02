@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 from pathlib import Path
 from typing import Any
@@ -11,6 +12,79 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from ..models import RULES, FixReport, ScanResult
 
 _TEMPLATES_DIR = Path(__file__).with_name("templates")
+
+
+def _image_data_uri(path: str | Path) -> str:
+    """Embed a PNG as a base64 data URI so the report stays self-contained."""
+    raw = Path(path).read_bytes()
+    encoded = base64.b64encode(raw).decode("ascii")
+    return f"data:image/png;base64,{encoded}"
+
+
+def _markers_for_slide(result: ScanResult, slide_number: int) -> list[dict]:
+    """Normalized issue markers for one slide, positioned over the image."""
+    markers: list[dict] = []
+    for issue in result.issues:
+        if issue.slide_number != slide_number:
+            continue
+        d = issue.to_dict(result.slide_width, result.slide_height)
+        loc = d.get("normalized_location")
+        markers.append(
+            {
+                "rule_id": d["rule_id"],
+                "severity": d["severity"],
+                "location": loc,
+                "detail": d["detail"],
+            }
+        )
+    return markers
+
+
+def _build_render_view(
+    render_result: Any,
+    result: ScanResult,
+    fixed_render: Any = None,
+    fixed_result: ScanResult | None = None,
+) -> dict[str, Any] | None:
+    """Build the rendered-slides view, including before/after when fixed."""
+    if render_result is None:
+        return None
+
+    before_slides = []
+    for slide in render_result.slides:
+        num = slide.slide_number
+        before_slides.append(
+            {
+                "number": num,
+                "image": _image_data_uri(slide.image_path),
+                "width_px": slide.width_px,
+                "height_px": slide.height_px,
+                "markers": _markers_for_slide(result, num),
+            }
+        )
+
+    after_slides: list[dict] = []
+    if fixed_render is not None and fixed_result is not None:
+        for slide in fixed_render.slides:
+            num = slide.slide_number
+            after_slides.append(
+                {
+                    "number": num,
+                    "image": _image_data_uri(slide.image_path),
+                    "markers": _markers_for_slide(fixed_result, num),
+                }
+            )
+
+    return {
+        "rendered": render_result.rendered,
+        "status": render_result.status,
+        "reason": render_result.reason,
+        "renderer": render_result.renderer.to_dict(),
+        "diagnostics": render_result.diagnostics,
+        "before_slides": before_slides,
+        "after_slides": after_slides,
+        "has_after": bool(after_slides),
+    }
 
 
 def _build_issues_view(result: ScanResult) -> list[dict[str, Any]]:
@@ -51,11 +125,16 @@ def render_html(
     output_path: str | Path,
     lang: str = "en",
     fix_report: FixReport | None = None,
+    render_result: Any = None,
+    fixed_render: Any = None,
+    fixed_result: ScanResult | None = None,
 ) -> Path:
     """Render *result* to a self-contained HTML file at *output_path*.
 
     *lang* selects the initial UI language (``"en"`` or ``"zh"``); the report
-    ships a client-side toggle so readers can switch without a reload.
+    ships a client-side toggle so readers can switch without a reload. When
+    *render_result* is supplied the report embeds real rendered slides with
+    issue markers; *fixed_render*/*fixed_result* add a before/after comparison.
     """
     if lang not in ("en", "zh"):
         raise ValueError('lang must be "en" or "zh"')
@@ -83,6 +162,9 @@ def render_html(
         "issues": issues_view,
         "issues_json": json.dumps(issues_view, ensure_ascii=False),
         "fix_report": _build_fix_view(fix_report),
+        "render_view": _build_render_view(
+            render_result, result, fixed_render, fixed_result
+        ),
         "style_css": style_css,
         "report_js": report_js,
     }

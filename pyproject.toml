@@ -40,24 +40,33 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+render = [
+    "PyMuPDF>=1.24",
+]
 dev = [
     "pytest>=8.0",
     "pytest-cov>=4.0",
+    "PyMuPDF>=1.24",
 ]
 
 [project.scripts]
 layoutproof = "layoutproof.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/layoutproof/layoutproof"
-Documentation = "https://github.com/layoutproof/layoutproof#readme"
-Issues = "https://github.com/layoutproof/layoutproof/issues"
+Homepage = "https://github.com/geyutu6755/LayoutProof"
+Documentation = "https://github.com/geyutu6755/LayoutProof#readme"
+Issues = "https://github.com/geyutu6755/LayoutProof/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-layoutproof = ["report/templates/*.html", "report/templates/*.css", "report/templates/*.js"]
+layoutproof = [
+    "report/schema.json",
+    "report/templates/*.html",
+    "report/templates/*.css",
+    "report/templates/*.js",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

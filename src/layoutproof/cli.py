@@ -178,6 +178,46 @@ def cmd_demo(args: argparse.Namespace) -> int:
     return run_demo(Path(args.dir), json_out=args.json)
 
 
+def cmd_render(args: argparse.Namespace) -> int:
+    """Render a PPTX to PDF/images, with a disclosed static fallback.
+
+    Optionally emit a self-contained HTML report that embeds the slides and
+    overlays issue markers. Never claims real rendering when the renderer is
+    missing or fails.
+    """
+    from .render import render_presentation
+
+    config = _load_config(args)
+    source = Path(args.target)
+    if not source.is_file():
+        print(f"Input not found: {source}", file=sys.stderr)
+        return EXIT_USAGE
+
+    work = Path(args.outdir) if args.outdir else source.parent / f"{source.stem}.render"
+    result = render_presentation(source, work, dpi=args.dpi)
+
+    if result.rendered:
+        print(f"Real rendering: {len(result.slides)} slide(s) -> {work}")
+        print(f"Renderer: {result.renderer.version}")
+    else:
+        print("Static fallback — real rendering did not run:", file=sys.stderr)
+        print(f"  {result.reason}", file=sys.stderr)
+
+    if args.html:
+        scan = scan_file(source, config, profile=args.profile)
+        from .report import render_html
+        render_html(
+            scan,
+            args.html,
+            lang=args.lang,
+            render_result=result,
+        )
+        print(f"HTML report: {args.html}")
+
+    # Rendering itself succeeded (even a fallback is a handled outcome).
+    return EXIT_CLEAN
+
+
 # ---------------------------------------------------------------------------
 # Parser
 # ---------------------------------------------------------------------------
@@ -215,6 +255,17 @@ def build_parser() -> argparse.ArgumentParser:
     p_demo.add_argument("--json", action="store_true")
     p_demo.set_defaults(handler=cmd_demo)
 
+    p_render = sub.add_parser("render", help="Render PPTX to PDF/images with fallback")
+    p_render.add_argument("target", help="A .pptx file")
+    p_render.add_argument("--outdir", help="Work directory (default: <name>.render)")
+    p_render.add_argument("--dpi", type=int, default=150, help="Image DPI")
+    p_render.add_argument("--html", help="Also write a self-contained HTML report")
+    p_render.add_argument("--lang", default="en", choices=["en", "zh"])
+    p_render.add_argument("--profile", default="core", choices=["core", "full"])
+    p_render.add_argument("--config")
+    p_render.add_argument("--fail-on", choices=["error", "warning", "info"])
+    p_render.set_defaults(handler=cmd_render)
+
     return parser
 
 
@@ -222,7 +273,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     # Default to scan when a bare path is supplied.
     raw = list(sys.argv[1:] if argv is None else argv)
-    if raw and raw[0] not in {"scan", "fix", "demo", "--help", "-h", "--version"}:
+    if raw and raw[0] not in {"scan", "fix", "demo", "render", "--help", "-h", "--version"}:
         raw = ["scan", *raw]
     args = parser.parse_args(raw)
     if not getattr(args, "handler", None):
