@@ -80,7 +80,11 @@ Last updated: 2026-11-02
   failed detection. The discovery now prefers the sibling `soffice.com`
   console wrapper for *every* Windows candidate (not just the two standard
   install paths), covered by four regression tests in
-  `tests/unit/test_render.py`.
+  `tests/unit/test_render.py`. Existence checks use `os.path.exists` rather
+  than `pathlib.Path`: `Path()` dispatches on `os.name`, so a test that
+  fakes `os.name="nt"` on Linux otherwise tried to instantiate `WindowsPath`
+  and crashed the session. `os.path` is bound to the platform module at
+  import and does not dispatch.
 
 ## 5. Detection accuracy (current corpus)
 
@@ -162,4 +166,7 @@ Last updated: 2026-11-02
   Chinese HTML reports plus the loopback Web UI landing layout. Fixed a real
   renderer-discovery bug where a pinned/non-standard `soffice.exe` (GUI,
   no console output) failed detection; console-wrapper selection now applies
-  to every Windows candidate. 224 collected, 219 passed/5 skipped.
+  to every Windows candidate. A follow-up Linux failure (`pathlib.Path`
+  dispatching on a faked `os.name`) was fixed by using `os.path.exists`.
+  CI re-verified green on bc18c7b: all 7 jobs (lint + Ubuntu/Windows ×
+  3.11/3.12/3.13). 224 collected, 219 passed/5 skipped.

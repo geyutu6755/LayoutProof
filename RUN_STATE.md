@@ -54,7 +54,9 @@ Last updated: 2026-11-02
   landing layout were inspected in a real browser. A renderer-discovery bug
   was fixed: a pinned/non-standard `soffice.exe` (GUI, no console output)
   failed detection, so the sibling `soffice.com` is now preferred for every
-  Windows candidate, with four regression tests.
+  Windows candidate, with four regression tests. Existence checks use
+  `os.path.exists` (not `pathlib.Path`, which dispatches on `os.name` and
+  broke the Linux tests); CI re-verified green on bc18c7b.
 
 ## Verified metrics
 
