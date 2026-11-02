@@ -14,18 +14,22 @@ Last updated: 2026-11-02
 - Renderer: LibreOffice 26.2.7.3 (isolated admin install under `.rendertools/lo`,
   no system registry changes), invoked via `LAYOUTPROOF_SOFFICE`.
 - Image backend: PyMuPDF 2.0 (MuPDF 1.28.5), `import pymupdf`.
-- Linux/macOS: **not tested** — no such host available. Cross-platform support
-  is not claimed beyond the pure-Python/offline design intent.
+- Linux: **tested in CI** on `ubuntu-latest` (Python 3.11/3.12/3.13). macOS:
+  **not tested** — no CI job or host available, so no macOS claim is made.
 
 ## 2. Test & coverage status
 
-- Full suite (default run): **220 collected, 214 passed, 6 skipped, 0 failed,
+- Full suite (default run): **220 collected, 215 passed, 5 skipped, 0 failed,
   0 errors** (independently observed 2026-11-02).
-- The 6 skips are intentional and documented in `tests/SKIP_NOTES.md`: 2
+- The 5 skips are intentional and documented in `tests/SKIP_NOTES.md`: 2
   render-chain tests when no renderer is configured, 2 heavy-media tests
-  (gated by `LAYOUTPROOF_PERF=1`), 1 isolated-venv lifecycle test, and 1
-  offline wheel build (build backend unavailable). With the renderer env set,
-  the render-chain tests pass and the suite becomes **216 passed, 4 skipped**.
+  (gated by `LAYOUTPROOF_PERF=1`), and 1 isolated-venv lifecycle test.
+  With the renderer env set, the render-chain tests pass and the skipped count
+  drops to 3.
+- **CI matrix (GitHub Actions): all jobs green on the latest commit** — six
+  test jobs (`ubuntu-latest` + `windows-latest` × Python 3.11/3.12/3.13) and
+  one `ruff` lint job. This is the cross-platform evidence; run ids and
+  conclusions were read back through the Actions API.
 - Line coverage: **86%** without renderer, **88%** with renderer
   (`pytest --cov=layoutproof`, branch metric). The
   formal suite raised `parsing/package.py` from 54% to 98%, `models.py` to
@@ -90,7 +94,10 @@ Last updated: 2026-11-02
   these in `tests/security`.
 - XML entity safety: local `file:` SYSTEM entities, external `http:` entities
   and parameter entities are blocked with entity resolution and network
-  access disabled; a secret-marker probe confirms no file content leaks.
+  access disabled; a secret-marker probe confirms no file content leaks. The
+  test is platform-agnostic and accepts either rejection or safe
+  non-expansion (the earlier Windows-only pass relied on an accidental
+  malformed file URI; it now asserts the real security property on Linux too).
 - Fuzz: byte mutation/truncation/flips and structured edge cases never raise
   an uncaught exception and never return the internal exit code 3.
 - Real defect fixed: the HTML report's JSON data block was vulnerable to a
@@ -106,8 +113,9 @@ Last updated: 2026-11-02
   (even for trivial HTML), so browser-rendered report screenshots and Web UI
   automation could not be captured via that path.
 - No `gh` CLI; GUI automation backends unavailable in prior attempts.
-- Linux/macOS runtime behavior; WPS/PowerPoint-specific rendering fidelity.
-- PyPI publishing: not performed (requires separate authorization).
+- macOS runtime behavior; WPS/PowerPoint-specific rendering fidelity.
+- PyPI publishing: not performed (requires separate authorization). Only the
+  GitHub prerelease v0.1.0a1 (wheel + sdist) exists.
 
 ## 8. Change log of validation
 
@@ -125,3 +133,9 @@ Last updated: 2026-11-02
   classification) and a stdlib-only loopback web UI added; 220 collected,
   214 passed/6 skipped (216/4 with renderer), 86%/88% coverage; hands-on
   competitor re-analysis based on real installs recorded in market research.
+- 2026-11-02: Build modernized (SPDX license, setuptools>=77, warning-free
+  sdist/wheel); prerelease v0.1.0a1 published with two assets and 14 topics;
+  bilingual FAQ added. Fixed two cross-platform CI defects (XXE test URI
+  accident; cp1252 stdout encoding on both the child and the subprocess
+  parent). CI now green: Ubuntu + Windows × 3.11/3.12/3.13 plus ruff; local
+  suite 215 passed, 5 skipped, 0 failures.

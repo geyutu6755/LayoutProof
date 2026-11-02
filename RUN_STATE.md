@@ -3,8 +3,9 @@
 ## Current phase
 
 **v1 loop closed with real rendering, multi-strategy fixes, an offline
-loopback web UI, and a 66-file independent evaluation. Pre-release on
-`main`; not yet a stable 1.0.0.**
+loopback web UI, and a 66-file independent evaluation. A pre-release
+v0.1.0a1 is published; CI is green across the full Ubuntu + Windows
+matrix. Not yet a stable 1.0.0.**
 
 Last updated: 2026-11-02
 
@@ -39,11 +40,22 @@ Last updated: 2026-11-02
 - Open-source engineering: LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT,
   ROADMAP, issue templates, CI with ruff lint; market research with a
   hands-on re-analysis (real competitor installs) in `docs/MARKET_RESEARCH.md`.
+- Release & discoverability: annotated tag `v0.1.0a1` with a prerelease
+  GitHub Release (wheel + sdist assets), 14 repository topics, and a
+  bilingual `docs/FAQ.md`.
+- Cross-platform CI is green: Ubuntu + Windows on Python 3.11/3.12/3.13,
+  plus the ruff lint job. Two platform-specific defects were fixed:
+  - the XXE local-entity test no longer relies on a Windows-only malformed
+    file URI and now asserts the real security property on both platforms;
+  - the CLI reconfigures stdout/stderr to UTF-8, and the CLI subprocess
+    tests decode as UTF-8, removing cp1252 encode/decode crashes.
 
 ## Verified metrics
 
-- 220 tests: 214 passed, 6 skipped without renderer; with
-  `LAYOUTPROOF_SOFFICE` set, 216 passed, 4 skipped; 0 failures, 0 errors.
+- Local Windows suite: 220 collected, 215 passed, 5 skipped (environment
+  gates: 1 install cycle, 2 no-renderer, 2 perf), 0 failures / 0 errors.
+- CI matrix: all 6 test jobs (Ubuntu + Windows × 3.11/3.12/3.13) and the
+  ruff lint job pass on the latest commit.
 - Coverage: 86% without renderer, 88% with renderer.
 - Eval corpus (judged items): core and full micro P=R=F1=1.0, 0 FP / 0 FN.
 - Deterministic JSON after dropping the timestamp; fix preserves source
@@ -52,15 +64,16 @@ Last updated: 2026-11-02
 
 ## Known limitations
 
-- Linux/macOS not tested (no host); cross-platform support not claimed.
+- macOS is not tested in CI (no job); Linux coverage is Ubuntu-only.
 - Headless Edge screenshots do not persist; web UI visual layout is
   verified via HTTP integration + Node logic tests, not a real-browser shot.
-- Isolated venv install/upgrade and offline wheel build are skipped when
-  `setuptools.build_meta` is unavailable; no GB-scale bomb is constructed
-  (quota thresholds are triggered instead).
+- The full isolated venv install/upgrade cycle stays skipped unless
+  `LAYOUTPROOF_INSTALL_TEST=1`; no GB-scale bomb is constructed (quota
+  thresholds are triggered instead).
 - Eval P=R=F1=1.0 holds only for this corpus's judged items; 39 unknown
   cases are excluded, real-world edge cases remain.
-- No `gh` CLI; no PyPI release; no GitHub Release/tag yet.
+- No PyPI publication and no stable release yet; only the GitHub
+  prerelease v0.1.0a1 exists.
 
 ## How to recover / resume
 

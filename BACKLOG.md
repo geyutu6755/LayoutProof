@@ -32,6 +32,17 @@ Status legend: `[x]` done · `[~]` in progress · `[ ]` pending · `[-]` blocked
 ## P3 — polish / docs / low value
 
 - [x] P3-1 Bilingual README, CONTRIBUTING, SECURITY, LICENSE
-- [~] P3-2 Known limitations documented; embedded screenshots still missing
+- [x] P3-2 Known limitations documented (real-browser screenshots still
+  unavailable; verified via HTTP integration + Node logic instead)
 - [x] P3-3 Cross-renderer notes (LibreOffice / PowerPoint / WPS), static
-- [x] P3-4 Publish alpha blocked by authorization; minimal manual publish steps documented
+- [x] P3-4 Pre-release v0.1.0a1 published (wheel + sdist, 14 topics,
+  bilingual FAQ); stable 1.0.0 and PyPI publication remain gated
+
+## P4 — release hardening / external experience
+
+- [x] P4-1 Cross-platform CI green: Ubuntu + Windows × 3.11/3.12/3.13 + ruff
+- [x] P4-2 Build modernization (SPDX license, setuptools>=77, warning-free)
+- [x] P4-3 Hands-on competitor re-analysis on real installs
+- [ ] P4-4 Stable 1.0.0 gate (all five release criteria met, no lowered bar)
+- [ ] P4-5 PyPI publication and richer external experience (GIF/video/
+  tutorial) without fabricated data
