@@ -7,7 +7,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-import pytest
 from pptx import Presentation
 from pptx.util import Inches, Pt
 
@@ -17,10 +16,15 @@ MODULE = [PY, "-m", "layoutproof"]
 
 
 def _run(*argv: str) -> subprocess.CompletedProcess:
-    return subprocess.run(
+    return subprocess.run(  # noqa: S603 - trusted local CLI under test, no shell
         [*MODULE, *argv],
         capture_output=True,
         text=True,
+        # The CLI guarantees UTF-8 output. Decode it explicitly so the parent
+        # does not fall back to a platform code page (cp1252 on Windows) and
+        # crash on valid UTF-8 bytes.
+        encoding="utf-8",
+        errors="replace",
         cwd=str(REPO_ROOT),
         timeout=120,
     )
