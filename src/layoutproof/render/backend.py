@@ -57,7 +57,9 @@ def _prefer_console_wrapper(candidates: list[str]) -> list[str]:
     for candidate in candidates:
         if candidate.lower().endswith(".exe"):
             com = candidate[:-4] + ".com"
-            if Path(com).exists() and com not in ordered:
+            # os.path is bound to the platform module at import time, so it
+            # does not dispatch on os.name the way pathlib.Path() does.
+            if os.path.exists(com) and com not in ordered:
                 ordered.append(com)
         if candidate not in ordered:
             ordered.append(candidate)
@@ -87,7 +89,7 @@ def detect_renderer() -> RendererInfo:
     searched: list[str] = []
     for candidate in _candidate_paths():
         searched.append(candidate)
-        if not Path(candidate).exists():
+        if not os.path.exists(candidate):
             continue
         version = _read_version(candidate)
         if version is not None:
