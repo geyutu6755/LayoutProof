@@ -33,11 +33,7 @@ def _json_script_payload(value: Any) -> str:
     data is lost.
     """
     text = json.dumps(value, ensure_ascii=False)
-    return (
-        text.replace("<", "\\u003c")
-        .replace(">", "\\u003e")
-        .replace("&", "\\u0026")
-    )
+    return text.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
 
 
 def _markers_for_slide(result: ScanResult, slide_number: int) -> list[dict]:

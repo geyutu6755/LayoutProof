@@ -1,0 +1,8 @@
+{
+  "name": "layoutproof-web-node-tests",
+  "private": true,
+  "description": "Dependency-free node:test suite for the LayoutProof static UI logic.",
+  "scripts": {
+    "test": "node --test i18n.test.cjs logic.test.cjs"
+  }
+}

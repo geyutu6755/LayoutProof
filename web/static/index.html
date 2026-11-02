@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LayoutProof</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1 data-i18n="app.title">LayoutProof</h1>
+      <p class="subtitle muted" data-i18n="app.subtitle"></p>
+    </div>
+    <div class="topbar-actions">
+      <span id="renderer-badge" class="badge badge-static" hidden></span>
+      <button id="lang-toggle" class="btn btn-ghost" type="button">中文</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="dropzone-panel" class="panel">
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="upload deck">
+        <div class="dz-icon" aria-hidden="true">▤</div>
+        <p class="dz-main" data-i18n="upload.drop"></p>
+        <p class="dz-sub" data-i18n="upload.click"></p>
+        <p class="dz-hint muted" data-i18n="upload.hint"></p>
+        <input type="file" id="file-input" accept=".pptx" hidden>
+      </div>
+      <p id="upload-status" class="status-line" hidden></p>
+    </section>
+
+    <section id="deck-panel" class="panel" hidden>
+      <div class="deck-head">
+        <div class="deck-title-block">
+          <h2 id="deck-name"></h2>
+          <p id="deck-meta" class="muted"></p>
+        </div>
+        <div class="deck-actions">
+          <button id="btn-scan" class="btn" type="button" data-i18n="deck.refresh"></button>
+          <button id="btn-fix" class="btn btn-primary" type="button" data-i18n="fix.run"></button>
+        </div>
+      </div>
+
+      <div id="summary-chips" class="chips"></div>
+
+      <div id="fix-compare" class="compare" hidden>
+        <h3 data-i18n="compare.title"></h3>
+        <div class="compare-toggle">
+          <button id="mode-before" class="btn btn-ghost mode-btn" type="button" data-i18n="compare.before"></button>
+          <button id="mode-after" class="btn btn-ghost mode-btn" type="button" data-i18n="compare.after"></button>
+        </div>
+        <div id="compare-cards" class="compare-cards"></div>
+        <p id="fix-notes" class="muted"></p>
+      </div>
+
+      <div class="workspace">
+        <aside class="slide-list-panel">
+          <h3 data-i18n="panel.slides"></h3>
+          <ul id="slide-list" class="slide-list"></ul>
+        </aside>
+
+        <section class="stage-panel">
+          <div id="render-banner" class="render-banner" hidden></div>
+          <div id="slide-frame" class="slide-frame">
+            <img id="slide-image" alt="rendered slide" hidden>
+            <div id="marker-layer" class="marker-layer"></div>
+            <p id="slide-placeholder" class="slide-placeholder" data-i18n="preview.empty"></p>
+          </div>
+          <div class="stage-controls">
+            <button id="prev-slide" class="btn btn-ghost" type="button" aria-label="previous slide">‹</button>
+            <span id="slide-nav-label" class="muted"></span>
+            <button id="next-slide" class="btn btn-ghost" type="button" aria-label="next slide">›</button>
+          </div>
+        </section>
+
+        <aside class="issues-panel">
+          <h3 data-i18n="panel.issues"></h3>
+          <div class="issues-toolbar">
+            <select id="filter-severity" aria-label="severity filter">
+              <option value="all" data-i18n="filter.all"></option>
+              <option value="error" data-i18n="summary.error"></option>
+              <option value="warning" data-i18n="summary.warning"></option>
+              <option value="info" data-i18n="summary.info"></option>
+            </select>
+            <input id="filter-keyword" type="search" data-i18n-placeholder="filter.search" aria-label="keyword filter">
+          </div>
+          <ul id="issue-list" class="issue-list"></ul>
+        </aside>
+      </div>
+
+      <div class="downloads">
+        <a id="dl-fixed" class="btn" hidden data-i18n="dl.fixed"></a>
+        <a id="dl-json" class="btn" hidden data-i18n="dl.json"></a>
+        <a id="dl-html" class="btn" hidden data-i18n="dl.html"></a>
+      </div>
+    </section>
+
+    <p id="error-banner" class="error-banner" hidden></p>
+  </main>
+
+  <footer class="footer muted" data-i18n="footer"></footer>
+
+  <script src="/static/i18n.js"></script>
+  <script src="/static/logic.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

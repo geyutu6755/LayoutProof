@@ -38,10 +38,9 @@ class UnfinishedPlaceholderRule(Rule):
             if pattern in _GENERIC_MARKERS:
                 # Ambiguous word: require a whole-word hit in short text so a
                 # normal sentence that merely mentions it is not flagged.
-                if (
-                    word_count <= _MAX_GENERIC_MARKER_WORDS
-                    and _word_boundary_pattern(pattern).search(lowered)
-                ):
+                if word_count <= _MAX_GENERIC_MARKER_WORDS and _word_boundary_pattern(
+                    pattern
+                ).search(lowered):
                     return pattern
                 continue
             if _word_boundary_pattern(pattern).search(lowered):
