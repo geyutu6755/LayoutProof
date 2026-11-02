@@ -1,0 +1,522 @@
+[
+  {
+    "content_id": "j01",
+    "file": "pptxgenjs/j01_clean_en_table_image_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "clean_en_table_image",
+    "description": "Clean English deck: readable sizes, native table, valid image with alt text, no overlap.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "offslide_object",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "all shapes inside the 16:9 canvas",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "font_too_small",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "explicit sizes 14-28pt",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "text_overflow",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "warning",
+        "basis": "boxes tall enough for their text",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "unfinished_placeholder",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "warning",
+        "basis": "real prose, no prompt",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "media_broken",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "valid embedded PNG",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "broken_reference",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "no internal/dangling relationship",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "object_overlap",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "table/image/title do not collide",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "missing_alt_text",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "info",
+        "basis": "picture has altText",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "structure_anomaly",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "valid pptx package with required parts",
+        "note": "",
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j02",
+    "file": "pptxgenjs/j02_clean_zh_typeset_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "zh",
+    "aspect": "16:9",
+    "scenario": "clean_zh_typeset",
+    "description": "Well-typeset Chinese: full-width punctuation, one normal CJK-Latin space.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "cjk_typography",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "full-width punctuation, single normal space, no forbidden start",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "unfinished_placeholder",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "warning",
+        "basis": "real Chinese prose",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "blank_slide",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "content present",
+        "note": "",
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j03",
+    "file": "pptxgenjs/j03_clean_mixed_4x3.pptx",
+    "source": "pptxgenjs",
+    "language": "mixed",
+    "aspect": "4:3",
+    "scenario": "clean_4_3",
+    "description": "4:3 bilingual clean slide authored within the narrower canvas.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "offslide_object",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "all boxes inside 4:3 bounds",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "text_overflow",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "warning",
+        "basis": "ample boxes",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "blank_slide",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "content present",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "cjk_typography",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "normal punctuation and spacing",
+        "note": "",
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j04",
+    "file": "pptxgenjs/j04_offslide_shape_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "pos_offslide",
+    "description": "Rectangle fully to the right of the 13.333in canvas.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "offslide_object",
+        "expect": "positive",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "shape x=14in beyond canvas width",
+        "note": {
+          "count": 1
+        },
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j05",
+    "file": "pptxgenjs/j05_overflow_nowrap_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "pos_overflow",
+    "description": "24pt unwrapped text in a very short box; height clearly insufficient.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "text_overflow",
+        "expect": "positive",
+        "profiles": "both",
+        "expected_severity": "warning",
+        "basis": "wrap disabled; tiny height; explicit 24pt",
+        "note": {
+          "count": 1
+        },
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j06",
+    "file": "pptxgenjs/j06_font_small_10pt_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "pos_font_small",
+    "description": "Explicit 10pt footnote below the 12pt minimum; box ample to isolate the defect.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "font_too_small",
+        "expect": "positive",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "explicit 10pt < 12pt",
+        "note": {
+          "count": 1
+        },
+        "expected_count": null
+      },
+      {
+        "rule_id": "text_overflow",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "warning",
+        "basis": "box height ample for the short line",
+        "note": "",
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j07",
+    "file": "pptxgenjs/j07_overlap_cards_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "pos_overlap",
+    "description": "Two plain content rectangles overlap beyond 30% of the smaller shape.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "object_overlap",
+        "expect": "positive",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "plain cards overlap >=30%",
+        "note": {
+          "count": 1
+        },
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j08",
+    "file": "pptxgenjs/j08_blank_slide_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "pos_blank",
+    "description": "Empty slide with no shapes.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "blank_slide",
+        "expect": "positive",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "slide contains no content shape or media",
+        "note": {
+          "count": 1
+        },
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j09",
+    "file": "pptxgenjs/j09_placeholder_text_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "pos_placeholder",
+    "description": "English placeholder leftovers (click prompt, TODO, Lorem ipsum).",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "unfinished_placeholder",
+        "expect": "positive",
+        "profiles": "both",
+        "expected_severity": "warning",
+        "basis": "three prompt texts",
+        "note": {
+          "count": 3
+        },
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j10",
+    "file": "pptxgenjs/j10_missing_alt_image_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "pos_missing_alt",
+    "description": "Visible image without altText; valid bytes.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "missing_alt_text",
+        "expect": "positive",
+        "profiles": "full",
+        "expected_severity": "info",
+        "basis": "image omits altText",
+        "note": {
+          "count": 1
+        },
+        "expected_count": null
+      },
+      {
+        "rule_id": "media_broken",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "PNG bytes decode successfully",
+        "note": "",
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j11",
+    "file": "pptxgenjs/j11_clean_images_table_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "clean_images_table",
+    "description": "Healthy images with alt text and a table; no defects.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "media_broken",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "all embedded PNGs valid",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "missing_alt_text",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "info",
+        "basis": "all pictures carry altText",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "structure_anomaly",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "well-formed OOXML package",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "blank_slide",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "content present",
+        "note": "",
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j12",
+    "file": "pptxgenjs/j12_low_contrast_gray_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "zh",
+    "aspect": "16:9",
+    "scenario": "pos_contrast",
+    "description": "12pt light-gray text on explicit white background, below 4.5:1.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "low_contrast",
+        "expect": "positive",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "gray on white below normal contrast threshold",
+        "note": {
+          "count": 1
+        },
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j13",
+    "file": "pptxgenjs/j13_cjk_issues_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "zh",
+    "aspect": "16:9",
+    "scenario": "pos_cjk",
+    "description": "Kinsoku line-start comma plus half-width comma after CJK.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "cjk_typography",
+        "expect": "positive",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "kinsoku_line_start + halfwidth_punct",
+        "note": {
+          "count": 1
+        },
+        "expected_count": null
+      }
+    ]
+  },
+  {
+    "content_id": "j14",
+    "file": "pptxgenjs/j14_clean_shape_grid_16x9.pptx",
+    "source": "pptxgenjs",
+    "language": "en",
+    "aspect": "16:9",
+    "scenario": "clean_grid",
+    "description": "A separated grid of small accent squares; no overlap, all inside canvas.",
+    "parent": null,
+    "expected_status": "ok",
+    "build_note": "",
+    "judgements": [
+      {
+        "rule_id": "object_overlap",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "grid squares are separated with gaps",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "offslide_object",
+        "expect": "negative",
+        "profiles": "both",
+        "expected_severity": "error",
+        "basis": "grid remains inside canvas",
+        "note": "",
+        "expected_count": null
+      },
+      {
+        "rule_id": "blank_slide",
+        "expect": "negative",
+        "profiles": "full",
+        "expected_severity": "warning",
+        "basis": "shapes present",
+        "note": "",
+        "expected_count": null
+      }
+    ]
+  }
+]

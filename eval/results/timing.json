@@ -1,0 +1,350 @@
+{
+  "core": {
+    "files": 66,
+    "total": 1184.489,
+    "mean": 17.947,
+    "median": 14.281,
+    "p90": 23.42,
+    "max": 124.247
+  },
+  "full": {
+    "files": 66,
+    "total": 1317.523,
+    "mean": 19.962,
+    "median": 18.812,
+    "p90": 26.065,
+    "max": 35.418
+  },
+  "per_file": [
+    {
+      "file": "libreoffice/lo_j01_clean_en_table_image_16x9.pptx",
+      "core_ms": 12.067,
+      "full_ms": 17.929
+    },
+    {
+      "file": "libreoffice/lo_j02_clean_zh_typeset_16x9.pptx",
+      "core_ms": 9.185,
+      "full_ms": 20.601
+    },
+    {
+      "file": "libreoffice/lo_j11_clean_images_table_16x9.pptx",
+      "core_ms": 9.684,
+      "full_ms": 15.384
+    },
+    {
+      "file": "libreoffice/lo_p01_clean_en_table_16x9.pptx",
+      "core_ms": 13.702,
+      "full_ms": 23.436
+    },
+    {
+      "file": "libreoffice/lo_p02_clean_zh_typeset_16x9.pptx",
+      "core_ms": 12.22,
+      "full_ms": 20.911
+    },
+    {
+      "file": "libreoffice/lo_p03_clean_mixed_16x9.pptx",
+      "core_ms": 14.165,
+      "full_ms": 32.622
+    },
+    {
+      "file": "libreoffice/lo_p04_clean_en_4x3.pptx",
+      "core_ms": 17.498,
+      "full_ms": 25.419
+    },
+    {
+      "file": "libreoffice/lo_p05_clean_decorative_group_16x9.pptx",
+      "core_ms": 15.036,
+      "full_ms": 26.527
+    },
+    {
+      "file": "libreoffice/lo_p06_clean_picture_caption_16x9.pptx",
+      "core_ms": 12.938,
+      "full_ms": 32.517
+    },
+    {
+      "file": "libreoffice/lo_p07_clean_normautofit_16x9.pptx",
+      "core_ms": 11.788,
+      "full_ms": 18.525
+    },
+    {
+      "file": "libreoffice/lo_p11_clean_valid_internal_rel_16x9.pptx",
+      "core_ms": 11.861,
+      "full_ms": 19.024
+    },
+    {
+      "file": "libreoffice/lo_p12_clean_media_alts_16x9.pptx",
+      "core_ms": 13.76,
+      "full_ms": 35.418
+    },
+    {
+      "file": "libreoffice/lo_p13_clean_table_chart_16x9.pptx",
+      "core_ms": 21.616,
+      "full_ms": 25.149
+    },
+    {
+      "file": "libreoffice/lo_p14_clean_bg_and_content_16x9.pptx",
+      "core_ms": 13.821,
+      "full_ms": 22.591
+    },
+    {
+      "file": "pptxgenjs/j01_clean_en_table_image_16x9.pptx",
+      "core_ms": 11.615,
+      "full_ms": 19.809
+    },
+    {
+      "file": "pptxgenjs/j02_clean_zh_typeset_16x9.pptx",
+      "core_ms": 11.481,
+      "full_ms": 13.753
+    },
+    {
+      "file": "pptxgenjs/j03_clean_mixed_4x3.pptx",
+      "core_ms": 9.406,
+      "full_ms": 13.629
+    },
+    {
+      "file": "pptxgenjs/j04_offslide_shape_16x9.pptx",
+      "core_ms": 9.079,
+      "full_ms": 17.876
+    },
+    {
+      "file": "pptxgenjs/j05_overflow_nowrap_16x9.pptx",
+      "core_ms": 9.077,
+      "full_ms": 17.967
+    },
+    {
+      "file": "pptxgenjs/j06_font_small_10pt_16x9.pptx",
+      "core_ms": 9.46,
+      "full_ms": 14.594
+    },
+    {
+      "file": "pptxgenjs/j07_overlap_cards_16x9.pptx",
+      "core_ms": 9.012,
+      "full_ms": 16.756
+    },
+    {
+      "file": "pptxgenjs/j08_blank_slide_16x9.pptx",
+      "core_ms": 9.036,
+      "full_ms": 16.825
+    },
+    {
+      "file": "pptxgenjs/j09_placeholder_text_16x9.pptx",
+      "core_ms": 12.743,
+      "full_ms": 20.599
+    },
+    {
+      "file": "pptxgenjs/j10_missing_alt_image_16x9.pptx",
+      "core_ms": 19.078,
+      "full_ms": 14.87
+    },
+    {
+      "file": "pptxgenjs/j11_clean_images_table_16x9.pptx",
+      "core_ms": 12.823,
+      "full_ms": 16.548
+    },
+    {
+      "file": "pptxgenjs/j12_low_contrast_gray_16x9.pptx",
+      "core_ms": 8.317,
+      "full_ms": 13.335
+    },
+    {
+      "file": "pptxgenjs/j13_cjk_issues_16x9.pptx",
+      "core_ms": 9.094,
+      "full_ms": 14.027
+    },
+    {
+      "file": "pptxgenjs/j14_clean_shape_grid_16x9.pptx",
+      "core_ms": 14.397,
+      "full_ms": 23.427
+    },
+    {
+      "file": "python_pptx/p01_clean_en_table_16x9.pptx",
+      "core_ms": 124.247,
+      "full_ms": 18.685
+    },
+    {
+      "file": "python_pptx/p02_clean_zh_typeset_16x9.pptx",
+      "core_ms": 12.945,
+      "full_ms": 20.637
+    },
+    {
+      "file": "python_pptx/p03_clean_mixed_16x9.pptx",
+      "core_ms": 13.764,
+      "full_ms": 18.725
+    },
+    {
+      "file": "python_pptx/p04_clean_en_4x3.pptx",
+      "core_ms": 14.057,
+      "full_ms": 17.706
+    },
+    {
+      "file": "python_pptx/p05_clean_decorative_group_16x9.pptx",
+      "core_ms": 14.556,
+      "full_ms": 23.542
+    },
+    {
+      "file": "python_pptx/p06_clean_picture_caption_16x9.pptx",
+      "core_ms": 11.488,
+      "full_ms": 17.287
+    },
+    {
+      "file": "python_pptx/p07_clean_normautofit_16x9.pptx",
+      "core_ms": 11.47,
+      "full_ms": 17.227
+    },
+    {
+      "file": "python_pptx/p08_clean_inherited_font_16x9.pptx",
+      "core_ms": 22.585,
+      "full_ms": 20.236
+    },
+    {
+      "file": "python_pptx/p09_clean_safe_margin_16x9.pptx",
+      "core_ms": 22.537,
+      "full_ms": 21.655
+    },
+    {
+      "file": "python_pptx/p10_clean_external_link_16x9.pptx",
+      "core_ms": 23.831,
+      "full_ms": 19.982
+    },
+    {
+      "file": "python_pptx/p11_clean_valid_internal_rel_16x9.pptx",
+      "core_ms": 11.53,
+      "full_ms": 23.16
+    },
+    {
+      "file": "python_pptx/p12_clean_media_alts_16x9.pptx",
+      "core_ms": 11.377,
+      "full_ms": 19.59
+    },
+    {
+      "file": "python_pptx/p13_clean_table_chart_16x9.pptx",
+      "core_ms": 12.431,
+      "full_ms": 19.224
+    },
+    {
+      "file": "python_pptx/p14_clean_bg_and_content_16x9.pptx",
+      "core_ms": 12.423,
+      "full_ms": 23.041
+    },
+    {
+      "file": "python_pptx/p15_offslide_fully_right_16x9.pptx",
+      "core_ms": 22.176,
+      "full_ms": 16.463
+    },
+    {
+      "file": "python_pptx/p16_offslide_partial_bottom_4x3.pptx",
+      "core_ms": 23.947,
+      "full_ms": 19.061
+    },
+    {
+      "file": "python_pptx/p17_overflow_nowrap_tinybox_16x9.pptx",
+      "core_ms": 19.97,
+      "full_ms": 16.678
+    },
+    {
+      "file": "python_pptx/p18_overflow_dense_wrapped_16x9.pptx",
+      "core_ms": 22.093,
+      "full_ms": 16.289
+    },
+    {
+      "file": "python_pptx/p19_font_tiny_9pt_zh_16x9.pptx",
+      "core_ms": 21.637,
+      "full_ms": 31.135
+    },
+    {
+      "file": "python_pptx/p20_contrast_gray_small_16x9.pptx",
+      "core_ms": 21.052,
+      "full_ms": 17.352
+    },
+    {
+      "file": "python_pptx/p21_contrast_gray_large_16x9.pptx",
+      "core_ms": 23.672,
+      "full_ms": 18.031
+    },
+    {
+      "file": "python_pptx/p22_contrast_shape_fill_16x9.pptx",
+      "core_ms": 19.937,
+      "full_ms": 23.853
+    },
+    {
+      "file": "python_pptx/p23_blank_only_16x9.pptx",
+      "core_ms": 18.241,
+      "full_ms": 15.651
+    },
+    {
+      "file": "python_pptx/p24_placeholder_en_patterns_16x9.pptx",
+      "core_ms": 23.42,
+      "full_ms": 17.681
+    },
+    {
+      "file": "python_pptx/p25_placeholder_zh_patterns_16x9.pptx",
+      "core_ms": 22.641,
+      "full_ms": 26.065
+    },
+    {
+      "file": "python_pptx/p26_overlap_two_cards_16x9.pptx",
+      "core_ms": 22.873,
+      "full_ms": 18.337
+    },
+    {
+      "file": "python_pptx/p27_cjk_kinsoku_start_16x9.pptx",
+      "core_ms": 30.943,
+      "full_ms": 20.997
+    },
+    {
+      "file": "python_pptx/p28_cjk_halfwidth_space_16x9.pptx",
+      "core_ms": 20.484,
+      "full_ms": 24.977
+    },
+    {
+      "file": "python_pptx/p29_missing_alt_picture_16x9.pptx",
+      "core_ms": 22.305,
+      "full_ms": 17.711
+    },
+    {
+      "file": "python_pptx/p30_media_missing_part_16x9.pptx",
+      "core_ms": 20.486,
+      "full_ms": 18.138
+    },
+    {
+      "file": "python_pptx/p31_media_corrupt_bytes_16x9.pptx",
+      "core_ms": 21.504,
+      "full_ms": 20.875
+    },
+    {
+      "file": "python_pptx/p32_ref_missing_target_16x9.pptx",
+      "core_ms": 21.79,
+      "full_ms": 17.224
+    },
+    {
+      "file": "python_pptx/p33_ref_dangling_rid_16x9.pptx",
+      "core_ms": 26.223,
+      "full_ms": 18.898
+    },
+    {
+      "file": "python_pptx/p34_structure_unsafe_entry_16x9.pptx",
+      "core_ms": 22.419,
+      "full_ms": 27.643
+    },
+    {
+      "file": "python_pptx/p35_probe_decorative_offslide_16x9.pptx",
+      "core_ms": 17.71,
+      "full_ms": 17.204
+    },
+    {
+      "file": "python_pptx/p36_probe_placeholder_substring_16x9.pptx",
+      "core_ms": 21.118,
+      "full_ms": 17.816
+    },
+    {
+      "file": "python_pptx/p37_error_truncated_zip.pptx",
+      "core_ms": 10.385,
+      "full_ms": 1.73
+    },
+    {
+      "file": "python_pptx/p38_clean_layout_placeholder_16x9.pptx",
+      "core_ms": 24.265,
+      "full_ms": 26.948
+    }
+  ]
+}

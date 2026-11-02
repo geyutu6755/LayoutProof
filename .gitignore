@@ -38,3 +38,6 @@ test_fixtures/corpus/_build/
 eval/**/node_modules/
 eval/**/_build/
 eval/**/package-lock.json
+
+# Example scratch output
+examples/_agent_e2e_out/

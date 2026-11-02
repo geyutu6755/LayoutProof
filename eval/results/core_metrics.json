@@ -1,0 +1,1244 @@
+{
+  "summary": {
+    "profile": "core",
+    "generated_at": "2026-11-02T02:44:57+00:00",
+    "files_total": 66,
+    "files_scanned_ok": 65,
+    "files_scanned_error": 1,
+    "missing_files": [],
+    "micro": {
+      "tp": 16,
+      "fp": 2,
+      "fn": 0,
+      "precision": 0.8889,
+      "recall": 1.0,
+      "f1": 0.9412
+    },
+    "macro_average": {
+      "n_rules_evaluated": 7,
+      "precision": 0.9286,
+      "recall": 1.0,
+      "f1": 0.9592
+    },
+    "timing_ms": {
+      "files": 66,
+      "total": 1184.489,
+      "mean": 17.947,
+      "median": 14.281,
+      "p90": 23.42,
+      "max": 124.247
+    },
+    "unknown_judgements": [
+      {
+        "file": "libreoffice/lo_p02_clean_zh_typeset_16x9.pptx",
+        "rule": "offslide_object",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p02_clean_zh_typeset_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p03_clean_mixed_16x9.pptx",
+        "rule": "offslide_object",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p03_clean_mixed_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p05_clean_decorative_group_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p06_clean_picture_caption_16x9.pptx",
+        "rule": "offslide_object",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p06_clean_picture_caption_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p11_clean_valid_internal_rel_16x9.pptx",
+        "rule": "offslide_object",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p11_clean_valid_internal_rel_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p12_clean_media_alts_16x9.pptx",
+        "rule": "offslide_object",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p12_clean_media_alts_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p13_clean_table_chart_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p14_clean_bg_and_content_16x9.pptx",
+        "rule": "offslide_object",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_p14_clean_bg_and_content_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_j02_clean_zh_typeset_16x9.pptx",
+        "rule": "offslide_object",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_j02_clean_zh_typeset_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_j11_clean_images_table_16x9.pptx",
+        "rule": "offslide_object",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      },
+      {
+        "file": "libreoffice/lo_j11_clean_images_table_16x9.pptx",
+        "rule": "text_overflow",
+        "reason": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+        "note": "renderer-dependent; excluded from confusion matrix"
+      }
+    ],
+    "error_files": [
+      {
+        "file": "python_pptx/p37_error_truncated_zip.pptx",
+        "error": "Not a valid zip/pptx package: File is not a zip file",
+        "expected_status": "error"
+      }
+    ],
+    "severity_mismatches": []
+  },
+  "rule_metrics": {
+    "broken_reference": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "tn": 8,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support_positive": 2,
+      "support_negative": 8,
+      "evaluated": true
+    },
+    "offslide_object": {
+      "tp": 3,
+      "fp": 1,
+      "fn": 0,
+      "tn": 16,
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1": 0.8571,
+      "support_positive": 3,
+      "support_negative": 17,
+      "evaluated": true
+    },
+    "media_broken": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support_positive": 2,
+      "support_negative": 15,
+      "evaluated": true
+    },
+    "text_overflow": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "tn": 13,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support_positive": 3,
+      "support_negative": 13,
+      "evaluated": true
+    },
+    "unfinished_placeholder": {
+      "tp": 3,
+      "fp": 1,
+      "fn": 0,
+      "tn": 11,
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1": 0.8571,
+      "support_positive": 3,
+      "support_negative": 12,
+      "evaluated": true
+    },
+    "font_too_small": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "tn": 6,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support_positive": 2,
+      "support_negative": 6,
+      "evaluated": true
+    },
+    "structure_anomaly": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "tn": 11,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support_positive": 1,
+      "support_negative": 11,
+      "evaluated": true
+    }
+  },
+  "per_file": [
+    {
+      "file": "python_pptx/p01_clean_en_table_16x9.pptx",
+      "content_id": "p01",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "font_too_small",
+        "text_overflow",
+        "unfinished_placeholder",
+        "media_broken",
+        "broken_reference",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 124.247
+    },
+    {
+      "file": "python_pptx/p02_clean_zh_typeset_16x9.pptx",
+      "content_id": "p02",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "unfinished_placeholder"
+      ],
+      "flags": [],
+      "elapsed_ms": 12.945
+    },
+    {
+      "file": "python_pptx/p03_clean_mixed_16x9.pptx",
+      "content_id": "p03",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "unfinished_placeholder"
+      ],
+      "flags": [],
+      "elapsed_ms": 13.764
+    },
+    {
+      "file": "python_pptx/p04_clean_en_4x3.pptx",
+      "content_id": "p04",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "text_overflow"
+      ],
+      "flags": [],
+      "elapsed_ms": 14.057
+    },
+    {
+      "file": "python_pptx/p05_clean_decorative_group_16x9.pptx",
+      "content_id": "p05",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object"
+      ],
+      "flags": [],
+      "elapsed_ms": 14.556
+    },
+    {
+      "file": "python_pptx/p06_clean_picture_caption_16x9.pptx",
+      "content_id": "p06",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken"
+      ],
+      "flags": [],
+      "elapsed_ms": 11.488
+    },
+    {
+      "file": "python_pptx/p07_clean_normautofit_16x9.pptx",
+      "content_id": "p07",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "text_overflow",
+        "offslide_object"
+      ],
+      "flags": [],
+      "elapsed_ms": 11.47
+    },
+    {
+      "file": "python_pptx/p08_clean_inherited_font_16x9.pptx",
+      "content_id": "p08",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "font_too_small",
+        "text_overflow"
+      ],
+      "flags": [],
+      "elapsed_ms": 22.585
+    },
+    {
+      "file": "python_pptx/p09_clean_safe_margin_16x9.pptx",
+      "content_id": "p09",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object"
+      ],
+      "flags": [],
+      "elapsed_ms": 22.537
+    },
+    {
+      "file": "python_pptx/p10_clean_external_link_16x9.pptx",
+      "content_id": "p10",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "broken_reference"
+      ],
+      "flags": [],
+      "elapsed_ms": 23.831
+    },
+    {
+      "file": "python_pptx/p11_clean_valid_internal_rel_16x9.pptx",
+      "content_id": "p11",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 2,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "broken_reference"
+      ],
+      "flags": [],
+      "elapsed_ms": 11.53
+    },
+    {
+      "file": "python_pptx/p12_clean_media_alts_16x9.pptx",
+      "content_id": "p12",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 11.377
+    },
+    {
+      "file": "python_pptx/p13_clean_table_chart_16x9.pptx",
+      "content_id": "p13",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 12.431
+    },
+    {
+      "file": "python_pptx/p14_clean_bg_and_content_16x9.pptx",
+      "content_id": "p14",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken"
+      ],
+      "flags": [],
+      "elapsed_ms": 12.423
+    },
+    {
+      "file": "python_pptx/p15_offslide_fully_right_16x9.pptx",
+      "content_id": "p15",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "offslide_object": 1
+      },
+      "expected_positive": [
+        "offslide_object"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 22.176
+    },
+    {
+      "file": "python_pptx/p16_offslide_partial_bottom_4x3.pptx",
+      "content_id": "p16",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "offslide_object": 1
+      },
+      "expected_positive": [
+        "offslide_object"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 23.947
+    },
+    {
+      "file": "python_pptx/p17_overflow_nowrap_tinybox_16x9.pptx",
+      "content_id": "p17",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "text_overflow": 1
+      },
+      "expected_positive": [
+        "text_overflow"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 19.97
+    },
+    {
+      "file": "python_pptx/p18_overflow_dense_wrapped_16x9.pptx",
+      "content_id": "p18",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "text_overflow": 1
+      },
+      "expected_positive": [
+        "text_overflow"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 22.093
+    },
+    {
+      "file": "python_pptx/p19_font_tiny_9pt_zh_16x9.pptx",
+      "content_id": "p19",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "font_too_small": 1
+      },
+      "expected_positive": [
+        "font_too_small"
+      ],
+      "expected_negative": [
+        "text_overflow"
+      ],
+      "flags": [],
+      "elapsed_ms": 21.637
+    },
+    {
+      "file": "python_pptx/p20_contrast_gray_small_16x9.pptx",
+      "content_id": "p20",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 21.052
+    },
+    {
+      "file": "python_pptx/p21_contrast_gray_large_16x9.pptx",
+      "content_id": "p21",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 23.672
+    },
+    {
+      "file": "python_pptx/p22_contrast_shape_fill_16x9.pptx",
+      "content_id": "p22",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 19.937
+    },
+    {
+      "file": "python_pptx/p23_blank_only_16x9.pptx",
+      "content_id": "p23",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 18.241
+    },
+    {
+      "file": "python_pptx/p24_placeholder_en_patterns_16x9.pptx",
+      "content_id": "p24",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "unfinished_placeholder": 3
+      },
+      "expected_positive": [
+        "unfinished_placeholder"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 23.42
+    },
+    {
+      "file": "python_pptx/p25_placeholder_zh_patterns_16x9.pptx",
+      "content_id": "p25",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "unfinished_placeholder": 3
+      },
+      "expected_positive": [
+        "unfinished_placeholder"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 22.641
+    },
+    {
+      "file": "python_pptx/p26_overlap_two_cards_16x9.pptx",
+      "content_id": "p26",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 22.873
+    },
+    {
+      "file": "python_pptx/p27_cjk_kinsoku_start_16x9.pptx",
+      "content_id": "p27",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 30.943
+    },
+    {
+      "file": "python_pptx/p28_cjk_halfwidth_space_16x9.pptx",
+      "content_id": "p28",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 20.484
+    },
+    {
+      "file": "python_pptx/p29_missing_alt_picture_16x9.pptx",
+      "content_id": "p29",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken"
+      ],
+      "flags": [],
+      "elapsed_ms": 22.305
+    },
+    {
+      "file": "python_pptx/p30_media_missing_part_16x9.pptx",
+      "content_id": "p30",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "media_broken": 1
+      },
+      "expected_positive": [
+        "media_broken"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 20.486
+    },
+    {
+      "file": "python_pptx/p31_media_corrupt_bytes_16x9.pptx",
+      "content_id": "p31",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "media_broken": 1
+      },
+      "expected_positive": [
+        "media_broken"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 21.504
+    },
+    {
+      "file": "python_pptx/p32_ref_missing_target_16x9.pptx",
+      "content_id": "p32",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "broken_reference": 1
+      },
+      "expected_positive": [
+        "broken_reference"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 21.79
+    },
+    {
+      "file": "python_pptx/p33_ref_dangling_rid_16x9.pptx",
+      "content_id": "p33",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "broken_reference": 1
+      },
+      "expected_positive": [
+        "broken_reference"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 26.223
+    },
+    {
+      "file": "python_pptx/p34_structure_unsafe_entry_16x9.pptx",
+      "content_id": "p34",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "structure_anomaly": 1
+      },
+      "expected_positive": [
+        "structure_anomaly"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 22.419
+    },
+    {
+      "file": "python_pptx/p35_probe_decorative_offslide_16x9.pptx",
+      "content_id": "p35",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "offslide_object": 1
+      },
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object"
+      ],
+      "flags": [
+        "FP:offslide_object"
+      ],
+      "elapsed_ms": 17.71
+    },
+    {
+      "file": "python_pptx/p36_probe_placeholder_substring_16x9.pptx",
+      "content_id": "p36",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "unfinished_placeholder": 2
+      },
+      "expected_positive": [],
+      "expected_negative": [
+        "unfinished_placeholder"
+      ],
+      "flags": [
+        "FP:unfinished_placeholder"
+      ],
+      "elapsed_ms": 21.118
+    },
+    {
+      "file": "python_pptx/p37_error_truncated_zip.pptx",
+      "content_id": "p37",
+      "source": "python_pptx",
+      "status": "error",
+      "slide_count": 0,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 10.385
+    },
+    {
+      "file": "python_pptx/p38_clean_layout_placeholder_16x9.pptx",
+      "content_id": "p38",
+      "source": "python_pptx",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "font_too_small",
+        "text_overflow",
+        "unfinished_placeholder",
+        "media_broken",
+        "broken_reference",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 24.265
+    },
+    {
+      "file": "pptxgenjs/j01_clean_en_table_image_16x9.pptx",
+      "content_id": "j01",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "font_too_small",
+        "text_overflow",
+        "unfinished_placeholder",
+        "media_broken",
+        "broken_reference",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 11.615
+    },
+    {
+      "file": "pptxgenjs/j02_clean_zh_typeset_16x9.pptx",
+      "content_id": "j02",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "unfinished_placeholder"
+      ],
+      "flags": [],
+      "elapsed_ms": 11.481
+    },
+    {
+      "file": "pptxgenjs/j03_clean_mixed_4x3.pptx",
+      "content_id": "j03",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "unfinished_placeholder": 1
+      },
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "text_overflow"
+      ],
+      "flags": [],
+      "elapsed_ms": 9.406
+    },
+    {
+      "file": "pptxgenjs/j04_offslide_shape_16x9.pptx",
+      "content_id": "j04",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "offslide_object": 1
+      },
+      "expected_positive": [
+        "offslide_object"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 9.079
+    },
+    {
+      "file": "pptxgenjs/j05_overflow_nowrap_16x9.pptx",
+      "content_id": "j05",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "text_overflow": 1
+      },
+      "expected_positive": [
+        "text_overflow"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 9.077
+    },
+    {
+      "file": "pptxgenjs/j06_font_small_10pt_16x9.pptx",
+      "content_id": "j06",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "font_too_small": 1
+      },
+      "expected_positive": [
+        "font_too_small"
+      ],
+      "expected_negative": [
+        "text_overflow"
+      ],
+      "flags": [],
+      "elapsed_ms": 9.46
+    },
+    {
+      "file": "pptxgenjs/j07_overlap_cards_16x9.pptx",
+      "content_id": "j07",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 9.012
+    },
+    {
+      "file": "pptxgenjs/j08_blank_slide_16x9.pptx",
+      "content_id": "j08",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 9.036
+    },
+    {
+      "file": "pptxgenjs/j09_placeholder_text_16x9.pptx",
+      "content_id": "j09",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {
+        "unfinished_placeholder": 3
+      },
+      "expected_positive": [
+        "unfinished_placeholder"
+      ],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 12.743
+    },
+    {
+      "file": "pptxgenjs/j10_missing_alt_image_16x9.pptx",
+      "content_id": "j10",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken"
+      ],
+      "flags": [],
+      "elapsed_ms": 19.078
+    },
+    {
+      "file": "pptxgenjs/j11_clean_images_table_16x9.pptx",
+      "content_id": "j11",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 12.823
+    },
+    {
+      "file": "pptxgenjs/j12_low_contrast_gray_16x9.pptx",
+      "content_id": "j12",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 8.317
+    },
+    {
+      "file": "pptxgenjs/j13_cjk_issues_16x9.pptx",
+      "content_id": "j13",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [],
+      "flags": [],
+      "elapsed_ms": 9.094
+    },
+    {
+      "file": "pptxgenjs/j14_clean_shape_grid_16x9.pptx",
+      "content_id": "j14",
+      "source": "pptxgenjs",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object"
+      ],
+      "flags": [],
+      "elapsed_ms": 14.397
+    },
+    {
+      "file": "libreoffice/lo_p01_clean_en_table_16x9.pptx",
+      "content_id": "p01_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "font_too_small",
+        "text_overflow",
+        "unfinished_placeholder",
+        "media_broken",
+        "broken_reference",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 13.702
+    },
+    {
+      "file": "libreoffice/lo_p02_clean_zh_typeset_16x9.pptx",
+      "content_id": "p02_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "unfinished_placeholder"
+      ],
+      "flags": [],
+      "elapsed_ms": 12.22
+    },
+    {
+      "file": "libreoffice/lo_p03_clean_mixed_16x9.pptx",
+      "content_id": "p03_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "unfinished_placeholder"
+      ],
+      "flags": [],
+      "elapsed_ms": 14.165
+    },
+    {
+      "file": "libreoffice/lo_p04_clean_en_4x3.pptx",
+      "content_id": "p04_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "text_overflow"
+      ],
+      "flags": [],
+      "elapsed_ms": 17.498
+    },
+    {
+      "file": "libreoffice/lo_p05_clean_decorative_group_16x9.pptx",
+      "content_id": "p05_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object"
+      ],
+      "flags": [],
+      "elapsed_ms": 15.036
+    },
+    {
+      "file": "libreoffice/lo_p06_clean_picture_caption_16x9.pptx",
+      "content_id": "p06_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken"
+      ],
+      "flags": [],
+      "elapsed_ms": 12.938
+    },
+    {
+      "file": "libreoffice/lo_p07_clean_normautofit_16x9.pptx",
+      "content_id": "p07_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "text_overflow",
+        "offslide_object"
+      ],
+      "flags": [],
+      "elapsed_ms": 11.788
+    },
+    {
+      "file": "libreoffice/lo_p11_clean_valid_internal_rel_16x9.pptx",
+      "content_id": "p11_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 2,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "broken_reference"
+      ],
+      "flags": [],
+      "elapsed_ms": 11.861
+    },
+    {
+      "file": "libreoffice/lo_p12_clean_media_alts_16x9.pptx",
+      "content_id": "p12_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 13.76
+    },
+    {
+      "file": "libreoffice/lo_p13_clean_table_chart_16x9.pptx",
+      "content_id": "p13_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 21.616
+    },
+    {
+      "file": "libreoffice/lo_p14_clean_bg_and_content_16x9.pptx",
+      "content_id": "p14_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken"
+      ],
+      "flags": [],
+      "elapsed_ms": 13.821
+    },
+    {
+      "file": "libreoffice/lo_j01_clean_en_table_image_16x9.pptx",
+      "content_id": "j01_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "offslide_object",
+        "font_too_small",
+        "text_overflow",
+        "unfinished_placeholder",
+        "media_broken",
+        "broken_reference",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 12.067
+    },
+    {
+      "file": "libreoffice/lo_j02_clean_zh_typeset_16x9.pptx",
+      "content_id": "j02_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "unfinished_placeholder"
+      ],
+      "flags": [],
+      "elapsed_ms": 9.185
+    },
+    {
+      "file": "libreoffice/lo_j11_clean_images_table_16x9.pptx",
+      "content_id": "j11_lo",
+      "source": "libreoffice_resave",
+      "status": "ok",
+      "slide_count": 1,
+      "detected_counts": {},
+      "expected_positive": [],
+      "expected_negative": [
+        "media_broken",
+        "structure_anomaly"
+      ],
+      "flags": [],
+      "elapsed_ms": 9.684
+    }
+  ],
+  "mismatches": [
+    {
+      "kind": "FP",
+      "file": "python_pptx/p35_probe_decorative_offslide_16x9.pptx",
+      "rule": "offslide_object",
+      "expected": "negative",
+      "detail": "intent: flagged decorative element should be exempt; suspect FP if fired",
+      "note": "decorative flag currently only used by overlap/alt/blank, not offslide"
+    },
+    {
+      "kind": "FP",
+      "file": "python_pptx/p36_probe_placeholder_substring_16x9.pptx",
+      "rule": "unfinished_placeholder",
+      "expected": "negative",
+      "detail": "normal prose; prompt patterns should match only standalone markers",
+      "note": "substring match on 'todo'/'placeholder' likely false positives"
+    }
+  ]
+}

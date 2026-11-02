@@ -1,0 +1,10 @@
+{
+  "name": "layoutproof-eval-node",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local-only eval corpus generator using pptxgenjs; never installed globally.",
+  "main": "gen_pptxgenjs.js",
+  "dependencies": {
+    "pptxgenjs": "^4.0.0"
+  }
+}

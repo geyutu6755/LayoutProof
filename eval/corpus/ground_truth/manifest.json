@@ -1,0 +1,2896 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-11-02T02:44:55+00:00",
+  "purpose": "LayoutProof offline quality-detection evaluation corpus",
+  "judgement_legend": {
+    "positive": "deliberate defect; rule expected to fire",
+    "negative": "deliberately clean sample; rule expected to stay silent",
+    "unknown": "cannot be judged offline; excluded from P/R/F1"
+  },
+  "profiles": {
+    "core": [
+      "offslide_object",
+      "font_too_small",
+      "text_overflow",
+      "unfinished_placeholder",
+      "media_broken",
+      "broken_reference",
+      "structure_anomaly"
+    ],
+    "full": [
+      "offslide_object",
+      "font_too_small",
+      "text_overflow",
+      "unfinished_placeholder",
+      "media_broken",
+      "broken_reference",
+      "structure_anomaly",
+      "object_overlap",
+      "low_contrast",
+      "blank_slide",
+      "missing_alt_text",
+      "cjk_typography"
+    ]
+  },
+  "records": [
+    {
+      "content_id": "p01",
+      "file": "python_pptx/p01_clean_en_table_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_en_table_media",
+      "description": "Clean English deck: explicit solid white bg, readable 14-18pt text, native table, valid PNG with alt text, no overlap.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all shapes inside canvas margins",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "font_too_small",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "explicit sizes 14-18pt, >=12pt threshold",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "boxes tall enough for one wrapped paragraph",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real prose, no TODO/click prompt",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid embedded PNG",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "broken_reference",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "no internal or dangling relationship",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "table/media/title do not overlap content shapes",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "dark text on explicit white background",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "text, table and picture present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "content picture carries alt text",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid zip: required parts present, no unsafe/duplicate entries",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p02",
+      "file": "python_pptx/p02_clean_zh_typeset_16x9.pptx",
+      "source": "python_pptx",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "clean_zh_kinsoku",
+      "description": "Clean well-typeset Simplified Chinese page: full-width punctuation, single normal CJK-Latin space, no forbidden line-start punctuation.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "cjk_typography",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "full-width punctuation, one normal CJK-Latin space, balanced kinsoku",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real Chinese prose",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "dark text on explicit white",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p03",
+      "file": "python_pptx/p03_clean_mixed_16x9.pptx",
+      "source": "python_pptx",
+      "language": "mixed",
+      "aspect": "16:9",
+      "scenario": "clean_bilingual",
+      "description": "Mixed Chinese/English deck with normal spacing and full-width punctuation.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "cjk_typography",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "single spaces, full-width punctuation, no forbidden starts",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real content",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "two separated text boxes",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p04",
+      "file": "python_pptx/p04_clean_en_4x3.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "4:3",
+      "scenario": "clean_4_3",
+      "description": "4:3 slide authored entirely within the narrower canvas (no 16:9 geometry).",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all boxes inside 4:3 bounds",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "ample text box heights",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "picture has alt text",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p05",
+      "file": "python_pptx/p05_clean_decorative_group_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_decorative_group",
+      "description": "Rich but valid layout: separated cards, absorbed card label, named decorative band and a grouped decorative set; must not collide.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "cards are separated; label absorbed into card; grouped children skipped; band flagged decorative",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "decorative band reaches edge but stays inside",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p06",
+      "file": "python_pptx/p06_clean_picture_caption_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_picture_overlay",
+      "description": "Intentional photo+caption overlay covering less than 90% of the picture; caption must not be reported as a collision; picture carries alt text.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "text covers <90% of picture (deliberate overlay)",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "picture alt text present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid PNG",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p07",
+      "file": "python_pptx/p07_clean_normautofit_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_normautofit",
+      "description": "Dense text with normAutofit enabled; renderer-owned shrinking must be skipped.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "normAutofit enabled -> rule intentionally skips",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "inside canvas",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p08",
+      "file": "python_pptx/p08_clean_inherited_font_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_inherited_size",
+      "description": "Text frames carry no explicit font size (inherited from theme); rules must stay silent rather than guessing a small size.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "font_too_small",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "no explicit run size -> rule skips inherited sizes",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "no explicit size -> rule skips",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p09",
+      "file": "python_pptx/p09_clean_safe_margin_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_safe_margin",
+      "description": "A small accent bar that ends before the right/bottom canvas edges.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "bar rectangle fully inside canvas",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p10",
+      "file": "python_pptx/p10_clean_external_link_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_external_hyperlink",
+      "description": "External https hyperlink; offline rules must not treat it as broken internal ref.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "broken_reference",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "external http URL is out of offline scope",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p11",
+      "file": "python_pptx/p11_clean_valid_internal_rel_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_internal_rel",
+      "description": "Internal relationship targeting an existing slide part; not broken.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "broken_reference",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "internal rel resolves to existing slide2.xml",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p12",
+      "file": "python_pptx/p12_clean_media_alts_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_images_alts",
+      "description": "Three valid PNGs, each with alternative text.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all PNGs decode and parts exist",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "every picture has descr alt text",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "well-formed OOXML package",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p13",
+      "file": "python_pptx/p13_clean_table_chart_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_table_chart",
+      "description": "Native table plus clustered column chart on separated regions; no defects.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "table and chart are content",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "table and chart occupy non-overlapping regions",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "inside canvas",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "well-formed OOXML package",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p14",
+      "file": "python_pptx/p14_clean_bg_and_content_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_fullbleed_bg",
+      "description": "Full-bleed background picture auto-exempted as background; real content picture has alt text; slide is not blank.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content text and picture present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "background exempt; content picture has alt",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid images",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "body text sits over a full-bleed picture; background color cannot be resolved offline, so the contrast rule fails open",
+          "note": "renderer/picture-background dependent; excluded from matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p15",
+      "file": "python_pptx/p15_offslide_fully_right_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_offslide_fully",
+      "description": "Rectangle fully beyond the right edge of the 16:9 canvas.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "shape fully outside x>slide width",
+          "note": "",
+          "expected_count": 1
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "title text present",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p16",
+      "file": "python_pptx/p16_offslide_partial_bottom_4x3.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "4:3",
+      "scenario": "pos_offslide_partial",
+      "description": "Rectangle crosses the bottom/right edge of the 4:3 canvas (>5% outside).",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "shape partially outside 4:3 bounds",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p17",
+      "file": "python_pptx/p17_overflow_nowrap_tinybox_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_overflow_nowrap",
+      "description": "Wrap disabled; 24pt text in a ~0.14in tall box; height clearly insufficient.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "text_overflow",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "single unwrapped line needs more pt than box height",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p18",
+      "file": "python_pptx/p18_overflow_dense_wrapped_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_overflow_wrapped",
+      "description": "Narrow short box with repeated wrapped text at 20pt; estimated lines far exceed box capacity; autofit disabled.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "text_overflow",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "heuristic estimated lines >> box capacity",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p19",
+      "file": "python_pptx/p19_font_tiny_9pt_zh_16x9.pptx",
+      "source": "python_pptx",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "pos_font_small",
+      "description": "Explicit 9pt Chinese footnote below the 12pt minimum; box itself is generous so this isolates the font-size defect.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "font_too_small",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "explicit 9pt < 12pt threshold",
+          "note": "",
+          "expected_count": 1
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "box height ample for one 9pt line",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p20",
+      "file": "python_pptx/p20_contrast_gray_small_16x9.pptx",
+      "source": "python_pptx",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "pos_contrast_small",
+      "description": "12pt #999 on explicit white; ratio ~2.85 below normal 4.5 threshold.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "low_contrast",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "gray small text below 4.5:1",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p21",
+      "file": "python_pptx/p21_contrast_gray_large_16x9.pptx",
+      "source": "python_pptx",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "pos_contrast_large",
+      "description": "24pt #999 on white; ratio ~2.85 below the large-text 3.0 threshold.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "low_contrast",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "large gray text below 3.0:1",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p22",
+      "file": "python_pptx/p22_contrast_shape_fill_16x9.pptx",
+      "source": "python_pptx",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "pos_contrast_shapefill",
+      "description": "Text color identical to its own solid shape fill; basis=shape_fill.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "low_contrast",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "foreground ~= background fill, ratio near 1:1",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p23",
+      "file": "python_pptx/p23_blank_only_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_blank",
+      "description": "Deliberately empty blank-layout slide with no shapes at all.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "blank_slide",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "no content shape, placeholder text or media",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p24",
+      "file": "python_pptx/p24_placeholder_en_patterns_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_placeholder_en",
+      "description": "Three English placeholder leftovers: click prompt, TODO, Lorem ipsum.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "three separate prompt runs match patterns",
+          "note": "",
+          "expected_count": 3
+        }
+      ]
+    },
+    {
+      "content_id": "p25",
+      "file": "python_pptx/p25_placeholder_zh_patterns_16x9.pptx",
+      "source": "python_pptx",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "pos_placeholder_zh",
+      "description": "Chinese placeholder leftovers: 待补充 / 此处输入 / 占位.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "three Chinese prompt texts match",
+          "note": "",
+          "expected_count": 3
+        }
+      ]
+    },
+    {
+      "content_id": "p26",
+      "file": "python_pptx/p26_overlap_two_cards_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_overlap_cards",
+      "description": "Two plain filled rectangles overlap well beyond 30% of the smaller shape.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "object_overlap",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "plain content cards overlap >=30%",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p27",
+      "file": "python_pptx/p27_cjk_kinsoku_start_16x9.pptx",
+      "source": "python_pptx",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "pos_cjk_kinsoku",
+      "description": "A paragraph opens with a forbidden closing comma (行首禁则).",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "cjk_typography",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "kinsoku_line_start: comma at paragraph start",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p28",
+      "file": "python_pptx/p28_cjk_halfwidth_space_16x9.pptx",
+      "source": "python_pptx",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "pos_cjk_halfwidth_space",
+      "description": "Half-width ASCII comma after CJK plus two consecutive CJK-Latin spaces.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "cjk_typography",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "halfwidth_punct + cjk_latin_space (>=2 spaces)",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p29",
+      "file": "python_pptx/p29_missing_alt_picture_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_missing_alt",
+      "description": "Meaningful picture with descr/title stripped; no decorative flag.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "visible non-bg picture with no alt text",
+          "note": "",
+          "expected_count": 1
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "PNG bytes are valid",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p30",
+      "file": "python_pptx/p30_media_missing_part_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_media_missing",
+      "description": "Picture relationship present but its media part deleted in zip surgery.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "media_broken",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "rel targets missing_image_part",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p31",
+      "file": "python_pptx/p31_media_corrupt_bytes_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_media_corrupt",
+      "description": "Media part exists but bytes fail the PNG/JPEG/GIF magic and decode check.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "media_broken",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "bad_signature on existing media part",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p32",
+      "file": "python_pptx/p32_ref_missing_target_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_ref_missing_target",
+      "description": "Internal hyperlink relationship points at a slide part that does not exist.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "broken_reference",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "missing_target internal rel",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p33",
+      "file": "python_pptx/p33_ref_dangling_rid_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_ref_dangling",
+      "description": "Slide XML references rId99 that has no entry in its .rels (dangling).",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "broken_reference",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "dangling_rId reference without rel entry",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p34",
+      "file": "python_pptx/p34_structure_unsafe_entry_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_structure_unsafe_entry",
+      "description": "A harmless unused zip entry with an unsafe relative path triggers the package anomaly check; the real parts remain openable.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "SafePackage flags unsafe entry name",
+          "note": "",
+          "expected_count": 1
+        }
+      ]
+    },
+    {
+      "content_id": "p35",
+      "file": "python_pptx/p35_probe_decorative_offslide_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "probe_decorative_offslide",
+      "description": "Probe: a fully outside shape that is both named decorative and carries the decorative flag. Product intent says decorative extras should be exempt; treated as a negative expectation and any fire recorded as a suspected FP.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "intent: flagged decorative element should be exempt; suspect FP if fired",
+          "note": "decorative flag currently only used by overlap/alt/blank, not offslide",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p36",
+      "file": "python_pptx/p36_probe_placeholder_substring_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "probe_placeholder_substring",
+      "description": "Probe: real English sentences containing the substring 'todo' and 'placeholder'. Substring matching risks FP; any fire recorded as suspected FP.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "normal prose; prompt patterns should match only standalone markers",
+          "note": "substring match on 'todo'/'placeholder' likely false positives",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p37",
+      "file": "python_pptx/p37_error_truncated_zip.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "error_truncated_zip",
+      "description": "Truncated zip central directory; scan_file expected status=error and no issues emitted; excluded from the confusion matrix.",
+      "parent": null,
+      "expected_status": "error",
+      "build_note": "Bytes truncated after save; likely BadZipFile -> status error.",
+      "judgements": []
+    },
+    {
+      "content_id": "p38",
+      "file": "python_pptx/p38_clean_layout_placeholder_16x9.pptx",
+      "source": "python_pptx",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_layout_placeholder",
+      "description": "Native title/content layout with populated placeholders; explicit sizes and safe inherited layout geometry.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "layout placeholders remain inside canvas",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "font_too_small",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "explicit 18/28pt run sizes",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "body box has ample inherited height",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real prose replaces layout prompt",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "no external or broken media part",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "broken_reference",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid slide/layout relationships",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "title and body placeholders do not collide",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "dark text on explicit white background",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "title and body content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "well-formed OOXML package",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j01",
+      "file": "pptxgenjs/j01_clean_en_table_image_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_en_table_image",
+      "description": "Clean English deck: readable sizes, native table, valid image with alt text, no overlap.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all shapes inside the 16:9 canvas",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "font_too_small",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "explicit sizes 14-28pt",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "boxes tall enough for their text",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real prose, no prompt",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid embedded PNG",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "broken_reference",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "no internal/dangling relationship",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "table/image/title do not collide",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "picture has altText",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid pptx package with required parts",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j02",
+      "file": "pptxgenjs/j02_clean_zh_typeset_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "clean_zh_typeset",
+      "description": "Well-typeset Chinese: full-width punctuation, one normal CJK-Latin space.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "cjk_typography",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "full-width punctuation, single normal space, no forbidden start",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real Chinese prose",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j03",
+      "file": "pptxgenjs/j03_clean_mixed_4x3.pptx",
+      "source": "pptxgenjs",
+      "language": "mixed",
+      "aspect": "4:3",
+      "scenario": "clean_4_3",
+      "description": "4:3 bilingual clean slide authored within the narrower canvas.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all boxes inside 4:3 bounds",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "ample boxes",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "cjk_typography",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "normal punctuation and spacing",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j04",
+      "file": "pptxgenjs/j04_offslide_shape_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_offslide",
+      "description": "Rectangle fully to the right of the 13.333in canvas.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "shape x=14in beyond canvas width",
+          "note": {
+            "count": 1
+          },
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j05",
+      "file": "pptxgenjs/j05_overflow_nowrap_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_overflow",
+      "description": "24pt unwrapped text in a very short box; height clearly insufficient.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "text_overflow",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "wrap disabled; tiny height; explicit 24pt",
+          "note": {
+            "count": 1
+          },
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j06",
+      "file": "pptxgenjs/j06_font_small_10pt_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_font_small",
+      "description": "Explicit 10pt footnote below the 12pt minimum; box ample to isolate the defect.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "font_too_small",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "explicit 10pt < 12pt",
+          "note": {
+            "count": 1
+          },
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "box height ample for the short line",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j07",
+      "file": "pptxgenjs/j07_overlap_cards_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_overlap",
+      "description": "Two plain content rectangles overlap beyond 30% of the smaller shape.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "object_overlap",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "plain cards overlap >=30%",
+          "note": {
+            "count": 1
+          },
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j08",
+      "file": "pptxgenjs/j08_blank_slide_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_blank",
+      "description": "Empty slide with no shapes.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "blank_slide",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "slide contains no content shape or media",
+          "note": {
+            "count": 1
+          },
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j09",
+      "file": "pptxgenjs/j09_placeholder_text_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_placeholder",
+      "description": "English placeholder leftovers (click prompt, TODO, Lorem ipsum).",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "positive",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "three prompt texts",
+          "note": {
+            "count": 3
+          },
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j10",
+      "file": "pptxgenjs/j10_missing_alt_image_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "pos_missing_alt",
+      "description": "Visible image without altText; valid bytes.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "image omits altText",
+          "note": {
+            "count": 1
+          },
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "PNG bytes decode successfully",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j11",
+      "file": "pptxgenjs/j11_clean_images_table_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_images_table",
+      "description": "Healthy images with alt text and a table; no defects.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all embedded PNGs valid",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "all pictures carry altText",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "well-formed OOXML package",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j12",
+      "file": "pptxgenjs/j12_low_contrast_gray_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "pos_contrast",
+      "description": "12pt light-gray text on explicit white background, below 4.5:1.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "low_contrast",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "gray on white below normal contrast threshold",
+          "note": {
+            "count": 1
+          },
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j13",
+      "file": "pptxgenjs/j13_cjk_issues_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "pos_cjk",
+      "description": "Kinsoku line-start comma plus half-width comma after CJK.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "cjk_typography",
+          "expect": "positive",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "kinsoku_line_start + halfwidth_punct",
+          "note": {
+            "count": 1
+          },
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j14",
+      "file": "pptxgenjs/j14_clean_shape_grid_16x9.pptx",
+      "source": "pptxgenjs",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_grid",
+      "description": "A separated grid of small accent squares; no overlap, all inside canvas.",
+      "parent": null,
+      "expected_status": "ok",
+      "build_note": "",
+      "judgements": [
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "grid squares are separated with gaps",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "grid remains inside canvas",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "shapes present",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p01_lo",
+      "file": "libreoffice/lo_p01_clean_en_table_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_en_table_media_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p01_clean_en_table_16x9.pptx.",
+      "parent": "python_pptx/p01_clean_en_table_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all shapes inside canvas margins",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "font_too_small",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "explicit sizes 14-18pt, >=12pt threshold",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "boxes tall enough for one wrapped paragraph",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real prose, no TODO/click prompt",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid embedded PNG",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "broken_reference",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "no internal or dangling relationship",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "table/media/title do not overlap content shapes",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "dark text on explicit white background",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "text, table and picture present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "content picture carries alt text",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid zip: required parts present, no unsafe/duplicate entries",
+          "note": "",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p02_lo",
+      "file": "libreoffice/lo_p02_clean_zh_typeset_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "clean_zh_kinsoku_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p02_clean_zh_typeset_16x9.pptx.",
+      "parent": "python_pptx/p02_clean_zh_typeset_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "cjk_typography",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "full-width punctuation, one normal CJK-Latin space, balanced kinsoku",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real Chinese prose",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "dark text on explicit white",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p03_lo",
+      "file": "libreoffice/lo_p03_clean_mixed_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "mixed",
+      "aspect": "16:9",
+      "scenario": "clean_bilingual_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p03_clean_mixed_16x9.pptx.",
+      "parent": "python_pptx/p03_clean_mixed_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "cjk_typography",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "single spaces, full-width punctuation, no forbidden starts",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real content",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "two separated text boxes",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p04_lo",
+      "file": "libreoffice/lo_p04_clean_en_4x3.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "4:3",
+      "scenario": "clean_4_3_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p04_clean_en_4x3.pptx.",
+      "parent": "python_pptx/p04_clean_en_4x3.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all boxes inside 4:3 bounds",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "ample text box heights",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "picture has alt text",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p05_lo",
+      "file": "libreoffice/lo_p05_clean_decorative_group_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_decorative_group_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p05_clean_decorative_group_16x9.pptx.",
+      "parent": "python_pptx/p05_clean_decorative_group_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "cards are separated; label absorbed into card; grouped children skipped; band flagged decorative",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "decorative band reaches edge but stays inside",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p06_lo",
+      "file": "libreoffice/lo_p06_clean_picture_caption_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_picture_overlay_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p06_clean_picture_caption_16x9.pptx.",
+      "parent": "python_pptx/p06_clean_picture_caption_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "text covers <90% of picture (deliberate overlay)",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "picture alt text present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid PNG",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p07_lo",
+      "file": "libreoffice/lo_p07_clean_normautofit_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_normautofit_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p07_clean_normautofit_16x9.pptx.",
+      "parent": "python_pptx/p07_clean_normautofit_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "normAutofit enabled -> rule intentionally skips",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "inside canvas",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p11_lo",
+      "file": "libreoffice/lo_p11_clean_valid_internal_rel_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_internal_rel_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p11_clean_valid_internal_rel_16x9.pptx.",
+      "parent": "python_pptx/p11_clean_valid_internal_rel_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "broken_reference",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "internal rel resolves to existing slide2.xml",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p12_lo",
+      "file": "libreoffice/lo_p12_clean_media_alts_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_images_alts_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p12_clean_media_alts_16x9.pptx.",
+      "parent": "python_pptx/p12_clean_media_alts_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all PNGs decode and parts exist",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "every picture has descr alt text",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "well-formed OOXML package",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p13_lo",
+      "file": "libreoffice/lo_p13_clean_table_chart_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_table_chart_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p13_clean_table_chart_16x9.pptx.",
+      "parent": "python_pptx/p13_clean_table_chart_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "table and chart are content",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "table and chart occupy non-overlapping regions",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "inside canvas",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "well-formed OOXML package",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "p14_lo",
+      "file": "libreoffice/lo_p14_clean_bg_and_content_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_fullbleed_bg_lo",
+      "description": "LibreOffice 26.2 headless resave of python_pptx/p14_clean_bg_and_content_16x9.pptx.",
+      "parent": "python_pptx/p14_clean_bg_and_content_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content text and picture present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "background exempt; content picture has alt",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid images",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "body text sits over a full-bleed picture; background color cannot be resolved offline, so the contrast rule fails open",
+          "note": "renderer/picture-background dependent; excluded from matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j01_lo",
+      "file": "libreoffice/lo_j01_clean_en_table_image_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_en_table_image_lo",
+      "description": "LibreOffice 26.2 headless resave of pptxgenjs/j01_clean_en_table_image_16x9.pptx.",
+      "parent": "pptxgenjs/j01_clean_en_table_image_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "offslide_object",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all shapes inside the 16:9 canvas",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "font_too_small",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "explicit sizes 14-28pt",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "boxes tall enough for their text",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real prose, no prompt",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid embedded PNG",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "broken_reference",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "no internal/dangling relationship",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "table/image/title do not collide",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "picture has altText",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "valid pptx package with required parts",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j02_lo",
+      "file": "libreoffice/lo_j02_clean_zh_typeset_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "zh",
+      "aspect": "16:9",
+      "scenario": "clean_zh_typeset_lo",
+      "description": "LibreOffice 26.2 headless resave of pptxgenjs/j02_clean_zh_typeset_16x9.pptx.",
+      "parent": "pptxgenjs/j02_clean_zh_typeset_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "cjk_typography",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "full-width punctuation, single normal space, no forbidden start",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "unfinished_placeholder",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "real Chinese prose",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    },
+    {
+      "content_id": "j11_lo",
+      "file": "libreoffice/lo_j11_clean_images_table_16x9.pptx",
+      "source": "libreoffice_resave",
+      "language": "en",
+      "aspect": "16:9",
+      "scenario": "clean_images_table_lo",
+      "description": "LibreOffice 26.2 headless resave of pptxgenjs/j11_clean_images_table_16x9.pptx.",
+      "parent": "pptxgenjs/j11_clean_images_table_16x9.pptx",
+      "expected_status": "ok",
+      "build_note": "Round-trip artifact; negative GT inherited from authored source.",
+      "judgements": [
+        {
+          "rule_id": "media_broken",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "all embedded PNGs valid",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "missing_alt_text",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "info",
+          "basis": "all pictures carry altText",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "structure_anomaly",
+          "expect": "negative",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "well-formed OOXML package",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "blank_slide",
+          "expect": "negative",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "content present",
+          "note": "",
+          "expected_count": null
+        },
+        {
+          "rule_id": "offslide_object",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "error",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "text_overflow",
+          "expect": "unknown",
+          "profiles": "both",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "object_overlap",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        },
+        {
+          "rule_id": "low_contrast",
+          "expect": "unknown",
+          "profiles": "full",
+          "expected_severity": "warning",
+          "basis": "LO round-trip may rewrite coordinates, fonts and background; geometry heuristic not asserted offline",
+          "note": "renderer-dependent; excluded from confusion matrix",
+          "expected_count": null
+        }
+      ]
+    }
+  ],
+  "validation_problems": []
+}
