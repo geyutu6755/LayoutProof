@@ -243,10 +243,14 @@ Every detection rule ships with *yin* (should fire) and *yang* (should not fire)
 
 ### Known limitations
 
-- No rendering: overflow/overlap are estimated from geometry and font metrics, not from a rendered slide. Results are high-precision but approximate.
-- No `.ppt` (binary) or `.key` support — only `.pptx`.
+- Rendering is optional: when a local LibreOffice renderer is available (or
+  `LAYOUTPROOF_SOFFICE` is set), slides are rendered to real images; otherwise
+  the tool uses a clearly disclosed static fallback and never presents an
+  estimate as a render.
+- No `.ppt` (binary) or `.key` support — only `.pptx`; Word/.docx is not in scope.
 - Contrast resolves explicit fills and the master theme background (`bg1`/`tx1`); other theme-derived or gradient-only colors stay conservative.
-- Pure-EMU geometry means screen-ratio assumptions follow the slide dimensions in the file.
+- Linux/macOS runtime behavior is not asserted in CI beyond the static path;
+  geometry assumptions follow the slide dimensions stored in the file.
 
 ### License
 
@@ -385,9 +389,10 @@ pytest
 
 ### 已知限制
 
-- 不做渲染：溢出/重叠基于几何与字体度量估算，高精度但近似。
-- 仅支持 `.pptx`，不支持旧版二进制 `.ppt` 或 Keynote。
+- 渲染为可选项：当本机存在 LibreOffice 渲染器（或设置 `LAYOUTPROOF_SOFFICE`）时输出真实渲染图；否则使用明确披露的静态回退，绝不把估算冒充渲染。
+- 仅支持 `.pptx`，不支持旧版二进制 `.ppt` 或 Keynote；Word/.docx 不在范围内。
 - 对比度可解析显式填充与母版主题背景（bg1/tx1）；其他主题色/渐变场景保守处理。
+- CI 除静态路径外不承诺 Linux/macOS 运行时行为；几何判断以文件内幻灯片尺寸为准。
 
 ### 许可证
 
