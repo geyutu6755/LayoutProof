@@ -19,14 +19,15 @@ Last updated: 2026-11-02
 
 ## 2. Test & coverage status
 
-- Full suite (default run): **200 collected, 194 passed, 6 skipped, 0 failed,
+- Full suite (default run): **220 collected, 214 passed, 6 skipped, 0 failed,
   0 errors** (independently observed 2026-11-02).
 - The 6 skips are intentional and documented in `tests/SKIP_NOTES.md`: 2
   render-chain tests when no renderer is configured, 2 heavy-media tests
   (gated by `LAYOUTPROOF_PERF=1`), 1 isolated-venv lifecycle test, and 1
   offline wheel build (build backend unavailable). With the renderer env set,
-  the render-chain tests pass (10/10).
-- Line coverage: **86%** (`pytest --cov=layoutproof`, branch metric). The
+  the render-chain tests pass and the suite becomes **216 passed, 4 skipped**.
+- Line coverage: **86%** without renderer, **88%** with renderer
+  (`pytest --cov=layoutproof`, branch metric). The
   formal suite raised `parsing/package.py` from 54% to 98%, `models.py` to
   98%, `engine.py` to 90%.
 - Formal test directories now present: `tests/fuzz`, `tests/security`,
@@ -34,6 +35,9 @@ Last updated: 2026-11-02
   `tests/helpers_decks.py`. Coverage is treated as a signal, not the goal;
   uncovered branches are mostly defensive `except` paths and renderer/
   gated edge cases.
+- The multi-strategy fix upgrade adds `tests/unit/test_fix_strategies.py`
+  (20 tests) and the web UI adds `web/tests` (45 tests) plus 16 Node
+  client-logic tests, all independently re-run green.
 
 ## 3. Contract verification
 
@@ -116,3 +120,8 @@ Last updated: 2026-11-02
   added (200 collected, 194 passed/6 skipped); real stored-XSS defect in the
   HTML report fixed and covered by regression tests; package module coverage
   raised to 98%.
+- 2026-11-02: Multi-strategy fix engine (collision-aware overflow chain,
+  collision-free off-slide placement, resolved/unchanged/regressed/skipped
+  classification) and a stdlib-only loopback web UI added; 220 collected,
+  214 passed/6 skipped (216/4 with renderer), 86%/88% coverage; hands-on
+  competitor re-analysis based on real installs recorded in market research.
