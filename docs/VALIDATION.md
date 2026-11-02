@@ -19,7 +19,7 @@ Last updated: 2026-11-02
 
 ## 2. Test & coverage status
 
-- Full suite (default run): **220 collected, 215 passed, 5 skipped, 0 failed,
+- Full suite (default run): **224 collected, 219 passed, 5 skipped, 0 failed,
   0 errors** (independently observed 2026-11-02).
 - The 5 skips are intentional and documented in `tests/SKIP_NOTES.md`: 2
   render-chain tests when no renderer is configured, 2 heavy-media tests
@@ -65,6 +65,22 @@ Last updated: 2026-11-02
   overflow fit and placeholder removal.
 - Static fallback is returned (never presented as real rendering) when the
   renderer is absent, PyMuPDF is missing, or conversion raises.
+- **Real-browser verification (headless Edge):** the self-contained HTML
+  reports were loaded in a real Chromium browser and their full-page layout
+  inspected, in both English and Chinese. The rendered pages show the summary
+  cards (2 error / 2 warning / 0 info / 4 total / 1 slide), the
+  "REAL RENDERING" badge, the actual LibreOffice-rendered slide with issue
+  markers, the filters and location-preview panels, and the four detailed
+  issue cards (rule id, auto-fix badge, location, explanation, recommendation,
+  confidence, Locate). Chinese rendering shows no encoding errors. The
+  loopback Web UI landing page (drag-and-drop zone, static-fallback badge,
+  language toggle) was likewise browser-verified.
+- **Renderer discovery defect fixed:** the GUI `soffice.exe` does not return
+  console output (`--version` hangs), so a pinned/non-standard `.exe` path
+  failed detection. The discovery now prefers the sibling `soffice.com`
+  console wrapper for *every* Windows candidate (not just the two standard
+  install paths), covered by four regression tests in
+  `tests/unit/test_render.py`.
 
 ## 5. Detection accuracy (current corpus)
 
@@ -109,9 +125,11 @@ Last updated: 2026-11-02
 
 ## 7. Not verified / blocked
 
-- Edge headless `--screenshot` currently produces no file in this environment
-  (even for trivial HTML), so browser-rendered report screenshots and Web UI
-  automation could not be captured via that path.
+- Headless Edge `--headless` (old mode) produced no file; the newer
+  `--headless=new` mode with a separate user-data-dir works and was used for
+  the browser verification above. The Web UI's post-upload data view is not
+  separately screenshotted (a fresh headless session has no upload), but its
+  rendering logic is covered by 45 pytest HTTP tests and 16 Node tests.
 - No `gh` CLI; GUI automation backends unavailable in prior attempts.
 - macOS runtime behavior; WPS/PowerPoint-specific rendering fidelity.
 - PyPI publishing: not performed (requires separate authorization). Only the
@@ -139,3 +157,9 @@ Last updated: 2026-11-02
   accident; cp1252 stdout encoding on both the child and the subprocess
   parent). CI now green: Ubuntu + Windows × 3.11/3.12/3.13 plus ruff; local
   suite 215 passed, 5 skipped, 0 failures.
+- 2026-11-02: Unlocked real-browser screenshots via headless Edge
+  (`--headless=new` + separate user-data-dir) and verified the English and
+  Chinese HTML reports plus the loopback Web UI landing layout. Fixed a real
+  renderer-discovery bug where a pinned/non-standard `soffice.exe` (GUI,
+  no console output) failed detection; console-wrapper selection now applies
+  to every Windows candidate. 224 collected, 219 passed/5 skipped.

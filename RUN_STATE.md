@@ -49,10 +49,16 @@ Last updated: 2026-11-02
     file URI and now asserts the real security property on both platforms;
   - the CLI reconfigures stdout/stderr to UTF-8, and the CLI subprocess
     tests decode as UTF-8, removing cp1252 encode/decode crashes.
+- Real-browser verification: headless Edge (`--headless=new`) now produces
+  screenshots; the English and Chinese HTML reports and the loopback Web UI
+  landing layout were inspected in a real browser. A renderer-discovery bug
+  was fixed: a pinned/non-standard `soffice.exe` (GUI, no console output)
+  failed detection, so the sibling `soffice.com` is now preferred for every
+  Windows candidate, with four regression tests.
 
 ## Verified metrics
 
-- Local Windows suite: 220 collected, 215 passed, 5 skipped (environment
+- Local Windows suite: 224 collected, 219 passed, 5 skipped (environment
   gates: 1 install cycle, 2 no-renderer, 2 perf), 0 failures / 0 errors.
 - CI matrix: all 6 test jobs (Ubuntu + Windows × 3.11/3.12/3.13) and the
   ruff lint job pass on the latest commit.
@@ -65,8 +71,11 @@ Last updated: 2026-11-02
 ## Known limitations
 
 - macOS is not tested in CI (no job); Linux coverage is Ubuntu-only.
-- Headless Edge screenshots do not persist; web UI visual layout is
-  verified via HTTP integration + Node logic tests, not a real-browser shot.
+- Headless Edge old `--headless` mode produced no screenshot, but
+  `--headless=new` works; the HTML reports and Web UI landing are now
+  browser-verified. The Web UI post-upload data view is not separately
+  screenshotted (fresh headless session) but is covered by 45 pytest and
+  16 Node tests.
 - The full isolated venv install/upgrade cycle stays skipped unless
   `LAYOUTPROOF_INSTALL_TEST=1`; no GB-scale bomb is constructed (quota
   thresholds are triggered instead).
