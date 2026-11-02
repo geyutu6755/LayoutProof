@@ -37,6 +37,28 @@ def _color(text: str, code: str) -> str:
     return f"\033[{code}m{text}\033[0m"
 
 
+def _ensure_utf8_streams() -> None:
+    """Force UTF-8 output so non-ASCII findings never crash on a cp1252 console.
+
+    On Windows CI/runtime the default console code page may be ``cp1252``;
+    writing CJK or other Unicode characters then raises ``UnicodeEncodeError``.
+    Reconfiguring both standard streams to UTF-8 keeps the JSON and text
+    contracts stable across platforms and pipes. ``errors='replace'`` is only a
+    last-resort guard; UTF-8 represents every Unicode code point so it is not
+    expected to trigger for valid input.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        try:
+            reconfigure(encoding="utf-8", errors="replace")
+        except (ValueError, OSError):
+            # Some embedded hosts expose a stream that cannot be reconfigured;
+            # leave it untouched rather than failing startup.
+            continue
+
+
 _SEVERITY_STYLE = {
     Severity.ERROR.value: ("ERROR", "31"),
     Severity.WARNING.value: ("WARN", "33"),
@@ -271,6 +293,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    _ensure_utf8_streams()
     parser = build_parser()
     # Default to scan when a bare path is supplied.
     raw = list(sys.argv[1:] if argv is None else argv)
