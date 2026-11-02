@@ -23,10 +23,10 @@ jobs:
         run: python -m pip install "ruff>=0.6"
 
       - name: Ruff check
-        run: ruff check src/
+        run: ruff check src/ web/
 
       - name: Ruff format check
-        run: ruff format --check src/
+        run: ruff format --check src/ web/
 
   test:
     name: test (${{ matrix.os }} / Python ${{ matrix.python-version }})
@@ -58,3 +58,4 @@ jobs:
         run: |
           layoutproof --version
           pytest -ra
+          pytest web/tests -ra
