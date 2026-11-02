@@ -49,3 +49,6 @@ competitor_lab/
 /broken.pptx
 /broken.bak.pptx
 /fixed.pptx
+
+# Clean-env release verification workspace
+release_lab/
