@@ -15,6 +15,7 @@ servicing. No rule, threshold or heuristic is reimplemented here.
 from __future__ import annotations
 
 import email
+import ipaddress
 import json
 import mimetypes
 import platform
@@ -69,6 +70,33 @@ def _error(reason: str, status: int, *, detail: str | None = None) -> Response:
     if detail:
         body["detail"] = detail
     return _json(body, status)
+
+
+def is_loopback_host(host_header: str | None) -> bool:
+    """Validate the Host header targets loopback (DNS-rebinding defense).
+
+    A request whose Host names a non-loopback host is rejected even though
+    the socket is bound to loopback, so a rebinding/attacker origin cannot
+    drive the local server.
+    """
+    if not host_header:
+        return False
+    # Split off the port, handling IPv6 literals like "[::1]:port".
+    host = host_header.strip()
+    if host.startswith("["):
+        end = host.find("]")
+        if end == -1:
+            return False
+        host = host[1:end]
+    else:
+        host = host.rsplit(":", 1)[0] if host.count(":") == 1 else host
+    host = host.lower()
+    if host in ("localhost",):
+        return True
+    try:
+        return ipaddress.ip_address(host).is_loopback
+    except ValueError:
+        return False
 
 
 def build_overview(result: Any) -> dict[str, Any]:
@@ -132,6 +160,13 @@ class WebApp:
         path = urllib.parse.unquote(parsed.path)
         query = urllib.parse.parse_qs(parsed.query)
         segments = [seg for seg in path.split("/") if seg]
+
+        if not is_loopback_host(headers.get("Host")):
+            return _error(
+                "forbidden_host",
+                403,
+                detail="requests must use a loopback Host (127.0.0.1, ::1, localhost)",
+            )
 
         try:
             return self._route(method, segments, query, headers, body)

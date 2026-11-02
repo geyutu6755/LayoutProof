@@ -129,6 +129,11 @@ Last updated: 2026-11-02
   `</script>` stored-XSS breakout via malicious shape names/details. It now
   escapes `<`, `>`, `&` as unicode escapes (`_json_script_payload`), covered
   by permanent regression tests in `tests/contract/test_html_output_safety.py`.
+- DNS-rebinding hardening: the loopback Web server now validates the Host
+  header (`is_loopback_host`) and returns 403 for any non-loopback, missing
+  or malformed host, so a rebinding/attacker origin cannot drive the local
+  server even though the socket is bound to loopback. Covered by five
+  dedicated tests in `web/tests/test_host_guard.py`.
 - Performance: real ~10 MB and ~50 MB media decks (gated) scan within
   documented time/memory bounds; see `tests/performance/PERF_RESULTS.md`.
 

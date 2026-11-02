@@ -36,6 +36,12 @@ All notable changes to this project are documented here. The format follows
   malformed file URI; the CLI and its subprocess tests handle UTF-8 so
   cp1252 Windows runners no longer crash.
 
+### Security
+
+- DNS-rebinding hardening for the loopback Web UI: requests with a
+  non-loopback, missing or malformed Host header are rejected with 403 via
+  `is_loopback_host`, covered by dedicated tests.
+
 ### Verified
 
 - The full suite passes on both platforms: 224 collected, 219 passed,
